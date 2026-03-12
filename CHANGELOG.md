@@ -1,5 +1,11 @@
 ## Changelog
 
+#### Unreleased (UXP fork — 2026-03-12)
+
+* GM_download: Added GM_download support (modules/thirdParty/GM_download.js)
+* Reverted disabled-script update guard from checkForRemoteUpdate (preference in UI already handles this)
+* Documentation: Added comprehensive JSDoc (@file, @overview, @param, @returns, @throws) to all modules
+
 #### 3.31.4 (2018-08-05)
 
 [All](https://github.com/janekptacijarabaci/greasemonkey/compare/3.31.3Fork...3.31.4Fork)
