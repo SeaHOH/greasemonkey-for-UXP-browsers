@@ -1,3 +1,28 @@
+/**
+ * @file scriptProtocol.js
+ * @overview Registers the "greasemonkey-script:" custom protocol handler.
+ *
+ * The protocol is used by GM_getResourceURL() to serve @resource files to
+ * web content without exposing their local file:// paths.
+ *
+ * URI format: greasemonkey-script:<uuid>/<resourceName>
+ *
+ * When a greasemonkey-script: URI is requested, ScriptProtocol.newChannel()
+ * looks up the script by UUID via IPCScript.getByUuid(), finds the named
+ * @resource, and returns a channel wrapping its local file:// URI.  The
+ * channel's originalURI is set to the greasemonkey-script: URI so it can be
+ * loaded by unprivileged content (bug #2326).
+ *
+ * DummyChannel is returned as a 404-equivalent whenever the URI is malformed
+ * or the script/resource is not found.
+ *
+ * Protocol flags:
+ *   - URI_INHERITS_SECURITY_CONTEXT — content inherits caller's origin.
+ *   - URI_IS_LOCAL_RESOURCE          — files are local.
+ *   - URI_LOADABLE_BY_ANYONE         — no privilege required to load.
+ *   - URI_NOAUTH / URI_NON_PERSISTABLE / URI_NORELATIVE — misc restrictions.
+ */
+
 const EXPORTED_SYMBOLS = ["initScriptProtocol"];
 
 if (typeof Cc === "undefined") {
@@ -28,6 +53,10 @@ const ADDON_SCRIPT_PROTOCOL_REGEXP = new RegExp(
 var gHaveDoneInit = false;
 var gScope = this;
 
+/**
+ * Initialises the greasemonkey-script: protocol handler.
+ * Subsequent calls are no-ops (guarded by gHaveDoneInit).
+ */
 function initScriptProtocol() {
   if (gHaveDoneInit) {
     return undefined;
@@ -40,6 +69,14 @@ function initScriptProtocol() {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * Stub nsIChannel returned when a greasemonkey-script: URI cannot be resolved.
+ * asyncOpen() is a no-op; the channel reports HTTP status 404 in its fields.
+ *
+ * @constructor
+ * @param {nsIURI}  aUri    - The requested URI.
+ * @param {Script}  [aScript] - Unused; kept for call-site symmetry.
+ */
 function DummyChannel(aUri, aScript) {
   // nsIRequest
   this.loadFlags = 0;

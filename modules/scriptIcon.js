@@ -1,3 +1,16 @@
+/**
+ * @file scriptIcon.js
+ * @overview ScriptDependency subclass for a script's @icon declaration.
+ *
+ * Supports two icon storage forms:
+ *   - data: URI — stored directly in _dataURI; never downloaded.
+ *   - remote URL  — resolved relative to the script's download URL and
+ *     downloaded to a temp file like any other dependency.
+ *
+ * The fileURL getter returns the data URI (if set), the file:// URI of the
+ * downloaded icon, or the default Greasemonkey user-script icon as a fallback.
+ */
+
 const EXPORTED_SYMBOLS = ["ScriptIcon"];
 
 if (typeof Cc === "undefined") {
@@ -22,6 +35,13 @@ const URL_IMAGE_DEFAULT = "chrome://greasemonkey/skin/userScript.png";
 
 ScriptIcon.prototype = new ScriptDependency();
 ScriptIcon.prototype.constructor = ScriptIcon;
+
+/**
+ * Represents the @icon dependency of a userscript.
+ *
+ * @constructor
+ * @param {Script} aScript - The owning script (passed to ScriptDependency).
+ */
 function ScriptIcon(aScript) {
   ScriptDependency.call(this, aScript);
   this.type = "ScriptIcon";
@@ -51,6 +71,14 @@ Object.defineProperty(ScriptIcon.prototype, "fileURL", {
 });
 
 
+/**
+ * Stores the @icon metadata value.
+ * Accepts a data: URI for image/* MIME types, rejects non-image data: URIs,
+ * and resolves plain URLs relative to the script's download URL.
+ *
+ * @param {string} aValue - The raw @icon value from the metadata block.
+ * @throws {Error} If aValue is a data: URI with a non-image MIME type.
+ */
 ScriptIcon.prototype.setMetaVal = function (aValue) {
   // Accept data uri schemes for image mime types.
   if (MIME_TYPE_DATA_IMAGE.test(aValue)) {
