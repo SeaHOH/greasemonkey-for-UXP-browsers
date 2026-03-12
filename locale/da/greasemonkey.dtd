@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Enable Pale Moon Sync for User Scripts">
+<!ENTITY greasemonkey.getUserScripts "Find user scripts">
+<!ENTITY greasemonkey.noScriptShere "Ingen installerede scripts køres på denne side.">
+<!ENTITY greasemonkey.youHaveNoScripts "Du har ikke nogen user scripts installeret">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "kører ikke på:">
+<!ENTITY install.downloadError "Download Error">
+<!ENTITY install.installButton "Installer">
+<!ENTITY install.matches "matcher:">
+<!ENTITY install.runsOn "kører på:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Vis Script kildekode">
+<!ENTITY install.title "Greasemonkey Installation">
+<!ENTITY install.warning1 "Ondsindede scripts kan krænke dit privatliv og handle på dine vegne uden din viden.">
+<!ENTITY install.warning2 "Du bør kun installere scripts fra kilder, du stoler på.">
+<!ENTITY loading "Downloading ...">
+<!ENTITY menu.commands "User Script Kommandoer...">
+<!ENTITY menu.commands.accesskey "C">
+<!ENTITY menu.install "Installer User Script...">
+<!ENTITY menu.install.accesskey "I">
+<!ENTITY menu.manage "Administrer User Scripts...">
+<!ENTITY menu.manage.accesskey "M">
+<!ENTITY menu.new "Nyt User Script...">
+<!ENTITY menu.new.accesskey "N">
+<!ENTITY menu.options "Greasemonkey Options...">
+<!ENTITY menu.options.accesskey "O">
+<!ENTITY menu.show "Vis User Script kildekode">
+<!ENTITY menu.show.accesskey "V">
+<!ENTITY menu.webSites "Web sites...">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Get User Scripts">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot Blog">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey Manual">
+<!ENTITY newScript.description "Beskrivelse">
+<!ENTITY newScript.excludes "Ekskluderinger (en pr. linje)">
+<!ENTITY newScript.fromClipboard "Use Script From Clipboard">
+<!ENTITY newScript.includes "Inkluderinger (en pr. linje)">
+<!ENTITY newScript.name "Navn">
+<!ENTITY newScript.namespace "Navnerum">
+<!ENTITY options.browseForEditor "Browse for Editor Program">
+<!ENTITY options.defaultEditor "Use Default Editor">
+<!ENTITY options.editor "Redigeringsprogram">
+<!ENTITY options.experimental "Experimental">
+<!ENTITY options.globalExcludes "Globale ekskluderinger">
+<!ENTITY options.newScript.removeUnused "Remove unused lines">
+<!ENTITY options.newScript.template "New script template">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Require secure updates">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "Script indstillinger">
+<!ENTITY scriptPrefs.title "Greasemonkey user script indstilinger - !!">
+<!ENTITY scriptPrefs.userSettings "Bruger indstillinger">
+<!ENTITY statusBar.enabled "Aktiveret">
+<!ENTITY statusBar.enabled.accesskey "E">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "Afinstaller">
+<!ENTITY updateChecking "Update Checking">

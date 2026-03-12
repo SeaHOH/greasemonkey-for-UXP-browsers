@@ -1,0 +1,30 @@
+<!ENTITY edit "تحرير">
+<!ENTITY edit.accesskey "ت">
+<!ENTITY edit.tooltip "تحرير هذا السكربت">
+<!ENTITY executeFirst "لاول القائمة">
+<!ENTITY executeLast "لاخر القائمة">
+<!ENTITY executeLater "للاسفل">
+<!ENTITY executeSooner "للاعلى">
+<!ENTITY findUpdate "العثور على تحديث">
+<!ENTITY forcedFindUpdate "Forced Find Updates">
+<!ENTITY installUpdate "تثبيت التحديث">
+<!ENTITY moveDown "تحريك لأسفل">
+<!ENTITY moveDown.accesskey "ت">
+<!ENTITY moveToBottom "الانتقال إلى أسفل">
+<!ENTITY moveToBottom.accesskey "ا">
+<!ENTITY moveToTop "الانتقال إلى الأعلى">
+<!ENTITY moveToTop.accesskey "ا">
+<!ENTITY moveUp "تحرك لأعلى">
+<!ENTITY moveUp.accesskey "ت">
+<!ENTITY newScript "أنشاء سكربت جديد">
+<!ENTITY newScript.accesskey "أ">
+<!ENTITY show "عرض المجلد المتضمن">
+<!ENTITY show.accesskey "ع">
+<!ENTITY sort.byExecution "فرز حسب التنفيذ">
+<!ENTITY sort.byName "فرز حسب الأسم">
+<!ENTITY sort.byNamespace "Sort by namespace">
+<!ENTITY sort.byStatus "فرز حسب الحالة">
+<!ENTITY sort.execution "فرز التنفيذ">
+<!ENTITY sort.name "الأسم">
+<!ENTITY sort.namespace "Namespace">
+<!ENTITY sort.status "الحالة">

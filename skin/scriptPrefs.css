@@ -1,0 +1,13 @@
+cludes {
+  /*
+  XUL flex will expand to an appropriate height.
+  See #2191.
+  Just don't start too tall.
+  */
+  height: 0;
+  min-width: 500px;
+}
+
+#resizer {
+  display: none;
+}

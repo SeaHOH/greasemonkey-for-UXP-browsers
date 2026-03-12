@@ -1,0 +1,30 @@
+<!ENTITY edit "Upraviť">
+<!ENTITY edit.accesskey "U">
+<!ENTITY edit.tooltip "Upraviť tento užívateľský skript">
+<!ENTITY executeFirst "Spustiť prvý">
+<!ENTITY executeLast "Spustiť posledný">
+<!ENTITY executeLater "Spustiť neskôr">
+<!ENTITY executeSooner "Spustiť skôr">
+<!ENTITY findUpdate "Hľadať aktualizáciu">
+<!ENTITY forcedFindUpdate "Vynútené hľadanie aktualizácií">
+<!ENTITY installUpdate "Inštalovať aktualizáciu">
+<!ENTITY moveDown "Posunúť nižšie">
+<!ENTITY moveDown.accesskey "n">
+<!ENTITY moveToBottom "Posunúť úplne nadol">
+<!ENTITY moveToBottom.accesskey "a">
+<!ENTITY moveToTop "Posunúť úplne nahor">
+<!ENTITY moveToTop.accesskey "ú">
+<!ENTITY moveUp "Posunúť vyššie">
+<!ENTITY moveUp.accesskey "v">
+<!ENTITY newScript "Vytvoriť nový skript">
+<!ENTITY newScript.accesskey "V">
+<!ENTITY show "Zobraziť zahrnuté zložky">
+<!ENTITY show.accesskey "Z">
+<!ENTITY sort.byExecution "Zoradiť podľa prevedenia príkazu">
+<!ENTITY sort.byName "Zoradiť podľa mena">
+<!ENTITY sort.byNamespace "Sort by namespace">
+<!ENTITY sort.byStatus "Zoradiť podľa stavu">
+<!ENTITY sort.execution "Podľa poradia">
+<!ENTITY sort.name "Meno">
+<!ENTITY sort.namespace "Namespace">
+<!ENTITY sort.status "Stav">

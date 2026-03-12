@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Включване на Pale Moon синхронизиране за потребителските скриптове">
+<!ENTITY greasemonkey.getUserScripts "Получаване на потребителски скриптове">
+<!ENTITY greasemonkey.noScriptShere "Няма инсталирани скриптове, които да се изпълняват на тази страница.">
+<!ENTITY greasemonkey.youHaveNoScripts "Нямате инсталирани потребителски скриптове">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "не работи на:">
+<!ENTITY install.downloadError "Грешка при изтегляне">
+<!ENTITY install.installButton "Инсталиране">
+<!ENTITY install.matches "отговаря на:">
+<!ENTITY install.runsOn "работи на:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Показване на изходния код на скрипта">
+<!ENTITY install.title "Инсталация на Greasemonkey">
+<!ENTITY install.warning1 "Зловредните скриптове могат да получат достъп до Вашата лична информация и да се представят за Вас без Ваше знание. ">
+<!ENTITY install.warning2 "Трябва да инсталирате скриптове само от източници, на които вярвате.">
+<!ENTITY loading "Изтегляне...">
+<!ENTITY menu.commands "Команди за потребителския скрипт...">
+<!ENTITY menu.commands.accesskey "К">
+<!ENTITY menu.install "Инсталиране на потребителски скрипт...">
+<!ENTITY menu.install.accesskey "И">
+<!ENTITY menu.manage "Управление на потребителските скриптове...">
+<!ENTITY menu.manage.accesskey "У">
+<!ENTITY menu.new "Нов потребителски скрипт">
+<!ENTITY menu.new.accesskey "Н">
+<!ENTITY menu.options "Настройки на Greasemonkey...">
+<!ENTITY menu.options.accesskey "Т">
+<!ENTITY menu.show "Преглед на изходния код на потребителския скрипт">
+<!ENTITY menu.show.accesskey "П">
+<!ENTITY menu.webSites "Уеб сайтове...">
+<!ENTITY menu.webSites.accesskey "Б">
+<!ENTITY menu.webSites.getUserScripts "Получаване на потребителски скриптове">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot Блог">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Уики">
+-->
+<!ENTITY menu.webSites.manual "Ръководство на Greasemonkey">
+<!ENTITY newScript.description "Описание">
+<!ENTITY newScript.excludes "Изключени (по един на ред)">
+<!ENTITY newScript.fromClipboard "Използване на скрипта от клипборда">
+<!ENTITY newScript.includes "Включени (по един на ред)">
+<!ENTITY newScript.name "Име">
+<!ENTITY newScript.namespace "Пространство от имена">
+<!ENTITY options.browseForEditor "Разглеждане">
+<!ENTITY options.defaultEditor "Редактор по подразбиране">
+<!ENTITY options.editor "Редактор">
+<!ENTITY options.experimental "Ескпериментално">
+<!ENTITY options.globalExcludes "Глобално изключени">
+<!ENTITY options.newScript.removeUnused "Премахване на неизползваните редове">
+<!ENTITY options.newScript.template "Нов шаблон за скрипт">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Изискване на актуализации по сигурността">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "Настройки на скрипта">
+<!ENTITY scriptPrefs.title "Настройки на потребителските скриптове на Greasemonkey – !!">
+<!ENTITY scriptPrefs.userSettings "Потребителски настройки">
+<!ENTITY statusBar.enabled "Включен">
+<!ENTITY statusBar.enabled.accesskey "В">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "Деинсталиране">
+<!ENTITY updateChecking "Проверка за актуализации">

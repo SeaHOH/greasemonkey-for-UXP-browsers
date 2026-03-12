@@ -1,0 +1,15 @@
+<!ENTITY button.add "Pridať...">
+<!ENTITY button.addUserExclude "Pridať ako užívateľskú výnimku">
+<!ENTITY button.addUserInclude "Pridať a zahrnúť užívateľa">
+<!ENTITY button.addUserMatch "Pridať ako užívateľskú zhodu">
+<!ENTITY button.edit "Upraviť...">
+<!ENTITY button.remove "Odstrániť">
+<!ENTITY checkbox.grpOverride "Disable this script's rules and only use the user defined ones">
+<!ENTITY label.grpExcluded "Vylúčené stránky">
+<!ENTITY label.grpIncluded "Zahrnuté stránky">
+<!ENTITY label.grpMatched "Zhodné stránky">
+<!ENTITY promptForEdit.msg "Tu upravte adresu stránky. Môžete bližšie určiť viac stránok pomocou tohto znaku (*).">
+<!ENTITY promptForEdit.title "Upraviť stránku">
+<!ENTITY promptForNewPage.defVal "http://príklad.sk/*">
+<!ENTITY promptForNewPage.msg "Sem napíšte novú adresu. Môžete bližšie určiť viac stránok pomocou tohto znaku (*).">
+<!ENTITY promptForNewPage.title "Pridať stránku">

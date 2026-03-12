@@ -1,0 +1,30 @@
+<!ENTITY edit "Sunting">
+<!ENTITY edit.accesskey "E">
+<!ENTITY edit.tooltip "Sunting Skrip ini">
+<!ENTITY executeFirst "Eksekusi pertama">
+<!ENTITY executeLast "Eksekusi terakhir">
+<!ENTITY executeLater "Eksekusi nanti">
+<!ENTITY executeSooner "Eksekusi secepatnya">
+<!ENTITY findUpdate "Periksa Pembaruan">
+<!ENTITY forcedFindUpdate "Paksa Periksa Pembaruan">
+<!ENTITY installUpdate "Pasang Pembaruan">
+<!ENTITY moveDown "Pindah ke Bawah">
+<!ENTITY moveDown.accesskey "D">
+<!ENTITY moveToBottom "Pindah ke Paling Bawah">
+<!ENTITY moveToBottom.accesskey "B">
+<!ENTITY moveToTop "Pindah ke Paling Atas">
+<!ENTITY moveToTop.accesskey "T">
+<!ENTITY moveUp "Pindah ke Atas">
+<!ENTITY moveUp.accesskey "U">
+<!ENTITY newScript "Buat Skrip Baru">
+<!ENTITY newScript.accesskey "C">
+<!ENTITY show "Tampilkan Folder">
+<!ENTITY show.accesskey "S">
+<!ENTITY sort.byExecution "Urutkan berdasarkan urutan eksekusi">
+<!ENTITY sort.byName "Urutkan berdasarkan nama">
+<!ENTITY sort.byNamespace "Sort by namespace">
+<!ENTITY sort.byStatus "Urutkan berdasarkan status">
+<!ENTITY sort.execution "Urutan Eksekusi">
+<!ENTITY sort.name "Nama">
+<!ENTITY sort.namespace "Namespace">
+<!ENTITY sort.status "Status">

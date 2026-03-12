@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Enable Pale Moon Sync for User Scripts">
+<!ENTITY greasemonkey.getUserScripts "Töltsön le parancsfájlokat!">
+<!ENTITY greasemonkey.noScriptShere "Ezen az oldalon nem futnak telepített parancsfájlok.">
+<!ENTITY greasemonkey.youHaveNoScripts "Nincsenek parancsfájlok telepítve">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "nem fut a következőn:">
+<!ENTITY install.downloadError "Download Error">
+<!ENTITY install.installButton "Telepítés">
+<!ENTITY install.matches "illeszkedik:">
+<!ENTITY install.runsOn "fut a következőn:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Parancsfájl forrásának megtekintése">
+<!ENTITY install.title "Greasemonkey telepítés">
+<!ENTITY install.warning1 "Kártékony parancsfájlok hozzáférhetnek az Ön személyes adataihoz és működhetnek az Ön tudta nélkül.">
+<!ENTITY install.warning2 "Csak megbízható forrásból telepítsen parancsfájlt!">
+<!ENTITY loading "Letöltés…">
+<!ENTITY menu.commands "Parancsfájl beállításai…">
+<!ENTITY menu.commands.accesskey "b">
+<!ENTITY menu.install "Parancsfájl telepítése">
+<!ENTITY menu.install.accesskey "t">
+<!ENTITY menu.manage "Parancsfájlok kezelése…">
+<!ENTITY menu.manage.accesskey "k">
+<!ENTITY menu.new "Új parancsfájl…">
+<!ENTITY menu.new.accesskey "p">
+<!ENTITY menu.options "Greasemonkey beállítások…">
+<!ENTITY menu.options.accesskey "G">
+<!ENTITY menu.show "Parancsfájl forrásának megtekintése">
+<!ENTITY menu.show.accesskey "f">
+<!ENTITY menu.webSites "Web sites...">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Get User Scripts">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot Blog">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey Manual">
+<!ENTITY newScript.description "Leírás">
+<!ENTITY newScript.excludes "Kizárt oldalak (soronként egy)">
+<!ENTITY newScript.fromClipboard "Use Script From Clipboard">
+<!ENTITY newScript.includes "Engedélyezett oldalak (soronként egy)">
+<!ENTITY newScript.name "Név">
+<!ENTITY newScript.namespace "Névtér">
+<!ENTITY options.browseForEditor "Browse for Editor Program">
+<!ENTITY options.defaultEditor "Use Default Editor">
+<!ENTITY options.editor "Szerkesztő">
+<!ENTITY options.experimental "Experimental">
+<!ENTITY options.globalExcludes "Globális kivételek">
+<!ENTITY options.newScript.removeUnused "Remove unused lines">
+<!ENTITY options.newScript.template "New script template">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Biztonsági frissítések igénylése">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "Parancsfájl beállítások">
+<!ENTITY scriptPrefs.title "Greasemonkey parancsfájl beállítások - !!">
+<!ENTITY scriptPrefs.userSettings "Felhasználói beállítások">
+<!ENTITY statusBar.enabled "Engedélyezve">
+<!ENTITY statusBar.enabled.accesskey "E">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "Eltávolítás">
+<!ENTITY updateChecking "Frissítések keresése">

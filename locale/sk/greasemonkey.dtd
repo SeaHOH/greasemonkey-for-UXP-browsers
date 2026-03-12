@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Zapnúť Pale Moon synchronizáciu pre užívateľské skripty">
+<!ENTITY greasemonkey.getUserScripts "Získať užívateľské skripty">
+<!ENTITY greasemonkey.noScriptShere "Na tejto stránke nie sú spustené nainštalované skripty.">
+<!ENTITY greasemonkey.youHaveNoScripts "Nemáte nainštalované žiadne užívateľské skripty">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "nespúšťa sa na:">
+<!ENTITY install.downloadError "Chyba sťahovaia">
+<!ENTITY install.installButton "Inštalovať">
+<!ENTITY install.matches "zodpovedá:">
+<!ENTITY install.runsOn "spúšťa sa na:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Zobraziť zdrojový kód skriptu">
+<!ENTITY install.title "Inštalácia Greasemonkey">
+<!ENTITY install.warning1 "Zákerné skripty môžu poškodiť vaše súkromie a konať vo vašom mene bez vášho vedomia.">
+<!ENTITY install.warning2 "Mali by ste inštalovať skripty len zo zdrojov, ktorým dôverujete.">
+<!ENTITY loading "Sťahujem...">
+<!ENTITY menu.commands "Príkazy užívateľských skriptov...">
+<!ENTITY menu.commands.accesskey "s">
+<!ENTITY menu.install "Inštalovať tento užívateľský skript...">
+<!ENTITY menu.install.accesskey "I">
+<!ENTITY menu.manage "Správca užívateľských skriptov...">
+<!ENTITY menu.manage.accesskey "S">
+<!ENTITY menu.new "Nový užívateľský skript...">
+<!ENTITY menu.new.accesskey "N">
+<!ENTITY menu.options "Greasemonkey nastavenia...">
+<!ENTITY menu.options.accesskey "G">
+<!ENTITY menu.show "Zobraziť zdrojový kód">
+<!ENTITY menu.show.accesskey "Z">
+<!ENTITY menu.webSites "Webové stránky...">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Získať užívateľské skripty">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot Blog">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey Manuál">
+<!ENTITY newScript.description "Popis">
+<!ENTITY newScript.excludes "Vylučuje (jeden na riadok)">
+<!ENTITY newScript.fromClipboard "Použiť skript zo schránky">
+<!ENTITY newScript.includes "Zahŕňa (jeden na riadok)">
+<!ENTITY newScript.name "Meno">
+<!ENTITY newScript.namespace "Menný priestor">
+<!ENTITY options.browseForEditor "Prehliadať program editora">
+<!ENTITY options.defaultEditor "Použiť predvolený editor">
+<!ENTITY options.editor "Editor">
+<!ENTITY options.experimental "Experimentálne">
+<!ENTITY options.globalExcludes "Zahrnúť globálne">
+<!ENTITY options.newScript.removeUnused "Odstrániť nepoužívané riadky">
+<!ENTITY options.newScript.template "Nová šablóna skriptu">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Požaduje bezpečnostné aktualizácie">
+<!ENTITY requireTimeoutUpdates "Použiť pre aktualizácie timeout">
+<!ENTITY scriptPrefs.scriptSettings "Nastavenie skriptov">
+<!ENTITY scriptPrefs.title "Greasemonkey uživatelský skript Nastavenia -!!">
+<!ENTITY scriptPrefs.userSettings "Užívateľské nastavenia">
+<!ENTITY statusBar.enabled "Povolený">
+<!ENTITY statusBar.enabled.accesskey "P">
+<!ENTITY timeoutUpdatesUnits "Sekundy">
+<!ENTITY uninstall "Odinštalovať">
+<!ENTITY updateChecking "Kontrolovanie aktualizácií">

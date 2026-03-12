@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Enable Pale Moon Sync for User Scripts">
+<!ENTITY greasemonkey.getUserScripts "دریافت دستنویس های کاربری">
+<!ENTITY greasemonkey.noScriptShere "دستنویس ای که در این صفحه اجرا شود موجود نیست.">
+<!ENTITY greasemonkey.youHaveNoScripts "شما هیچ دستنویس نسب شده ای ندارید">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "عدم اجرا در:">
+<!ENTITY install.downloadError "Download Error">
+<!ENTITY install.installButton "نصب">
+<!ENTITY install.matches "مطابقت ها:">
+<!ENTITY install.runsOn "اجرا در:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "نمایش متن دستنویس کاربری">
+<!ENTITY install.title "فرآیند نصب گریسمانکی">
+<!ENTITY install.warning1 "دستنویس های بد اندیش می توانند به حریم شما تجاوز کنند و بدون آگاهی شما، روی حقوق شما تاثری بگذارند.">
+<!ENTITY install.warning2 "شما می بایست فقط دستنویس هایی را نصب کنید که از منابع آنها مطمئن هستید.">
+<!ENTITY loading "در حال دریافت ...">
+<!ENTITY menu.commands "فرامین دستنویس کاربری...">
+<!ENTITY menu.commands.accesskey "ف">
+<!ENTITY menu.install "نصب دستنویس کاربری...">
+<!ENTITY menu.install.accesskey "ن">
+<!ENTITY menu.manage "مدیریت دستنویس های کاربری...">
+<!ENTITY menu.manage.accesskey "م">
+<!ENTITY menu.new "دستنویس کاربری جدید...">
+<!ENTITY menu.new.accesskey "ج">
+<!ENTITY menu.options "Greasemonkey Preferences...">
+<!ENTITY menu.options.accesskey "P">
+<!ENTITY menu.show "نمایش متن دستنویس کاربری">
+<!ENTITY menu.show.accesskey "ش">
+<!ENTITY menu.webSites "Web sites...">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Get User Scripts">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot Blog">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey Manual">
+<!ENTITY newScript.description "شرح">
+<!ENTITY newScript.excludes "مستثنا کردن (یکی در هر خط)">
+<!ENTITY newScript.fromClipboard "Use Script From Clipboard">
+<!ENTITY newScript.includes "شامل کردن (یکی در هر خط)">
+<!ENTITY newScript.name "نام">
+<!ENTITY newScript.namespace "فضای نام">
+<!ENTITY options.browseForEditor "Browse for Editor Program">
+<!ENTITY options.defaultEditor "Use Default Editor">
+<!ENTITY options.editor "ویراستار">
+<!ENTITY options.experimental "Experimental">
+<!ENTITY options.globalExcludes "مستثنا های کلی">
+<!ENTITY options.newScript.removeUnused "Remove unused lines">
+<!ENTITY options.newScript.template "New script template">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Require secure updates">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "تنظیمات گریزمانکی">
+<!ENTITY scriptPrefs.title "ترجیهات دستنویس کاربریگریزمانکی  - !!">
+<!ENTITY scriptPrefs.userSettings "تنظیمات کاربر">
+<!ENTITY statusBar.enabled "فعال">
+<!ENTITY statusBar.enabled.accesskey "ع">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "عزل">
+<!ENTITY updateChecking "Update Checking">

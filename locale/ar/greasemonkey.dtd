@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Enable Pale Moon Sync for User Scripts">
+<!ENTITY greasemonkey.getUserScripts "أجلب السكربتات">
+<!ENTITY greasemonkey.noScriptShere "لايوجد سكربت مثبت يعمل على هذه الصفحة.">
+<!ENTITY greasemonkey.youHaveNoScripts "انت لم تثبت أي سكربت">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "لايعمل على :">
+<!ENTITY install.downloadError "Download Error">
+<!ENTITY install.installButton "تثبيت">
+<!ENTITY install.matches "البحوث:">
+<!ENTITY install.runsOn "يعمل على :">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "مصدر السكربت">
+<!ENTITY install.title "مثبت السكربتات">
+<!ENTITY install.warning1 "السكربتات الخبيثة يمكن ان تنتهك خصوصيتك وتعمل دون علمك.">
+<!ENTITY install.warning2 "يجب عليك تركيب السكربتات من المصدر الذي تثق به فقط.">
+<!ENTITY loading "تحميل...">
+<!ENTITY menu.commands "أوامر السكربتات…">
+<!ENTITY menu.commands.accesskey "أ">
+<!ENTITY menu.install "تثبيت السكربتات…">
+<!ENTITY menu.install.accesskey "ت">
+<!ENTITY menu.manage "إدارة السكربتات">
+<!ENTITY menu.manage.accesskey "إ">
+<!ENTITY menu.new "سكربت جديد…">
+<!ENTITY menu.new.accesskey "س">
+<!ENTITY menu.options "خيارات مدير السكربتات..">
+<!ENTITY menu.options.accesskey "خ">
+<!ENTITY menu.show "مصدر السكربت">
+<!ENTITY menu.show.accesskey "م">
+<!ENTITY menu.webSites "Web sites...">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Get User Scripts">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot Blog">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey Manual">
+<!ENTITY newScript.description "الوصف">
+<!ENTITY newScript.excludes "لايعمل على (صحة لكل سطر)">
+<!ENTITY newScript.fromClipboard "Use Script From Clipboard">
+<!ENTITY newScript.includes "يعمل على (صفحة لكل سطر)">
+<!ENTITY newScript.name "الاسم">
+<!ENTITY newScript.namespace "المساحة">
+<!ENTITY options.browseForEditor "Browse for Editor Program">
+<!ENTITY options.defaultEditor "Use Default Editor">
+<!ENTITY options.editor "المحرر">
+<!ENTITY options.experimental "Experimental">
+<!ENTITY options.globalExcludes "باستثناء العالمية">
+<!ENTITY options.newScript.removeUnused "Remove unused lines">
+<!ENTITY options.newScript.template "New script template">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "تتطلب تحديثات آمنة">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "أعدادات السكربت">
+<!ENTITY scriptPrefs.title "تفضيلات السكربت - !!">
+<!ENTITY scriptPrefs.userSettings "أعدادات العضوية">
+<!ENTITY statusBar.enabled "تشغيل">
+<!ENTITY statusBar.enabled.accesskey "ت">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "إلغاء التثبيت">
+<!ENTITY updateChecking "تحديث السكربت">

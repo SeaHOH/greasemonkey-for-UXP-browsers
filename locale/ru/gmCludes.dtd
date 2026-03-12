@@ -1,0 +1,15 @@
+<!ENTITY button.add "Добавить">
+<!ENTITY button.addUserExclude "Добавить в исключенные">
+<!ENTITY button.addUserInclude "Добавить во включенные">
+<!ENTITY button.addUserMatch "Добавить соответствующего пользователя">
+<!ENTITY button.edit "Правка">
+<!ENTITY button.remove "Удалить">
+<!ENTITY checkbox.grpOverride "Отключить заданные в скрипте включения и использовать только эти">
+<!ENTITY label.grpExcluded "Исключенные страницы">
+<!ENTITY label.grpIncluded "Включенные страницы">
+<!ENTITY label.grpMatched "Похожие страницы">
+<!ENTITY promptForEdit.msg "Измените адрес страницы ниже. Можно указать несколько страниц с использованием символа (*).">
+<!ENTITY promptForEdit.title "Правка страницы">
+<!ENTITY promptForNewPage.defVal "http://example.com/*">
+<!ENTITY promptForNewPage.msg "Введите новый адрес страницы ниже. Можно указать несколько страниц с использованием символа (*).">
+<!ENTITY promptForNewPage.title "Добавить страницу">

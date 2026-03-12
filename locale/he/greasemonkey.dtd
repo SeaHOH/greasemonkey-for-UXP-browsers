@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Enable Pale Moon Sync for User Scripts">
+<!ENTITY greasemonkey.getUserScripts "השג קבצי Script של משתמש">
+<!ENTITY greasemonkey.noScriptShere "לא מותקנים קבצי Script פעילים בדף זה.">
+<!ENTITY greasemonkey.youHaveNoScripts "לא מותקנים אצלך קבצי Script של משתמש כלשהם">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "לא עובד ב:">
+<!ENTITY install.downloadError "Download Error">
+<!ENTITY install.installButton "התקן">
+<!ENTITY install.matches "התאמות:">
+<!ENTITY install.runsOn "עובד ב:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "הצג קוד מקור של קובץ Script">
+<!ENTITY install.title "התקנת Greasemonkey">
+<!ENTITY install.warning1 "קבצי Script זדוניים עלולים להפר פרטיותך ולפעול בשמך ללא ידיעתך.">
+<!ENTITY install.warning2 "עליך להתקין קבצי Script רק ממקורות שאתה נותן בהם אמון.">
+<!ENTITY loading "מוריד...">
+<!ENTITY menu.commands "פקודות קובץ Script של משתמש...">
+<!ENTITY menu.commands.accesskey "פ">
+<!ENTITY menu.install "התקן קובץ Script של משתמש">
+<!ENTITY menu.install.accesskey "ת">
+<!ENTITY menu.manage "ניהול קבצי Script של משתמש">
+<!ENTITY menu.manage.accesskey "נ">
+<!ENTITY menu.new "קובץ Script של משתמש חדש">
+<!ENTITY menu.new.accesskey "ח">
+<!ENTITY menu.options "...Greasemonkey אפשרויות">
+<!ENTITY menu.options.accesskey "O">
+<!ENTITY menu.show "הצג קוד מקור קובץ Script של משתמש">
+<!ENTITY menu.show.accesskey "צ">
+<!ENTITY menu.webSites "Web sites...">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Get User Scripts">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot Blog">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey Manual">
+<!ENTITY newScript.description "תיאור">
+<!ENTITY newScript.excludes "לא כולל (אחד בכל שורה)">
+<!ENTITY newScript.fromClipboard "השתמש בקובץ Script מהלוח">
+<!ENTITY newScript.includes "כולל (אחד בכל שורה)">
+<!ENTITY newScript.name "שם">
+<!ENTITY newScript.namespace "שם מרחב">
+<!ENTITY options.browseForEditor "Browse for Editor Program">
+<!ENTITY options.defaultEditor "Use Default Editor">
+<!ENTITY options.editor "עורך">
+<!ENTITY options.experimental "Experimental">
+<!ENTITY options.globalExcludes "אי הכללה כללית">
+<!ENTITY options.newScript.removeUnused "Remove unused lines">
+<!ENTITY options.newScript.template "New script template">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "דורשת עדכונים מאובטחים">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "הגדרות קבצי Script">
+<!ENTITY scriptPrefs.title "מאפייני קבצי Script של Greasemonkey - !!">
+<!ENTITY scriptPrefs.userSettings "הגדרות משתמש">
+<!ENTITY statusBar.enabled "הפוך לזמין">
+<!ENTITY statusBar.enabled.accesskey "מ">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "הסר">
+<!ENTITY updateChecking "בדיקת עדכון">

@@ -1,0 +1,15 @@
+<!ENTITY button.add "Ekle...">
+<!ENTITY button.addUserExclude "Bir kullanıcı ekle">
+<!ENTITY button.addUserInclude "Bir kullanıcı ekle">
+<!ENTITY button.addUserMatch "Add as user match">
+<!ENTITY button.edit "Düzenle...">
+<!ENTITY button.remove "Kaldır">
+<!ENTITY checkbox.grpOverride "Disable this script's rules and only use the user defined ones">
+<!ENTITY label.grpExcluded "Hariç Sayfalar">
+<!ENTITY label.grpIncluded "Dahil Sayfalar">
+<!ENTITY label.grpMatched "Matched Pages">
+<!ENTITY promptForEdit.msg "Aşağıdaki sayfanın URL'sini değiştirin. Joker (*) karakteri kullanarak birden fazla sayfa belirtebilirsiniz.">
+<!ENTITY promptForEdit.title "Sayfa Düzenle">
+<!ENTITY promptForNewPage.defVal "http://example.com/*">
+<!ENTITY promptForNewPage.msg "Aşağıya yeni bir URL girin. Joker (*) karakteri kullanarak birden fazla sayfa belirtebilirsiniz.">
+<!ENTITY promptForNewPage.title "Sayfa Ekle">

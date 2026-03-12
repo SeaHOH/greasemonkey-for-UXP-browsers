@@ -1,0 +1,38 @@
+cludes {
+  -moz-binding: url("chrome://greasemonkey/content/bindings.xml#clude-editor-editable");
+}
+
+#resizer {
+  display: none;
+}
+
+.include cludes.readonly {
+  -moz-binding: url("chrome://greasemonkey/content/bindings.xml#clude-editor-readonly-include");
+}
+
+.match cludes.readonly {
+  -moz-binding: url("chrome://greasemonkey/content/bindings.xml#clude-editor-readonly-match");
+}
+
+.exclude cludes.readonly {
+  -moz-binding: url("chrome://greasemonkey/content/bindings.xml#clude-editor-readonly-exclude");
+}
+
+.btn-user-clude-virtual, #user-clude-match #btn-user-clude {
+  visibility: hidden;
+}
+
+hbox .name {
+  margin-right: 0;
+  padding-right: 0;
+}
+
+hbox .count {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+#global-excludes-count {
+  text-align: center;
+  display: none;
+}

@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/"
+  type="text/css"?>
+<?xml-stylesheet href="chrome://greasemonkey/skin/bindings.css"
+  type="text/css"?>
+<?xml-stylesheet href="chrome://greasemonkey/skin/scriptPrefs.css"
+  type="text/css"?>
+
+<!DOCTYPE prefwindow [
+  <!ENTITY % addonsDTD SYSTEM
+    "chrome://greasemonkey/locale/gmAddons.dtd">
+  <!ENTITY % cludesDTD SYSTEM
+    "chrome://greasemonkey/locale/gmCludes.dtd">
+  <!ENTITY % greasemonkeyDTD SYSTEM
+    "chrome://greasemonkey/locale/greasemonkey.dtd">
+  %addonsDTD;
+  %cludesDTD;
+  %greasemonkeyDTD;
+]>
+
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  buttons="accept,cancel"
+  id="greasemonkey-script-preferences"
+  title="&scriptPrefs.title;"
+  ondialogaccept="return onDialogAccept();"
+  persist="screenX screenY width height">
+
+<script type="application/x-javascript"
+  src="chrome://greasemonkey/content/scriptPrefs.js" />
+
+<tabbox flex="1">
+  <tabs>
+    <tab label="&scriptPrefs.userSettings;" />
+    <tab label="&scriptPrefs.scriptSettings;" />
+    <resizer id="resizer" dir="right" />
+  </tabs>
+  <tabpanels flex="1">
+    <tabpanel flex="1">
+      <vbox flex="1">
+        <vbox flex="1" class="include">
+          <hbox flex="1">
+            <label class="name" value="&label.grpIncluded;" />
+            <label class="count" id="user-includes-count" value="" />
+          </hbox>
+          <cludes flex="1" id="user-includes" />
+        </vbox>
+        <vbox flex="1" class="match">
+          <hbox flex="1">
+            <label class="name" value="&label.grpMatched;" />
+            <label class="count" id="user-matches-count" value="" />
+          </hbox>
+          <cludes flex="1" id="user-matches" />
+        </vbox>
+        <vbox flex="1" class="exclude">
+          <hbox flex="1">
+            <label class="name" value="&label.grpExcluded;" />
+            <label class="count" id="user-excludes-count" value="" />
+          </hbox>
+          <cludes flex="1" id="user-excludes" />
+        </vbox>
+      </vbox>
+    </tabpanel>
+    <tabpanel flex="1">
+      <vbox flex="1">
+        <vbox flex="1" class="include">
+          <hbox flex="1">
+            <label class="name" value="&label.grpIncluded;" />
+            <label class="count" id="script-includes-count" value="" />
+          </hbox>
+          <cludes flex="1" id="script-includes" class="readonly" />
+        </vbox>
+        <vbox flex="1" class="match">
+          <hbox flex="1">
+            <label class="name" value="&label.grpMatched;" />
+            <label class="count" id="script-matches-count" value="" />
+          </hbox>
+          <cludes flex="1" id="script-matches" class="readonly" />
+        </vbox>
+        <vbox flex="1" class="exclude">
+          <hbox flex="1">
+            <label class="name" value="&label.grpExcluded;" />
+            <label class="count" id="script-excludes-count" value="" />
+          </hbox>
+          <cludes flex="1" id="script-excludes" class="readonly" />
+        </vbox>
+      </vbox>
+    </tabpanel>
+  </tabpanels>
+</tabbox>
+
+<spacer height="5" />
+<!--
+  Translations used (partially) from Scriptish.
+  https://github.com/scriptish/scriptish/
+-->
+<checkbox id="user-override" label="&checkbox.grpOverride;" />
+<button label="&edit.tooltip;" oncommand="GM_util.openInEditor(gScript);" />
+
+</dialog>

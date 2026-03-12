@@ -1,0 +1,15 @@
+<!ENTITY button.add "أضف..">
+<!ENTITY button.addUserExclude "إضافة كمستخدم مستبعد">
+<!ENTITY button.addUserInclude "إضافة كمستخدم مستثنى">
+<!ENTITY button.addUserMatch "Add as user match">
+<!ENTITY button.edit "عدٌل..">
+<!ENTITY button.remove "أحذف">
+<!ENTITY checkbox.grpOverride "Disable this script's rules and only use the user defined ones">
+<!ENTITY label.grpExcluded "لايشمل صفحات">
+<!ENTITY label.grpIncluded "يشمل صفحات">
+<!ENTITY label.grpMatched "Matched Pages">
+<!ENTITY promptForEdit.msg "ضع الرابط الجديد في الأسفل.\\n يمكنك تحديد صفحات متعددة باستخدام النجمة (*).">
+<!ENTITY promptForEdit.title "تعديل الصفحة">
+<!ENTITY promptForNewPage.defVal "http://example.com/*">
+<!ENTITY promptForNewPage.msg "ضع الرابط الجديد في الأسفل.\\n يمكنك تحديد صفحات متعددة باستخدام النجمة (*).">
+<!ENTITY promptForNewPage.title "أضف صفحة">

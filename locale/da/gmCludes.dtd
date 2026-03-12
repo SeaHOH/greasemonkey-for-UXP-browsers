@@ -1,0 +1,15 @@
+<!ENTITY button.add "Tilføj...">
+<!ENTITY button.addUserExclude "Tilføj som brugerekskludering">
+<!ENTITY button.addUserInclude "Tilføj som brugerinkludering">
+<!ENTITY button.addUserMatch "Add as user match">
+<!ENTITY button.edit "Rediger...">
+<!ENTITY button.remove "Fjern">
+<!ENTITY checkbox.grpOverride "Disable this script's rules and only use the user defined ones">
+<!ENTITY label.grpExcluded "Ekskluderede sider">
+<!ENTITY label.grpIncluded "Inkluderede sider">
+<!ENTITY label.grpMatched "Matched Pages">
+<!ENTITY promptForEdit.msg "Modificer ULR'en på siden nedenfor. Du kan specificere flere sider vha. et stjerne (*) tegn.">
+<!ENTITY promptForEdit.title "Rediger side">
+<!ENTITY promptForNewPage.defVal "http://example.com/*">
+<!ENTITY promptForNewPage.msg "Indsæt ny URL nedenfor. Du kan specificere flere sider vha. et stjerne (*) tegn.">
+<!ENTITY promptForNewPage.title "Tilføj side">

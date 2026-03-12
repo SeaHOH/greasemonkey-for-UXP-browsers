@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Enable Pale Moon Sync for User Scripts">
+<!ENTITY greasemonkey.getUserScripts "Отримати користувацькі скрипти">
+<!ENTITY greasemonkey.noScriptShere "Жоден зі встановлених скриптів не працює на цій сторінці.">
+<!ENTITY greasemonkey.youHaveNoScripts "Жодних скриптів не встановлено">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "Не працює на:">
+<!ENTITY install.downloadError "Download Error">
+<!ENTITY install.installButton "Встановити">
+<!ENTITY install.matches "збіги:">
+<!ENTITY install.runsOn "Працює на:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Показати початковий код скрипту">
+<!ENTITY install.title "Встановлення Greasemonkey">
+<!ENTITY install.warning1 "Сумнівні скрипти можуть порушити вашу конфіденційність без вашого відома!">
+<!ENTITY install.warning2 "Встановлюйте скрипти тільки з тих джерел, яким довіряєте.">
+<!ENTITY loading "Завантаження...">
+<!ENTITY menu.commands "Команди скрипту…">
+<!ENTITY menu.commands.accesskey "К">
+<!ENTITY menu.install "Встановити скрипт…">
+<!ENTITY menu.install.accesskey "В">
+<!ENTITY menu.manage "Керування скриптами…">
+<!ENTITY menu.manage.accesskey "е">
+<!ENTITY menu.new "Новий скрипт…">
+<!ENTITY menu.new.accesskey "Н">
+<!ENTITY menu.options "Налаштування Greasemonkey...">
+<!ENTITY menu.options.accesskey "л">
+<!ENTITY menu.show "Переглянути початковий код скрипту">
+<!ENTITY menu.show.accesskey "П">
+<!ENTITY menu.webSites "Web sites...">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Get User Scripts">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot Blog">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey Manual">
+<!ENTITY newScript.description "Опис">
+<!ENTITY newScript.excludes "Винятки (один на рядок)">
+<!ENTITY newScript.fromClipboard "Use Script From Clipboard">
+<!ENTITY newScript.includes "Охоплення (одне на рядок)">
+<!ENTITY newScript.name "Ім’я">
+<!ENTITY newScript.namespace "Простір імен">
+<!ENTITY options.browseForEditor "Browse for Editor Program">
+<!ENTITY options.defaultEditor "Use Default Editor">
+<!ENTITY options.editor "Редактор">
+<!ENTITY options.experimental "Experimental">
+<!ENTITY options.globalExcludes "Глобальні винятки">
+<!ENTITY options.newScript.removeUnused "Remove unused lines">
+<!ENTITY options.newScript.template "New script template">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Вимагати безпечних оновлень">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "Налаштування скрипту">
+<!ENTITY scriptPrefs.title "Налаштування користувацьких скриптів Greasemonkey - !!">
+<!ENTITY scriptPrefs.userSettings "Налаштування">
+<!ENTITY statusBar.enabled "Увімкнено">
+<!ENTITY statusBar.enabled.accesskey "У">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "Вилучити">
+<!ENTITY updateChecking "Перевірка оновлень">

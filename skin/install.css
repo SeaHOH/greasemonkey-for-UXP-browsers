@@ -1,0 +1,75 @@
+#greasemonkey {
+  width: 32em;
+  height: 35em;
+}
+
+#heading {
+  margin-bottom: 1em;
+}
+
+#item-box {
+  overflow: auto;
+  -moz-appearance: textfield;
+  padding: 0;
+  margin: 2px 4px;
+}
+
+#item-description {
+  color: #222;
+  border-bottom: 1px black dotted;
+  padding: 0.5em;
+  margin: 0;
+  margin-right: 4px;
+}
+
+#script-description {
+  margin: 0;
+}
+
+#includes, #matches {
+  margin-bottom: 1em;
+  display: none;
+}
+
+#excludes {
+  display: none;
+}
+
+#includes-description, #matches-description, #excludes-description {
+  font-style: italic;
+}
+
+#description-notice {
+  margin-top: 1em;
+  font-weight: bold;
+}
+
+#original-script-source {
+  margin-left: 0;
+  font-weight: normal;
+}
+
+#original-script-version {
+  margin: 0;
+}
+
+#description-warning1 {
+  margin-top: 1em;
+}
+
+#description-warning2 {
+  margin-bottom: 1em;
+}
+
+#error-content-box {
+  display: none;
+}
+
+#description-error {
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+
+#error-message {
+  white-space: pre-line;
+}

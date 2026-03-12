@@ -1,0 +1,30 @@
+<!ENTITY edit "ویرایش">
+<!ENTITY edit.accesskey ",">
+<!ENTITY edit.tooltip "ویرایش این دستنویس کاربری">
+<!ENTITY executeFirst "اجرای اولین">
+<!ENTITY executeLast "اجرای آخرین">
+<!ENTITY executeLater "دیرتر اجرا شود">
+<!ENTITY executeSooner "زود تر اجرا شود">
+<!ENTITY findUpdate "Find Update">
+<!ENTITY forcedFindUpdate "Forced Find Updates">
+<!ENTITY installUpdate "Install Update">
+<!ENTITY moveDown "حرکت به پایین">
+<!ENTITY moveDown.accesskey "ح">
+<!ENTITY moveToBottom "حرکت به انتها">
+<!ENTITY moveToBottom.accesskey "ت">
+<!ENTITY moveToTop "حرکت به ابتدا">
+<!ENTITY moveToTop.accesskey "ب">
+<!ENTITY moveUp "حرکت به بالا">
+<!ENTITY moveUp.accesskey "ب">
+<!ENTITY newScript "ساخت دستنویس کاربری جدید">
+<!ENTITY newScript.accesskey "س">
+<!ENTITY show "نمایش پوشه حاوی">
+<!ENTITY show.accesskey "ح">
+<!ENTITY sort.byExecution "مرتب کردن بر اساس ترتیب اجرا">
+<!ENTITY sort.byName "مرتب کردن بر اساس نام">
+<!ENTITY sort.byNamespace "Sort by namespace">
+<!ENTITY sort.byStatus "مرتب کردن بر اساس وضعیت">
+<!ENTITY sort.execution "ترتیب اجرا">
+<!ENTITY sort.name "نام">
+<!ENTITY sort.namespace "Namespace">
+<!ENTITY sort.status "وضعیت">

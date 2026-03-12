@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Enable Pale Moon Sync for User Scripts">
+<!ENTITY greasemonkey.getUserScripts "Hanki skriptejä">
+<!ENTITY greasemonkey.noScriptShere "Mitään skripteistä ei ajeta tällä sivulla.">
+<!ENTITY greasemonkey.youHaveNoScripts "Sinulla ei ole yhtään skriptiä asennettuna">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "pois lukien sivut:">
+<!ENTITY install.downloadError "Download Error">
+<!ENTITY install.installButton "Asenna">
+<!ENTITY install.matches "täsmää:">
+<!ENTITY install.runsOn "ajetaan sivuilla:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Näytä skriptin lähdekoodi">
+<!ENTITY install.title "Greasemonkey-asennus">
+<!ENTITY install.warning1 "Haitalliset skriptit voivat vaarantaa yksityisyytesi ja toimia tietämättäsi.">
+<!ENTITY install.warning2 "Asenna skriptejä vain luetetuista lähteistä.">
+<!ENTITY loading "Ladataan...">
+<!ENTITY menu.commands "Skriptikomennot...">
+<!ENTITY menu.commands.accesskey "S">
+<!ENTITY menu.install "Asenna skripti...">
+<!ENTITY menu.install.accesskey "A">
+<!ENTITY menu.manage "Hallinnoi skriptejä...">
+<!ENTITY menu.manage.accesskey "H">
+<!ENTITY menu.new "Uusi skripti...">
+<!ENTITY menu.new.accesskey "U">
+<!ENTITY menu.options "Greasemonkey Preferences...">
+<!ENTITY menu.options.accesskey "P">
+<!ENTITY menu.show "Näytä skriptin lähdekoodi">
+<!ENTITY menu.show.accesskey "L">
+<!ENTITY menu.webSites "Web sites...">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Get User Scripts">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot Blog">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey Manual">
+<!ENTITY newScript.description "Kuvaus">
+<!ENTITY newScript.excludes "Pois lukien sivut (yksi per rivi)">
+<!ENTITY newScript.fromClipboard "Use Script From Clipboard">
+<!ENTITY newScript.includes "Ajetaan sivuilla (yksi per rivi)">
+<!ENTITY newScript.name "Nimi">
+<!ENTITY newScript.namespace "Nimiavaruus">
+<!ENTITY options.browseForEditor "Browse for Editor Program">
+<!ENTITY options.defaultEditor "Use Default Editor">
+<!ENTITY options.editor "Tekstieditori">
+<!ENTITY options.experimental "Experimental">
+<!ENTITY options.globalExcludes "Yleisesti poisluettavat">
+<!ENTITY options.newScript.removeUnused "Remove unused lines">
+<!ENTITY options.newScript.template "New script template">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Require secure updates">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "Script Settings">
+<!ENTITY scriptPrefs.title "Greasemonkey User Script Preferences - !!">
+<!ENTITY scriptPrefs.userSettings "User Settings">
+<!ENTITY statusBar.enabled "Käytössä">
+<!ENTITY statusBar.enabled.accesskey "K">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "Poisto">
+<!ENTITY updateChecking "Update Checking">

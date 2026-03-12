@@ -1,0 +1,339 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay SYSTEM "chrome://greasemonkey/locale/gmCludes.dtd">
+<bindings xmlns="http://www.mozilla.org/xbl"
+  xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <binding id="clude-editor-base">
+    <content>
+      <xul:hbox flex="1">
+        <xul:listbox flex="1" id="listbox" />
+      </xul:hbox>
+    </content>
+    <implementation>
+      <constructor>
+        Components.utils.import(
+            "chrome://greasemonkey-modules/content/constants.js");
+
+        Components.utils.import(
+            "chrome://greasemonkey-modules/content/thirdParty/matchPattern.js");
+        Components.utils.import(
+            "chrome://greasemonkey-modules/content/util.js");
+
+        this._environment = GM_util.getEnvironment();
+
+        this._box = document.getAnonymousElementByAttribute(
+            this, "id", "listbox");
+
+        this._pages = [];
+        this._fillListbox();
+      </constructor>
+
+      <property name="pages">
+        <getter>
+          return this._pages.concat();
+        </getter>
+        <setter>
+          this._pages = val.concat();
+          this._fillListbox();
+          return null;
+        </setter>
+      </property>
+
+      <method name="_fillListbox">
+        <parameter name="aPages" />
+        <body>
+          aPages = aPages || this._pages;
+
+          while (this._box.getRowCount()) {
+            this._box.removeItemAt(0);
+          }
+
+          for (let i = 0, page = null; page = aPages[i]; i++) {
+            this._box.insertItemAt(this._box.getRowCount(), page);
+          }
+
+          let _count = this._box.getRowCount().toString();
+          let _cludes = [
+            "script-includes",
+            "script-matches",
+            "script-excludes",
+            "user-includes",
+            "user-matches",
+            "user-excludes",
+            "global-excludes",
+          ];
+          for (let i = 0, iLen = _cludes.length; i &lt; iLen; i++) {
+            let _id = _cludes[i];
+            if (this == document.getElementById(_id)) {
+              document.getElementById(_id + "-count")
+                  .value = ((i != iLen - 1) ? " " : "")
+                       + "(" + _count + ")";
+              break;
+            }
+          }
+        </body>
+      </method>
+
+      <method name="_consolidatePage">
+        <parameter name="aPage" />
+        <parameter name="aWhat" />
+        <body>
+          let _result = true;
+          if ((this == document.getElementById("user-matches"))
+           || (this == document.getElementById("script-matches"))) {
+            let match;
+            try {
+              match = new MatchPattern(aPage);
+              _result = this._consolidatePageCommand(aPage, aWhat);
+            } catch (e) {
+              alert(GM_CONSTANTS.localeStringBundle.createBundle(
+                  GM_CONSTANTS.localeGreasemonkeyProperties)
+                  .GetStringFromName("error.parse.ignoringMatch")
+                  .replace("%1", aPage).replace("%2", e));
+              _result = false;
+            }
+          } else {
+            _result = this._consolidatePageCommand(aPage, aWhat);
+          }
+          return _result;
+        </body>
+      </method>
+
+      <method name="_consolidatePageCommand">
+        <parameter name="aPage" />
+        <parameter name="aWhat" />
+        <body>
+          let _result = true;
+          switch (aWhat) {
+            case "add":
+              this._pages.push(aPage);                    
+              break;
+            case "edit":
+              this._pages[this._box.currentIndex] = aPage;                    
+              break;
+            default:
+              Components.utils.reportError(
+                  'Bindings: Unknown command "' + aWhat + '".');
+              _result = false;
+              break;
+          }
+          return _result;
+        </body>
+      </method>
+
+      <method name="_onAddPage">
+        <body>
+          let page = prompt(
+              "&promptForNewPage.msg;",
+              "&promptForNewPage.defVal;",
+              "&promptForNewPage.title;");
+          this.addPage(page);
+        </body>
+      </method>
+
+      <method name="addPage">
+        <parameter name="aPage" />
+        <body>
+          if (aPage) {
+            let _result = this._consolidatePage(aPage, "add");
+            if (_result) {
+              this._fillListbox();
+              let _count = this._box.getRowCount();
+              if (_count &gt; 0) {
+                let _firstIndex = _count
+                    - this._box.getNumberOfVisibleRows();
+                if (_firstIndex &lt; 0) {
+                  _firstIndex = 0;
+                }
+                this._box.scrollToIndex(_firstIndex);
+                let _selectedIndex = _count - 1;
+                this._box.selectedIndex = _selectedIndex;
+                this._box.ensureIndexIsVisible(_selectedIndex);
+              }
+            }
+          }
+        </body>
+      </method>
+
+      <method name="_onEditPage">
+        <body>
+          let _currentIndex = this._box.currentIndex;
+          let page = prompt(
+              "&promptForEdit.msg;",
+              this._pages[_currentIndex],
+              "&promptForEdit.title;");
+          if (page) {
+            let _result = this._consolidatePage(page, "edit");
+            if (_result) {
+              this._fillListbox();
+            }
+          }
+          let _firstIndex = _currentIndex + 1
+              - this._box.getNumberOfVisibleRows();
+          if (_firstIndex &lt; 0) {
+            _firstIndex = 0;
+          }
+          this._box.scrollToIndex(_firstIndex);
+          this._box.selectedIndex = _currentIndex;
+          this._box.ensureIndexIsVisible(_currentIndex);
+        </body>
+      </method>
+
+      <method name="_onRemovePage">
+        <body>
+          let _currentIndex = this._box.currentIndex;
+          this._pages.splice(_currentIndex, 1);
+          this._fillListbox();
+          let _count = this._box.getRowCount();
+          if (_count &gt; 0) {
+            let _firstIndex = _currentIndex + 1
+                - this._box.getNumberOfVisibleRows();
+            if (_firstIndex &lt; 0) {
+              _firstIndex = 0;
+            }
+            _firstIndex = Math.min(_firstIndex, _count - 1);
+            _currentIndex = Math.min(_currentIndex, _count - 1);
+            this._box.scrollToIndex(_firstIndex);
+            this._box.selectedIndex = -1;
+            this._box.ensureIndexIsVisible(_currentIndex);
+          }
+        </body>
+      </method>
+    </implementation>
+    <handlers>
+      <handler event="select" action="this._onSelect();"/>
+    </handlers>
+  </binding>
+  <binding id="clude-editor-editable"
+    extends="chrome://greasemonkey/content/bindings.xml#clude-editor-base">
+    <content>
+      <xul:hbox flex="1">
+        <xul:listbox flex="1" id="listbox" />
+        <xul:vbox>
+          <xul:button id="btnAdd" label="&button.add;"
+            oncommand="_onAddPage();" />
+          <xul:button id="btnEdit" label="&button.edit;"
+            oncommand="_onEditPage();"
+            disabled="true" />
+          <xul:button id="btnDel" label="&button.remove;"
+            oncommand="_onRemovePage();"
+            disabled="true" />
+          <xul:label id="global-excludes-count" value="" />
+          <xul:resizer id="resizer" dir="right" />
+          <xul:spacer flex="1" />
+        </xul:vbox>
+      </xul:hbox>
+    </content>
+    <implementation>
+      <constructor>
+        this._btnAdd = document.getAnonymousElementByAttribute(
+            this, "id", "btnAdd");
+        this._btnEdit = document.getAnonymousElementByAttribute(
+            this, "id", "btnEdit");
+        this._btnDel = document.getAnonymousElementByAttribute(
+            this, "id", "btnDel");
+        if (this == document.getElementById("global-excludes")) {
+          document.getElementById("global-excludes-count")
+              .style.display = "block";
+          if (this._environment.osWindows) {
+            document.getElementById("resizer").style.display = "block";
+          }
+        }
+      </constructor>
+
+      <method name="_onSelect">
+        <body>
+          let noSelection = this._box.currentIndex == -1;
+          this._btnEdit.disabled = noSelection;
+          this._btnDel.disabled = noSelection;
+        </body>
+      </method>
+    </implementation>
+  </binding>
+  <binding id="clude-editor-readonly"
+    extends="chrome://greasemonkey/content/bindings.xml#clude-editor-base">
+    <implementation>
+      <constructor>
+        this._btnUserClude = document.getAnonymousElementByAttribute(
+            this, "id", "btn-user-clude");
+      </constructor>
+
+      <method name="_onSelect">
+        <body>
+          let noSelection = this._box.currentIndex == -1;
+          this._btnUserClude.disabled = noSelection;
+        </body>
+      </method>
+
+      <method name="_addUserClude">
+        <parameter name="aSection" />
+        <body>
+          var methodName = "onAddUser" + aSection;
+          this[methodName] &amp;&amp; this[methodName](
+            this._pages[this._box.currentIndex]);
+        </body>
+      </method>
+    </implementation>
+  </binding>
+  <binding id="clude-editor-readonly-include"
+    extends="chrome://greasemonkey/content/bindings.xml#clude-editor-readonly">
+    <content>
+      <xul:hbox flex="1">
+        <xul:listbox flex="1" id="listbox" />
+        <xul:vbox id="userCludeInclude">
+          <xul:button id="btn-user-clude" label="&button.addUserExclude;"
+            oncommand="_addUserClude('Exclude');" disabled="true" />
+          <xul:button class="btn-user-clude-virtual" label="" disabled="true" />
+          <xul:button class="btn-user-clude-virtual" label="" disabled="true" />
+          <xul:spacer flex="1" />
+        </xul:vbox>
+      </xul:hbox>
+    </content>
+  </binding>
+  <binding id="clude-editor-readonly-match"
+    extends="chrome://greasemonkey/content/bindings.xml#clude-editor-readonly">
+    <content>
+      <xul:hbox flex="1">
+        <xul:listbox flex="1" id="listbox" />
+        <xul:vbox id="user-clude-match">
+          <xul:button id="btn-user-clude" label="&button.addUserExclude;"
+            oncommand="_addUserClude('Exclude');" disabled="true" />
+          <xul:button class="btn-user-clude-virtual" label="" disabled="true" />
+          <xul:button class="btn-user-clude-virtual" label="" disabled="true" />
+          <xul:spacer flex="1" />
+        </xul:vbox>
+      </xul:hbox>
+    </content>
+  </binding>
+  <binding id="clude-editor-readonly-exclude"
+    extends="chrome://greasemonkey/content/bindings.xml#clude-editor-readonly">
+    <content>
+      <xul:hbox flex="1">
+        <xul:listbox flex="1" id="listbox" />
+        <xul:vbox id="userCludeExclude">
+          <xul:button id="btn-user-clude" label="&button.addUserInclude;"
+            oncommand="_addUserClude('Include');" disabled="true" />
+          <xul:button class="btn-user-clude-virtual" label="" disabled="true" />
+          <xul:button class="btn-user-clude-virtual" label="" disabled="true" />
+          <xul:spacer flex="1" />
+        </xul:vbox>
+      </xul:hbox>
+    </content>
+  </binding>
+  <binding id="greasemonkey-tbb">
+    <implementation>
+      <constructor><![CDATA[
+        let button = this.parentNode;
+        // Remove this stub popup...
+        button.removeChild(this);
+
+        let generalMenu = document.getElementById("gm_general_menu");
+        // Test (e.g.): The icon is in Customize Toolbar.
+        if (generalMenu) {
+          // ...and replace it with a duplicate of the general menu.
+          let menupopup = generalMenu.firstChild;
+          button.appendChild(menupopup.cloneNode(true));
+        }
+      ]]></constructor>
+    </implementation>
+  </binding>
+</bindings>

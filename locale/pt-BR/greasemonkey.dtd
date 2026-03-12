@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Habilitar Pale Moon Sync paro o User Scripts">
+<!ENTITY greasemonkey.getUserScripts "Obter scripts de usuário">
+<!ENTITY greasemonkey.noScriptShere "Nenhum script instalado será executado nessa página.">
+<!ENTITY greasemonkey.youHaveNoScripts "Você não possui nenhum script de usuário instalado">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "não é executado em:">
+<!ENTITY install.downloadError "Erro no Download">
+<!ENTITY install.installButton "Instalar">
+<!ENTITY install.matches "correspondências:">
+<!ENTITY install.runsOn "executado em:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Mostrar Código-Fonte do Script">
+<!ENTITY install.title "Instalação do Greasemonkey">
+<!ENTITY install.warning1 "Scripts maliciosos podem violar sua privacidade e agir em seu nome sem o seu conhecimento.">
+<!ENTITY install.warning2 "Você deve instalar somente scripts de fontes confiáveis.">
+<!ENTITY loading "Baixando…">
+<!ENTITY menu.commands "Comandos do Script de Usuário…">
+<!ENTITY menu.commands.accesskey "C">
+<!ENTITY menu.install "Instalar Script de Usuário…">
+<!ENTITY menu.install.accesskey "I">
+<!ENTITY menu.manage "Gerenciar Scripts de Usuário…">
+<!ENTITY menu.manage.accesskey "G">
+<!ENTITY menu.new "Novo Script de Usuário…">
+<!ENTITY menu.new.accesskey "N">
+<!ENTITY menu.options "Opções do Greasemonkey...">
+<!ENTITY menu.options.accesskey "O">
+<!ENTITY menu.show "Ver Código-Fonte do Script de Usuário">
+<!ENTITY menu.show.accesskey "V">
+<!ENTITY menu.webSites "Sites da web...">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Obter Scripts do Usuário">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot Blog">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Manual do Greasemonkey">
+<!ENTITY newScript.description "Descrição">
+<!ENTITY newScript.excludes "Exclui (Um por linha)">
+<!ENTITY newScript.fromClipboard "Usar Script da Área de Transferência">
+<!ENTITY newScript.includes "Inclui (Um por linha)">
+<!ENTITY newScript.name "Nome">
+<!ENTITY newScript.namespace "Namespace">
+<!ENTITY options.browseForEditor "Procurar Programa Padrão">
+<!ENTITY options.defaultEditor "Usar Editor Padrão">
+<!ENTITY options.editor "Editor">
+<!ENTITY options.experimental "Experimental">
+<!ENTITY options.globalExcludes "Exclusões Globais">
+<!ENTITY options.newScript.removeUnused "Remover linhas sem uso">
+<!ENTITY options.newScript.template "Novo modelo de script">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Requisitar atualizações seguras">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "Configurações de Script">
+<!ENTITY scriptPrefs.title "Preferências de Script de Usuário do Greasemonkey - !!">
+<!ENTITY scriptPrefs.userSettings "Configurações do Usuário">
+<!ENTITY statusBar.enabled "Habilitado">
+<!ENTITY statusBar.enabled.accesskey "H">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "Desinstalar">
+<!ENTITY updateChecking "Verificação de Atualizações">

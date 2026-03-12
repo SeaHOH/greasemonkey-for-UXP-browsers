@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Enable Pale Moon Sync for User Scripts">
+<!ENTITY greasemonkey.getUserScripts "Obține scripturi utilizator">
+<!ENTITY greasemonkey.noScriptShere "Nu sunt rulate pe această pagină scripturile instalate.">
+<!ENTITY greasemonkey.youHaveNoScripts "Nu aveți scripturi utilizator instalate">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "nu rulează pe:">
+<!ENTITY install.downloadError "Download Error">
+<!ENTITY install.installButton "Instalează">
+<!ENTITY install.matches "potriviri:">
+<!ENTITY install.runsOn "rulează pe:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Arată sursa scriptului">
+<!ENTITY install.title "Instalare Greasemonkey">
+<!ENTITY install.warning1 "Scripturile malițioase vă pot viola intimitatea și pot acționa drept dumneavoastră fără a vă informa.">
+<!ENTITY install.warning2 "Ar trebui să instalați scripturi doar din surse de încredere.">
+<!ENTITY loading "Descărcare...">
+<!ENTITY menu.commands "Comenzi script utilizator...">
+<!ENTITY menu.commands.accesskey "C">
+<!ENTITY menu.install "Instalează script utilizator...">
+<!ENTITY menu.install.accesskey "I">
+<!ENTITY menu.manage "Gestionează scripturi utilizator...">
+<!ENTITY menu.manage.accesskey "G">
+<!ENTITY menu.new "Script utilizator nou...">
+<!ENTITY menu.new.accesskey "N">
+<!ENTITY menu.options "Opțiuni Greasemonkey...">
+<!ENTITY menu.options.accesskey "O">
+<!ENTITY menu.show "Vezi sursa scriptului utilizator">
+<!ENTITY menu.show.accesskey "V">
+<!ENTITY menu.webSites "Web sites...">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Get User Scripts">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot Blog">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey Manual">
+<!ENTITY newScript.description "Descriere">
+<!ENTITY newScript.excludes "Excluderi (una pe linie)">
+<!ENTITY newScript.fromClipboard "Use Script From Clipboard">
+<!ENTITY newScript.includes "Includeri (una pe linie)">
+<!ENTITY newScript.name "Nume">
+<!ENTITY newScript.namespace "Spațiu de nume">
+<!ENTITY options.browseForEditor "Browse for Editor Program">
+<!ENTITY options.defaultEditor "Use Default Editor">
+<!ENTITY options.editor "Editor">
+<!ENTITY options.experimental "Experimental">
+<!ENTITY options.globalExcludes "Excluderi globale">
+<!ENTITY options.newScript.removeUnused "Remove unused lines">
+<!ENTITY options.newScript.template "New script template">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Sunt necesare actualizări de securitate">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "Setări script">
+<!ENTITY scriptPrefs.title "Preferințe script utilizator Greasemonkey - !!">
+<!ENTITY scriptPrefs.userSettings "Setări utilizator">
+<!ENTITY statusBar.enabled "Activat">
+<!ENTITY statusBar.enabled.accesskey "A">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "Dezinstalare">
+<!ENTITY updateChecking "Verificare actualizări">

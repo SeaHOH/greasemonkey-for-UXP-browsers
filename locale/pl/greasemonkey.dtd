@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Włącz Pale Moon Sync dla skryptów">
+<!ENTITY greasemonkey.getUserScripts "Pobierz skrypty">
+<!ENTITY greasemonkey.noScriptShere "Na tej stronie nie ma zainstalowanych skryptów do uruchomienia.">
+<!ENTITY greasemonkey.youHaveNoScripts "Nie masz zainstalowanych żadnych skryptów użytkownika">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "Nie uruchamiaj na:">
+<!ENTITY install.downloadError "Błąd pobierania">
+<!ENTITY install.installButton "Instaluj">
+<!ENTITY install.matches "Odpowiada:">
+<!ENTITY install.runsOn "Uruchom na:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Pokaż kod źródłowy skryptu">
+<!ENTITY install.title "Instalacja skryptu">
+<!ENTITY install.warning1 "Złośliwe skrypty mogą naruszać prywatność i bez wiedzy użytkownika działać w jego imieniu.">
+<!ENTITY install.warning2 "Należy instalować tylko skrypty pochodzące z zaufanych źródeł.">
+<!ENTITY loading "Pobieranie…">
+<!ENTITY menu.commands "Polecenia skryptu…">
+<!ENTITY menu.commands.accesskey "P">
+<!ENTITY menu.install "Instaluj skrypt…">
+<!ENTITY menu.install.accesskey "I">
+<!ENTITY menu.manage "Zarządzaj skryptami…">
+<!ENTITY menu.manage.accesskey "R">
+<!ENTITY menu.new "Nowy skrypt…">
+<!ENTITY menu.new.accesskey "N">
+<!ENTITY menu.options "Greasemonkey – ustawienia…">
+<!ENTITY menu.options.accesskey "O">
+<!ENTITY menu.show "Zobacz kod źródłowy skryptu">
+<!ENTITY menu.show.accesskey "Z">
+<!ENTITY menu.webSites "Strony internetowe...">
+<!ENTITY menu.webSites.accesskey "T">
+<!ENTITY menu.webSites.getUserScripts "Pobierz skrypty">
+<!--
+<!ENTITY menu.webSites.greasespot "Blog Greasespot">
+<!ENTITY menu.webSites.greasespotWiki "Wiki Greasespot">
+-->
+<!ENTITY menu.webSites.manual "Instrukcja Greasemonkey ">
+<!ENTITY newScript.description "Opis">
+<!ENTITY newScript.excludes "Witryny, na których skrypt nie będzie uruchamiany (jedna w wierszu)">
+<!ENTITY newScript.fromClipboard "Użyj skryptu ze schowka">
+<!ENTITY newScript.includes "Witryny, na których skrypt będzie uruchamiany (jedna w wierszu)">
+<!ENTITY newScript.name "Nazwa">
+<!ENTITY newScript.namespace "Lokalizacja">
+<!ENTITY options.browseForEditor "Przeglądaj w poszukiwaniu edytora">
+<!ENTITY options.defaultEditor "Użyj domyślnego edytora">
+<!ENTITY options.editor "Edytor">
+<!ENTITY options.experimental "Eksperymentalne">
+<!ENTITY options.globalExcludes "Wykluczenia globalne">
+<!ENTITY options.newScript.removeUnused "Usuń nieużywane linie">
+<!ENTITY options.newScript.template "Nowy szablon skryptu">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Wymaga bezpiecznych aktualizacji">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "Ustawienia skryptu">
+<!ENTITY scriptPrefs.title "Ustawienia skryptów - !!">
+<!ENTITY scriptPrefs.userSettings "Ustawienia użytkownika">
+<!ENTITY statusBar.enabled "Włącz">
+<!ENTITY statusBar.enabled.accesskey "W">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "Odinstaluj">
+<!ENTITY updateChecking "Sprawdzaj dostępność aktualizacji">

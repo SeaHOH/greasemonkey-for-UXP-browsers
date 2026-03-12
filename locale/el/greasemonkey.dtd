@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Enable Pale Moon Sync for User Scripts">
+<!ENTITY greasemonkey.getUserScripts "Λήψη κώδικα χρηστών">
+<!ENTITY greasemonkey.noScriptShere "Κανένας εγκατεστημένος κώδικας δεν εκτελείτε σε αυτή τη σελίδα.">
+<!ENTITY greasemonkey.youHaveNoScripts "Δεν έχετε κανένα εγκατεστημένο κώδικα χρήστη">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "δεν εκτελείται ως:">
+<!ENTITY install.downloadError "Download Error">
+<!ENTITY install.installButton "Εγκατάσταση">
+<!ENTITY install.matches "ταιριάζει:">
+<!ENTITY install.runsOn "εκτελείται ως:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Προβολή Προέλευσης Κώδικα">
+<!ENTITY install.title "Εγκατάσταση Greasemonkey">
+<!ENTITY install.warning1 "Κακόβουλοι κώδικες μπορούν να παραβιάσουν την ιδιωτικότητά σας και να ενεργούν για σας χωρίς να το γνωρίζετε.">
+<!ENTITY install.warning2 "Πρέπει να εγκαθιστάτε κώδικες που προελεύσεις που εμπιστεύεστε.">
+<!ENTITY loading "Λήψη ...">
+<!ENTITY menu.commands "Εντολές Κώδικα Χρήστη...">
+<!ENTITY menu.commands.accesskey "Κ">
+<!ENTITY menu.install "Εγκατάσταση Κώδικα Χρήστη...">
+<!ENTITY menu.install.accesskey "Ε">
+<!ENTITY menu.manage "Διαχείριση Κώδικα Χρηστών...">
+<!ENTITY menu.manage.accesskey "Δ">
+<!ENTITY menu.new "Νέος Κώδικας Χρήστη...">
+<!ENTITY menu.new.accesskey "Ν">
+<!ENTITY menu.options "Επιλογές Greasemonkey...">
+<!ENTITY menu.options.accesskey "Ι">
+<!ENTITY menu.show "Προβολή Προέλευσης Κώδικα Χρήστη">
+<!ENTITY menu.show.accesskey "Π">
+<!ENTITY menu.webSites "Web sites...">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Get User Scripts">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot Blog">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey Manual">
+<!ENTITY newScript.description "Περιγραφή">
+<!ENTITY newScript.excludes "Εξαιρέσεις (Μια ανά γραμμή)">
+<!ENTITY newScript.fromClipboard "Use Script From Clipboard">
+<!ENTITY newScript.includes "Ενσωματώσεις (Μια ανά γραμμή)">
+<!ENTITY newScript.name "Όνομα">
+<!ENTITY newScript.namespace "Όνομα χώρου">
+<!ENTITY options.browseForEditor "Browse for Editor Program">
+<!ENTITY options.defaultEditor "Use Default Editor">
+<!ENTITY options.editor "Επεξεργαστής κειμένου">
+<!ENTITY options.experimental "Experimental">
+<!ENTITY options.globalExcludes "Καθολικές Εξαιρέσεις">
+<!ENTITY options.newScript.removeUnused "Remove unused lines">
+<!ENTITY options.newScript.template "New script template">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Απαιτούνται ασφαλείς ενημερώσεις">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "Επιλογές Κώδικα">
+<!ENTITY scriptPrefs.title "Ρυθμίσεις Κώδικα Χρήστη του Greasemonkey - !!">
+<!ENTITY scriptPrefs.userSettings "Επιλογές Χρήστη">
+<!ENTITY statusBar.enabled "Ενεργοποιημένo">
+<!ENTITY statusBar.enabled.accesskey "Ρ">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "Απεγκατάσταση">
+<!ENTITY updateChecking "Έλεγχος Ενημέρωσης">

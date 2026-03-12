@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://greasemonkey/locale/greasemonkey.dtd">
+
+<?xml-stylesheet href="chrome://greasemonkey/skin/browser.css"
+  type="text/css"?>
+
+<overlay id="greasemonkey-browser-overlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript"
+    src="chrome://greasemonkey/content/browser.js" />
+  <script type="application/x-javascript"
+    src="chrome://greasemonkey/content/menuCommander.js" />
+
+  <commandset>
+    <!-- Sync the 'disabled' attribute for toolbar button. -->
+    <command id="gm_toggle_enabled"
+      oncommand="GM_util.setEnabled(!GM_util.getEnabled());
+        GM_BrowserUI.refreshStatus();"/>
+    <!-- Sync the 'checked' attribute for menu items. -->
+    <command id="gm_toggle_checked"
+      oncommand="GM_util.setEnabled(!GM_util.getEnabled());
+        GM_BrowserUI.refreshStatus();"/>
+  </commandset>
+
+  <popupset>
+    <tooltip id="greasemonkey-tooltip" onpopupshowing="GM_showTooltip(event);">
+      <label class="greasemonkey-tooltip-version" value="Greasemonkey" />
+      <label class="greasemonkey-tooltip-enabled" />
+      <label class="greasemonkey-tooltip-total" />
+      <label class="greasemonkey-tooltip-active" />
+      <label class="greasemonkey-tooltip-active" />
+    </tooltip>
+  </popupset>
+
+  <toolbarpalette id="BrowserToolbarPalette">
+    <toolbarbutton id="greasemonkey-tbb" type="menu-button"
+      class="toolbarbutton-1 chromeclass-toolbar-additional"
+      command="gm_toggle_enabled"
+      label="Greasemonkey" tooltip="greasemonkey-tooltip">
+      <menupopup id="blank" />
+    </toolbarbutton>
+  </toolbarpalette>
+
+  <popup id="contentAreaContextMenu">
+    <menuitem id="greasemonkey-view-userscript"
+      accesskey="&menu.show.accesskey;"
+      label="&menu.show;"
+      insertbefore="context-bookmarklink"
+      oncommand="GM_BrowserUI.viewContextItemClicked(event);"
+      hidden="true" />
+    <menuseparator id="greasemonkey-install-sep"
+      insertbefore="context-bookmarklink"
+      hidden="true" />
+  </popup>
+
+  <menupopup id="menu_ToolsPopup">
+    <menu id="gm_general_menu" insertafter="devToolsSeparator" />
+  </menupopup>
+
+  <!--
+  NOTE: Unlocalized accesskey & label in menu tags; possibly unaccessible.
+  -->
+  <menu id="gm_general_menu" class="menu-iconic"
+    accesskey="G"
+    label="Greasemonkey">
+    <menupopup
+      onpopupshowing="GM_showPopup(event);"
+      onpopuphiding="GM_hidePopup(event);"
+      onclick="GM_popupClicked(event); event.stopPropagation();"
+      oncommand="GM_popupClicked(event); event.stopPropagation();"
+      oncontextmenu="event.preventDefault();">
+      <menuitem class="gm-enabled-item"
+        accesskey="&statusBar.enabled.accesskey;"
+        label="&statusBar.enabled;"
+        type="checkbox"
+        command="gm_toggle_checked" />
+      <menuseparator />
+      <menu
+        accesskey="&menu.webSites.accesskey;"
+        label="&menu.webSites;">
+        <menupopup>
+          <!--
+          <menuitem
+            label="&menu.webSites.greasespot;"
+            oncommand="GM_BrowserUI.openTab('http://www.greasespot.net/');" />
+          <menuitem
+            label="&menu.webSites.greasespotWiki;"
+            oncommand="GM_BrowserUI.openTab('http://wiki.greasespot.net/');" />
+          -->
+          <menuitem
+            label="&menu.webSites.manual;"
+            oncommand="GM_BrowserUI.openTab('http://wiki.greasespot.net/Greasemonkey_Manual');" />
+          <menuitem
+            label="&menu.webSites.getUserScripts;"
+            oncommand="GM_BrowserUI.openTab('http://wiki.greasespot.net/User_Script_Hosting');" />
+          <!--
+          <menuitem
+            label="&menu.webSites.getUserScripts;"
+            oncommand="GM_BrowserUI.openTab(GM_CONSTANTS.dataUserScriptHosting);" />
+          -->
+        </menupopup>
+      </menu>
+      <menuseparator />
+      <menuitem
+        accesskey="&menu.options.accesskey;"
+        label="&menu.options;"
+        oncommand="GM_BrowserUI.openOptions();" />
+      <menuitem
+        accesskey="&menu.manage.accesskey;"
+        label="&menu.manage;"
+        oncommand="GM_OpenScriptsMgr();" />
+      <menuitem
+        accesskey="&menu.new.accesskey;"
+        label="&menu.new;"
+        oncommand="GM_util.newUserScript(window);" />
+      <menu
+        accesskey="&menu.commands.accesskey;"
+        label="&menu.commands;">
+        <menupopup class="greasemonkey-user-script-commands-popup" />
+      </menu>
+
+      <menuseparator />
+      <menuseparator class="scripts-top-point" collapsed="true" />
+      <menuseparator class="scripts-sep" collapsed="true" />
+      <menuseparator class="scripts-framed-point" collapsed="true" />
+      <menuseparator collapsed="true" />
+      <menuitem class="no-scripts" label="&greasemonkey.noScriptShere;"
+        disabled="true" />
+    </menupopup>
+  </menu>
+
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="gm-browser-bundle"
+      src="chrome://greasemonkey/locale/gmBrowser.properties" />
+  </stringbundleset>
+
+</overlay>

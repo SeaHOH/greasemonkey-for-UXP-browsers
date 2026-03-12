@@ -1,0 +1,30 @@
+<!ENTITY edit "Redigera">
+<!ENTITY edit.accesskey "R">
+<!ENTITY edit.tooltip "Redigera detta användarskript">
+<!ENTITY executeFirst "Kör först">
+<!ENTITY executeLast "Kör sist">
+<!ENTITY executeLater "Kör senare">
+<!ENTITY executeSooner "Kör tidigare">
+<!ENTITY findUpdate "Sök efter uppdatering">
+<!ENTITY forcedFindUpdate "Tvingad sökning efter uppdateringar">
+<!ENTITY installUpdate "Installera uppdatering">
+<!ENTITY moveDown "Flytta nedåt">
+<!ENTITY moveDown.accesskey "n">
+<!ENTITY moveToBottom "Flytta nederst">
+<!ENTITY moveToBottom.accesskey "e">
+<!ENTITY moveToTop "Flytta överst">
+<!ENTITY moveToTop.accesskey "ö">
+<!ENTITY moveUp "Flytta uppåt">
+<!ENTITY moveUp.accesskey "u">
+<!ENTITY newScript "Skapa nytt skript">
+<!ENTITY newScript.accesskey "S">
+<!ENTITY show "Öppna objektets mapp">
+<!ENTITY show.accesskey "p">
+<!ENTITY sort.byExecution "Sortera efter körningsordning">
+<!ENTITY sort.byName "Sortera efter namn">
+<!ENTITY sort.byNamespace "Sort by namespace">
+<!ENTITY sort.byStatus "Sortera efter status">
+<!ENTITY sort.execution "Körningsordning">
+<!ENTITY sort.name "Namn">
+<!ENTITY sort.namespace "Namespace">
+<!ENTITY sort.status "Status">

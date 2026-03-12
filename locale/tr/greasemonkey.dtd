@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Kullanıcı Betikleri için Pale Moon Eşitlemeyi Etkinleştir">
+<!ENTITY greasemonkey.getUserScripts "Kullanıcı betikleri al">
+<!ENTITY greasemonkey.noScriptShere "Bu sayfada çalışan yüklenmiş betikler yok.">
+<!ENTITY greasemonkey.youHaveNoScripts "Yüklü bir kullanıcı betiğiniz yok">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "çalışmaz:">
+<!ENTITY install.downloadError "İndirme Hatası">
+<!ENTITY install.installButton "Kur">
+<!ENTITY install.matches "eşleşen:">
+<!ENTITY install.runsOn "çalışır:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Betik Kaynağını Göster">
+<!ENTITY install.title "Greasemonkey Kurulumu">
+<!ENTITY install.warning1 "Kötü amaçlı betikler gizliliğinizi ihlal edebilir ve sizin bilginiz olmadan sizin adınıza hareket edebilir.">
+<!ENTITY install.warning2 "Yalnızca güvendiğiniz kaynaklardan gelen betikleri yükleyin.">
+<!ENTITY loading "İndirliyor">
+<!ENTITY menu.commands "Kullanıcı Betik Komutları">
+<!ENTITY menu.commands.accesskey "C">
+<!ENTITY menu.install "Kullacı Betiği yükle">
+<!ENTITY menu.install.accesskey "I">
+<!ENTITY menu.manage "Kullanıcı Betiklerini Yönet">
+<!ENTITY menu.manage.accesskey "M">
+<!ENTITY menu.new "Yeni Kullanıcı Betiği">
+<!ENTITY menu.new.accesskey "N">
+<!ENTITY menu.options "Greasemonkey Seçenekleri">
+<!ENTITY menu.options.accesskey "O">
+<!ENTITY menu.show "Kullanıcı betik kaynağını gör">
+<!ENTITY menu.show.accesskey "V">
+<!ENTITY menu.webSites "Web siteleri">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Kullanıcı Betikleri Al">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot Blog">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey Kılavuzu">
+<!ENTITY newScript.description "Tanım">
+<!ENTITY newScript.excludes "Çıkarılanlar (satır başına bir tane)">
+<!ENTITY newScript.fromClipboard "Panodan Betik Kullan">
+<!ENTITY newScript.includes "Eklenenler (satır başına bir tane)">
+<!ENTITY newScript.name "İsim">
+<!ENTITY newScript.namespace "İsim alanı">
+<!ENTITY options.browseForEditor "Düzenleyici Program Bul">
+<!ENTITY options.defaultEditor "Varsayılan Düzenleyi Kullan">
+<!ENTITY options.editor "Editör">
+<!ENTITY options.experimental "Deneysel">
+<!ENTITY options.globalExcludes "Global Çıkarılanlar">
+<!ENTITY options.newScript.removeUnused "Kullanılmayan satırları sil">
+<!ENTITY options.newScript.template "Yeni betik şablonu">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Gerekli güvenlik güncellemeleri">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "Betik Ayarları">
+<!ENTITY scriptPrefs.title "Greasemonkey Kullanıcı Betik Tercihleri -!!">
+<!ENTITY scriptPrefs.userSettings "Kullanıcı Ayarları">
+<!ENTITY statusBar.enabled "Etkin">
+<!ENTITY statusBar.enabled.accesskey "E">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "Kaldır">
+<!ENTITY updateChecking "Güncelleştirme Kontrol Ediliyor">

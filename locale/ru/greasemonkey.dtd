@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Включить Pale Moon Sync для пользовательских скриптов">
+<!ENTITY greasemonkey.getUserScripts "Скачать скрипты">
+<!ENTITY greasemonkey.noScriptShere "Для этой страницы нет скриптов">
+<!ENTITY greasemonkey.youHaveNoScripts "У вас не установлено ни одного скрипта">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "Исключаемые адреса:">
+<!ENTITY install.downloadError "Ошибка загрузки">
+<!ENTITY install.installButton "Начать установку">
+<!ENTITY install.matches "совпадений:">
+<!ENTITY install.runsOn "Охватываемые адреса:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Показать код скрипта">
+<!ENTITY install.title "Установка скриптов Greasemonkey">
+<!ENTITY install.warning1 "Вредоносные скрипты могут собирать конфиденциальную информацию и действовать от вашего имени.">
+<!ENTITY install.warning2 "Устанавливайте скрипты только из доверенных источников.">
+<!ENTITY loading "Загрузка...">
+<!ENTITY menu.commands "Команды скриптов">
+<!ENTITY menu.commands.accesskey "м">
+<!ENTITY menu.install "Установить скрипт…">
+<!ENTITY menu.install.accesskey "и">
+<!ENTITY menu.manage "Управление скриптами...">
+<!ENTITY menu.manage.accesskey "п">
+<!ENTITY menu.new "Создать скрипт…">
+<!ENTITY menu.new.accesskey "с">
+<!ENTITY menu.options "Настройки Greasemonkey...">
+<!ENTITY menu.options.accesskey "O">
+<!ENTITY menu.show "Показать код скрипта">
+<!ENTITY menu.show.accesskey "о">
+<!ENTITY menu.webSites "Сайт">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Получить пользовательские скрипты">
+<!--
+<!ENTITY menu.webSites.greasespot "Блог Greasespot">
+<!ENTITY menu.webSites.greasespotWiki "Вики Greasespot">
+-->
+<!ENTITY menu.webSites.manual "Мануал по Greasemonkey">
+<!ENTITY newScript.description "Описание">
+<!ENTITY newScript.excludes "Исключения (одно на строку)">
+<!ENTITY newScript.fromClipboard "Использовать скрипт из буфера обмена">
+<!ENTITY newScript.includes "Включения (одно на строку)">
+<!ENTITY newScript.name "Название">
+<!ENTITY newScript.namespace "Пространство имен">
+<!ENTITY options.browseForEditor "Выбрать свой редактор">
+<!ENTITY options.defaultEditor "Редактор по умолчанию">
+<!ENTITY options.editor "Редактор">
+<!ENTITY options.experimental "Экспериментально">
+<!ENTITY options.globalExcludes "Глобальные исключения">
+<!ENTITY options.newScript.removeUnused "Удаление неиспользуемых линий">
+<!ENTITY options.newScript.template "Новый шаблон скрипта">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Использовать безопасное обновление">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "Настройки скрипта">
+<!ENTITY scriptPrefs.title "Настройки пользовательских скриптов Greasemonkey - !!">
+<!ENTITY scriptPrefs.userSettings "Пользовательские настройки">
+<!ENTITY statusBar.enabled "Включить Greasemonkey">
+<!ENTITY statusBar.enabled.accesskey "к">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "Удаление">
+<!ENTITY updateChecking "Проверка обновлений">

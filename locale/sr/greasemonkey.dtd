@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Enable Pale Moon Sync for User Scripts">
+<!ENTITY greasemonkey.getUserScripts "Набави корисничке скрипте">
+<!ENTITY greasemonkey.noScriptShere "Ниједна скрипта се не покреће на овој станици">
+<!ENTITY greasemonkey.youHaveNoScripts "Није инсталирана ни једна корисничка скрипта">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "не покреће се на:">
+<!ENTITY install.downloadError "Грешка приликом преузимања">
+<!ENTITY install.installButton "Инсталирај">
+<!ENTITY install.matches "тражи:">
+<!ENTITY install.runsOn "покреће се на:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Прикажи изворни кôд скрипте">
+<!ENTITY install.title "Greasemonkey - инсталација">
+<!ENTITY install.warning1 "Сумњиве скрипте могу нарушити вашу приватност или деловати мимо вашег знања.">
+<!ENTITY install.warning2 "Скрипте требате инсталирати само са проверених извора.">
+<!ENTITY loading "Преузимање...">
+<!ENTITY menu.commands "Наредбе корисничких скрипти...">
+<!ENTITY menu.commands.accesskey "Н">
+<!ENTITY menu.install "Инсталирај корисничку скрипту...">
+<!ENTITY menu.install.accesskey "И">
+<!ENTITY menu.manage "Управљање корисничким скриптама…">
+<!ENTITY menu.manage.accesskey "У">
+<!ENTITY menu.new "Нова корисничка скрипта...">
+<!ENTITY menu.new.accesskey "Н">
+<!ENTITY menu.options "Опције…">
+<!ENTITY menu.options.accesskey "O">
+<!ENTITY menu.show "Погледај изворни кôд скрипте">
+<!ENTITY menu.show.accesskey "П">
+<!ENTITY menu.webSites "Странице...">
+<!ENTITY menu.webSites.accesskey "С">
+<!ENTITY menu.webSites.getUserScripts "Get User Scripts">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot блог">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot вики">
+-->
+<!ENTITY menu.webSites.manual "Greasespot приручник">
+<!ENTITY newScript.description "Опис">
+<!ENTITY newScript.excludes "Изузима (једно по линији)">
+<!ENTITY newScript.fromClipboard "Користи скрипту из оставе">
+<!ENTITY newScript.includes "Обухвата (једно по линији)">
+<!ENTITY newScript.name "Име">
+<!ENTITY newScript.namespace "Namespace">
+<!ENTITY options.browseForEditor "Потражи уређивач">
+<!ENTITY options.defaultEditor "Користи подразумевани уређивач">
+<!ENTITY options.editor "Уређивач">
+<!ENTITY options.experimental "Experimental">
+<!ENTITY options.globalExcludes "Општа изузимања">
+<!ENTITY options.newScript.removeUnused "Remove unused lines">
+<!ENTITY options.newScript.template "New script template">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Тражи безбедносна ажурирања">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "Подешавања скрипте">
+<!ENTITY scriptPrefs.title "Подешавања корисничких скрипти за Greasemonkey">
+<!ENTITY scriptPrefs.userSettings "Корисничка подешавања">
+<!ENTITY statusBar.enabled "Омогућен">
+<!ENTITY statusBar.enabled.accesskey "о">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "Уклони">
+<!ENTITY updateChecking "Проверавање ажурирања">

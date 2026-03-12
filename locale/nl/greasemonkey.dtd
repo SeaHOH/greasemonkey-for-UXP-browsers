@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Pale Moon Sync voor gebruikersscript activeren">
+<!ENTITY greasemonkey.getUserScripts "Gebruikersscripts verkrijgen">
+<!ENTITY greasemonkey.noScriptShere "Op deze pagina draaien geen geïnstalleerde scripts.">
+<!ENTITY greasemonkey.youHaveNoScripts "Er zijn geen gebruikersscripts geïnstalleerd">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "draait niet op:">
+<!ENTITY install.downloadError "Downloadfout">
+<!ENTITY install.installButton "Installeren">
+<!ENTITY install.matches "overeenkomsten:">
+<!ENTITY install.runsOn "draait op:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Scriptbron weergeven">
+<!ENTITY install.title "Greasemonkey-installatie">
+<!ENTITY install.warning1 "Kwaadaardige programmatuur kan uw privacy schenden en namens u handelen zonder uw medeweten.">
+<!ENTITY install.warning2 "Installeer alleen scripts van auteurs die u vertrouwt.">
+<!ENTITY loading "Downloaden…">
+<!ENTITY menu.commands "Gebruikersscriptopdrachten…">
+<!ENTITY menu.commands.accesskey "r">
+<!ENTITY menu.install "Gebruikersscript installeren…">
+<!ENTITY menu.install.accesskey "S">
+<!ENTITY menu.manage "Gebruikersscripts beheren…">
+<!ENTITY menu.manage.accesskey "u">
+<!ENTITY menu.new "Nieuw gebruikersscript…">
+<!ENTITY menu.new.accesskey "N">
+<!ENTITY menu.options "Greasemonkey-opties…">
+<!ENTITY menu.options.accesskey "o">
+<!ENTITY menu.show "Broncode van gebruikersscript bekijken">
+<!ENTITY menu.show.accesskey "k">
+<!ENTITY menu.webSites "Websites…">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Verkrijg gebruikersscripts">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot Blog">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey-handleiding">
+<!ENTITY newScript.description "Beschrijving">
+<!ENTITY newScript.excludes "Sluit uit (één per regel)">
+<!ENTITY newScript.fromClipboard "Script van klembord gebruiken">
+<!ENTITY newScript.includes "Beïnvloedt (één per regel)">
+<!ENTITY newScript.name "Naam">
+<!ENTITY newScript.namespace "Namespace">
+<!ENTITY options.browseForEditor "Naar bewerkingsprogramma bladeren">
+<!ENTITY options.defaultEditor "Standaard bewerkingsprogramma gebruiken">
+<!ENTITY options.editor "Tekstverwerker">
+<!ENTITY options.experimental "Experimenteel">
+<!ENTITY options.globalExcludes "Sluit globaal uit">
+<!ENTITY options.newScript.removeUnused "Ongebruikte regels verwijderen">
+<!ENTITY options.newScript.template "Nieuw scriptsjabloon">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Beveiligde updates vereisen">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "Scriptinstellingen">
+<!ENTITY scriptPrefs.title "Greasemonkey-gebruikersscriptvoorkeuren - !!">
+<!ENTITY scriptPrefs.userSettings "Gebruikersinstellingen">
+<!ENTITY statusBar.enabled "Ingeschakeld">
+<!ENTITY statusBar.enabled.accesskey "I">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "Deïnstalleren">
+<!ENTITY updateChecking "Updatecontrole">

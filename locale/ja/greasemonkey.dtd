@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Pale Moon Sync でユーザスクリプトを同期する">
+<!ENTITY greasemonkey.getUserScripts "ユーザースクリプトを入手">
+<!ENTITY greasemonkey.noScriptShere "このページで実行するスクリプトはインストールされていません。">
+<!ENTITY greasemonkey.youHaveNoScripts "スクリプトがインストールされていません">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "実行しないページ:">
+<!ENTITY install.downloadError "ダウンロードエラー">
+<!ENTITY install.installButton "インストール">
+<!ENTITY install.matches "一致:">
+<!ENTITY install.runsOn "実行するページ:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "スクリプトのソースを表示">
+<!ENTITY install.title "Greasemonkey インストール">
+<!ENTITY install.warning1 "悪意のあるスクリプトはあなたのプライバシーを侵害し、知らぬ間にあなたになりすまして動作することがあります。">
+<!ENTITY install.warning2 "信頼できるスクリプトのみインストールすべきです。">
+<!ENTITY loading "ダウンロード中...">
+<!ENTITY menu.commands "ユーザスクリプトコマンド...">
+<!ENTITY menu.commands.accesskey "C">
+<!ENTITY menu.install "ユーザスクリプトをインストール...">
+<!ENTITY menu.install.accesskey "I">
+<!ENTITY menu.manage "ユーザスクリプトの管理...">
+<!ENTITY menu.manage.accesskey "M">
+<!ENTITY menu.new "ユーザスクリプト新規作成...">
+<!ENTITY menu.new.accesskey "N">
+<!ENTITY menu.options "Greasemonkey オプション...">
+<!ENTITY menu.options.accesskey "O">
+<!ENTITY menu.show "スクリプトのソースを表示">
+<!ENTITY menu.show.accesskey "V">
+<!ENTITY menu.webSites "Web サイト...">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "ユーザースクリプトを入手">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot ブログ">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey マニュアル">
+<!ENTITY newScript.description "説明">
+<!ENTITY newScript.excludes "実行しないページ (改行で複数指定)">
+<!ENTITY newScript.fromClipboard "クリップボードのスクリプトを使用する">
+<!ENTITY newScript.includes "実行するページ (改行で複数指定)">
+<!ENTITY newScript.name "名前">
+<!ENTITY newScript.namespace "名前空間">
+<!ENTITY options.browseForEditor "エディタプログラムを参照">
+<!ENTITY options.defaultEditor "標準のエディタを使用">
+<!ENTITY options.editor "エディタ">
+<!ENTITY options.experimental "実験的機能">
+<!ENTITY options.globalExcludes "実行しないページ">
+<!ENTITY options.newScript.removeUnused "未使用の行を削除">
+<!ENTITY options.newScript.template "新規スクリプトのテンプレート">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "安全に更新">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "スクリプト設定">
+<!ENTITY scriptPrefs.title "Greasemonkey ユーザースクリプト設定 - !!">
+<!ENTITY scriptPrefs.userSettings "ユーザー設定">
+<!ENTITY statusBar.enabled "有効">
+<!ENTITY statusBar.enabled.accesskey "E">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "削除">
+<!ENTITY updateChecking "更新の確認">

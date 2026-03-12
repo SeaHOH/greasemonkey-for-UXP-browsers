@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Enable Pale Moon Sync for User Scripts">
+<!ENTITY greasemonkey.getUserScripts "Gauti naudotojo scenarijų">
+<!ENTITY greasemonkey.noScriptShere "Nėra įdiegtų scenarijų kurie veiktų šiame puslapyje.">
+<!ENTITY greasemonkey.youHaveNoScripts "Jūs neturite įdiegtų scenarijų">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "neveikia:">
+<!ENTITY install.downloadError "Download Error">
+<!ENTITY install.installButton "Įdiegti">
+<!ENTITY install.matches "atitinka:">
+<!ENTITY install.runsOn "veikia:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Rodyti scenarijaus pradinį kodą">
+<!ENTITY install.title "Greasemonkey įdiegimas">
+<!ENTITY install.warning1 "Piktavaliai scenarijai gali pažeisti jūsų privatumą ir veikti jūsų vardu jums to nė nežinant.">
+<!ENTITY install.warning2 "Scenarijus turėtumėte diegti tik iš patikimų šaltinių.">
+<!ENTITY loading "Parsiunčiama...">
+<!ENTITY menu.commands "Naudotojo scenarijaus komandos...">
+<!ENTITY menu.commands.accesskey "K">
+<!ENTITY menu.install "Įdiegti naudotojo scenarijų...">
+<!ENTITY menu.install.accesskey "I">
+<!ENTITY menu.manage "Tvarkyti naudotojo scenarijus...">
+<!ENTITY menu.manage.accesskey "T">
+<!ENTITY menu.new "Naujas naudotojo scenarijus...">
+<!ENTITY menu.new.accesskey "N">
+<!ENTITY menu.options "Greasemonkey pasirinktys...">
+<!ENTITY menu.options.accesskey "p">
+<!ENTITY menu.show "Peržiūrėti naudotojo scenarijaus pradinį kodą">
+<!ENTITY menu.show.accesskey "S">
+<!ENTITY menu.webSites "Web sites...">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Get User Scripts">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot Blog">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey Manual">
+<!ENTITY newScript.description "Aprašymas">
+<!ENTITY newScript.excludes "Kuriuose neveikia (po vieną eilutėj)">
+<!ENTITY newScript.fromClipboard "Use Script From Clipboard">
+<!ENTITY newScript.includes "Kuriuose veikia (po vieną eilutėj)">
+<!ENTITY newScript.name "Pavadinimas">
+<!ENTITY newScript.namespace "Vardų sritis">
+<!ENTITY options.browseForEditor "Browse for Editor Program">
+<!ENTITY options.defaultEditor "Use Default Editor">
+<!ENTITY options.editor "Redaktorius">
+<!ENTITY options.experimental "Experimental">
+<!ENTITY options.globalExcludes "Nevykdomi visur">
+<!ENTITY options.newScript.removeUnused "Remove unused lines">
+<!ENTITY options.newScript.template "New script template">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Reikalauti saugumo atnaujinimų">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "Scenarijaus nustatymai">
+<!ENTITY scriptPrefs.title "Greasemonkey naudotojo scenarijų nustatymai - !!">
+<!ENTITY scriptPrefs.userSettings "Naudotojo nustatymai">
+<!ENTITY statusBar.enabled "Įjungta">
+<!ENTITY statusBar.enabled.accesskey "I">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "Pašalinti">
+<!ENTITY updateChecking "Atnaujinimų tikrinimas">

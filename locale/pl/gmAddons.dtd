@@ -1,0 +1,30 @@
+<!ENTITY edit "Edytuj">
+<!ENTITY edit.accesskey "E">
+<!ENTITY edit.tooltip "Edytuj ten skrypt">
+<!ENTITY executeFirst "Wykonaj jako pierwszy">
+<!ENTITY executeLast "Wykonaj jako ostatni">
+<!ENTITY executeLater "Wykonaj później">
+<!ENTITY executeSooner "Wykonaj wcześniej">
+<!ENTITY findUpdate "Znajdź aktualizację">
+<!ENTITY forcedFindUpdate "Wymuś znalezienie aktualizacji">
+<!ENTITY installUpdate "Zainstaluj aktualizację">
+<!ENTITY moveDown "Przenieś w dół">
+<!ENTITY moveDown.accesskey "P">
+<!ENTITY moveToBottom "Przenieś na dół">
+<!ENTITY moveToBottom.accesskey "D">
+<!ENTITY moveToTop "Przenieś na górę">
+<!ENTITY moveToTop.accesskey "G">
+<!ENTITY moveUp "Przenieś w górę">
+<!ENTITY moveUp.accesskey "R">
+<!ENTITY newScript "Utwórz nowy skrypt">
+<!ENTITY newScript.accesskey "U">
+<!ENTITY show "Wyświetl folder skryptów">
+<!ENTITY show.accesskey "W">
+<!ENTITY sort.byExecution "Porządkuj wg kolejności wykonania">
+<!ENTITY sort.byName "Porządkuj wg nazwy">
+<!ENTITY sort.byNamespace "Sort by namespace">
+<!ENTITY sort.byStatus "Porządkuj wg statusu">
+<!ENTITY sort.execution "Kolejność wykonania">
+<!ENTITY sort.name "Nazwa">
+<!ENTITY sort.namespace "Namespace">
+<!ENTITY sort.status "Status">

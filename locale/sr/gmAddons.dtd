@@ -1,0 +1,30 @@
+<!ENTITY edit "Уреди">
+<!ENTITY edit.accesskey "У">
+<!ENTITY edit.tooltip "Уреди ову корисничку скрипту">
+<!ENTITY executeFirst "Изврши прву">
+<!ENTITY executeLast "Изврши последњу">
+<!ENTITY executeLater "Изврши касније">
+<!ENTITY executeSooner "Изврши раније">
+<!ENTITY findUpdate "Пронађи исправке">
+<!ENTITY forcedFindUpdate "Forced Find Updates">
+<!ENTITY installUpdate "Инсталирај исправку">
+<!ENTITY moveDown "Помери надоле">
+<!ENTITY moveDown.accesskey "л">
+<!ENTITY moveToBottom "Помери на дно">
+<!ENTITY moveToBottom.accesskey "Д">
+<!ENTITY moveToTop "Помери на врх">
+<!ENTITY moveToTop.accesskey "В">
+<!ENTITY moveUp "Помери нагоре">
+<!ENTITY moveUp.accesskey "Г">
+<!ENTITY newScript "Направи нову скрипту">
+<!ENTITY newScript.accesskey "Н">
+<!ENTITY show "Прикажи фасциклу у којој се налази">
+<!ENTITY show.accesskey "Ф">
+<!ENTITY sort.byExecution "Поређај по редоследу извршавања">
+<!ENTITY sort.byName "Поређај по називу">
+<!ENTITY sort.byNamespace "Sort by namespace">
+<!ENTITY sort.byStatus "Поређај по стању">
+<!ENTITY sort.execution "Ред. извршавања">
+<!ENTITY sort.name "Назив">
+<!ENTITY sort.namespace "Namespace">
+<!ENTITY sort.status "Стање">

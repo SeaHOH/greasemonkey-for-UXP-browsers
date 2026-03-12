@@ -1,0 +1,15 @@
+<!ENTITY button.add "Adicionar...">
+<!ENTITY button.addUserExclude "Adicionar como exclusão do utilizador">
+<!ENTITY button.addUserInclude "Adicionar como inclusão do utilizador">
+<!ENTITY button.addUserMatch "Adicionar como correspondência do utilizador">
+<!ENTITY button.edit "Editar...">
+<!ENTITY button.remove "Remover">
+<!ENTITY checkbox.grpOverride "Disable this script's rules and only use the user defined ones">
+<!ENTITY label.grpExcluded "Páginas excluídas">
+<!ENTITY label.grpIncluded "Páginas incluídas">
+<!ENTITY label.grpMatched "Páginas correspondidas">
+<!ENTITY promptForEdit.msg "Modifique o URL da página abaixo. Pode abranger múltiplas páginas utilizando o caráter asterisco (*).">
+<!ENTITY promptForEdit.title "Editar página">
+<!ENTITY promptForNewPage.defVal "http://example.com/*">
+<!ENTITY promptForNewPage.msg "Introduza um novo URL abaixo. Pode abranger múltiplas páginas utilizando o caráter asterisco (*).">
+<!ENTITY promptForNewPage.title "Adicionar página">

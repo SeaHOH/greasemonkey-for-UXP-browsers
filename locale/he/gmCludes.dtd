@@ -1,0 +1,15 @@
+<!ENTITY button.add "הוסף...">
+<!ENTITY button.addUserExclude "הוסף סקריפט משתמש כלא כלול">
+<!ENTITY button.addUserInclude "הוסף סקריפט  משתמש ככלול">
+<!ENTITY button.addUserMatch "Add as user match">
+<!ENTITY button.edit "ערוך...">
+<!ENTITY button.remove "הסר">
+<!ENTITY checkbox.grpOverride "מנע קובץ script והשתמש רק באלה המוגדרים ע"י המשתמש">
+<!ENTITY label.grpExcluded "אל תכלול דפים">
+<!ENTITY label.grpIncluded "כלול דפים">
+<!ENTITY label.grpMatched "Matched Pages">
+<!ENTITY promptForEdit.msg "שנה את כתובת הדף. ניתן לציין דפים מרובים ע&quot;י שימוש בתו *.">
+<!ENTITY promptForEdit.title "ערוך דף">
+<!ENTITY promptForNewPage.defVal "http://example.com/*">
+<!ENTITY promptForNewPage.msg "הכנס כתובת אינטרנט חדשה. ניתן לציין דפים מרובים ע&quot;י שימוש בתו *.">
+<!ENTITY promptForNewPage.title "הוסף דף">

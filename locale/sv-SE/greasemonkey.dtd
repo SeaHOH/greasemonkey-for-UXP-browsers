@@ -1,0 +1,60 @@
+<!ENTITY enableSync "Aktivera Pale Moon Sync för användarskript">
+<!ENTITY greasemonkey.getUserScripts "Hämta användarskript">
+<!ENTITY greasemonkey.noScriptShere "Inga installerade skript körs på denna sida.">
+<!ENTITY greasemonkey.youHaveNoScripts "Du har inga installerade användarskript">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "kör inte på:">
+<!ENTITY install.downloadError "Filhämtningsfel">
+<!ENTITY install.installButton "Installera">
+<!ENTITY install.matches "matchar:">
+<!ENTITY install.runsOn "kör på:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "Visa skriptkällkod">
+<!ENTITY install.title "Installation av Greasemonkey">
+<!ENTITY install.warning1 "Skadliga skript kan inkräkta på ditt privatliv och agera för din räkning utan din vetskap.">
+<!ENTITY install.warning2 "Du bör endast installera skript från källor som du litar på.">
+<!ENTITY loading "Hämtar…">
+<!ENTITY menu.commands "Användarskriptkommandon…">
+<!ENTITY menu.commands.accesskey "k">
+<!ENTITY menu.install "Installera användarskript…">
+<!ENTITY menu.install.accesskey "I">
+<!ENTITY menu.manage "Hantera användarskript…">
+<!ENTITY menu.manage.accesskey "H">
+<!ENTITY menu.new "Nytt användarskript…">
+<!ENTITY menu.new.accesskey "N">
+<!ENTITY menu.options "Inställningar för Greasemonkey…">
+<!ENTITY menu.options.accesskey "G">
+<!ENTITY menu.show "Visa användarskriptkällkod">
+<!ENTITY menu.show.accesskey "V">
+<!ENTITY menu.webSites "Webbplatser…">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "Get User Scripts">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespots blogg">
+<!ENTITY menu.webSites.greasespotWiki "Greasespots wiki">
+-->
+<!ENTITY menu.webSites.manual "Handbok för Greasemonkey">
+<!ENTITY newScript.description "Beskrivning">
+<!ENTITY newScript.excludes "Undantag (ett per rad)">
+<!ENTITY newScript.fromClipboard "Använd skript från Urklipp">
+<!ENTITY newScript.includes "Inkluderingar (ett per rad)">
+<!ENTITY newScript.name "Namn">
+<!ENTITY newScript.namespace "Namnrymd">
+<!ENTITY options.browseForEditor "Bläddra efter redigeringsprogram">
+<!ENTITY options.defaultEditor "Använd standardredigeringsprogrammet">
+<!ENTITY options.editor "Redigeringsprogram">
+<!ENTITY options.experimental "Experimentell">
+<!ENTITY options.globalExcludes "Globala undantag">
+<!ENTITY options.newScript.removeUnused "Ta bort oanvända rader">
+<!ENTITY options.newScript.template "Ny skriptmall">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "Kräv säkra uppdateringar">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "Skriptinställningar">
+<!ENTITY scriptPrefs.title "Inställningar för användarskript i Greasemonkey - !!">
+<!ENTITY scriptPrefs.userSettings "Användarinställningar">
+<!ENTITY statusBar.enabled "Aktiverat">
+<!ENTITY statusBar.enabled.accesskey "A">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "Avinstallera">
+<!ENTITY updateChecking "Uppdateringskontroll">

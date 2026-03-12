@@ -1,0 +1,60 @@
+<!ENTITY enableSync "使用 Pale Moon Sync 來同步使用者腳本">
+<!ENTITY greasemonkey.getUserScripts "取得使用者腳本">
+<!ENTITY greasemonkey.noScriptShere "沒有任何在此頁面執行的腳本。">
+<!ENTITY greasemonkey.youHaveNoScripts "您尚未安裝任何腳本">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "不執行於:">
+<!ENTITY install.downloadError "下載錯誤">
+<!ENTITY install.installButton "安裝">
+<!ENTITY install.matches "符合:">
+<!ENTITY install.runsOn "執行於:">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "顯示腳本來源">
+<!ENTITY install.title "Greasemonkey 安裝">
+<!ENTITY install.warning1 "惡意的腳本可能會危害您的隱私，並在您不知情的情況下以您的名義執行。">
+<!ENTITY install.warning2 "您應該只安裝來自可信任來源的使用者腳本。">
+<!ENTITY loading "下載中…">
+<!ENTITY menu.commands "使用者腳本指令…">
+<!ENTITY menu.commands.accesskey "C">
+<!ENTITY menu.install "安裝使用者腳本…">
+<!ENTITY menu.install.accesskey "I">
+<!ENTITY menu.manage "管理使用者腳本…">
+<!ENTITY menu.manage.accesskey "M">
+<!ENTITY menu.new "新使用者腳本…">
+<!ENTITY menu.new.accesskey "N">
+<!ENTITY menu.options "Greasemonkey 選項…">
+<!ENTITY menu.options.accesskey "O">
+<!ENTITY menu.show "檢視使用者腳本原始碼">
+<!ENTITY menu.show.accesskey "V">
+<!ENTITY menu.webSites "網站…">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "下載使用者腳本">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot 部落格">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey 說明書">
+<!ENTITY newScript.description "說明">
+<!ENTITY newScript.excludes "不包含（每行一項）">
+<!ENTITY newScript.fromClipboard "使用剪貼簿中的腳本">
+<!ENTITY newScript.includes "包含（每行一項）">
+<!ENTITY newScript.name "名稱">
+<!ENTITY newScript.namespace "命名空間">
+<!ENTITY options.browseForEditor "瀏覽編輯程式">
+<!ENTITY options.defaultEditor "使用預設編輯器">
+<!ENTITY options.editor "腳本編輯器">
+<!ENTITY options.experimental "實驗中">
+<!ENTITY options.globalExcludes "全域排除">
+<!ENTITY options.newScript.removeUnused "移除未使用的行">
+<!ENTITY options.newScript.template "新腳本範本">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "要求透過安全通道更新">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "腳本設定值">
+<!ENTITY scriptPrefs.title "Greasemonkey 使用者腳本偏好設定 - !!">
+<!ENTITY scriptPrefs.userSettings "使用者設定值">
+<!ENTITY statusBar.enabled "已啟用">
+<!ENTITY statusBar.enabled.accesskey "E">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "腳本移除設定">
+<!ENTITY updateChecking "檢查更新">

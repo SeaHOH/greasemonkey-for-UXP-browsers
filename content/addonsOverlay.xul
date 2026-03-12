@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://greasemonkey/skin/addons.css"
+  type="text/css"?>
+<?xml-stylesheet href="chrome://greasemonkey/content/thirdParty/addons.css"
+  type="text/css"?>
+
+<!DOCTYPE overlay [
+  <!ENTITY % extensionsDTD SYSTEM
+    "chrome://mozapps/locale/extensions/extensions.dtd">
+  <!ENTITY % greasemonkeyAddonsDTD SYSTEM
+    "chrome://greasemonkey/locale/gmAddons.dtd">
+  <!ENTITY % greasemonkeyDTD SYSTEM
+    "chrome://greasemonkey/locale/greasemonkey.dtd">
+  %extensionsDTD;
+  %greasemonkeyAddonsDTD;
+  %greasemonkeyDTD;
+]>
+
+<overlay id="greasemonkey-browser-overlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script type="application/x-javascript"
+  src="chrome://greasemonkey/content/addonsOverlay.js" />
+<script type="application/x-javascript"
+  src="chrome://greasemonkey/content/thirdParty/mplUtils.js" />
+
+<commandset id="viewCommandSet">
+  <command id="cmd_userscript_edit" />
+  <command id="cmd_userscript_show" />
+  <command id="cmd_userscript_execute_first" />
+  <command id="cmd_userscript_execute_sooner" />
+  <command id="cmd_userscript_execute_later" />
+  <command id="cmd_userscript_execute_last" />
+  <command id="cmd_userscript_showItemPreferences" />
+  <command id="cmd_userscript_forcedFindItemUpdates" />
+</commandset>
+
+<menupopup id="addonitem-popup">
+  <menuitem command="cmd_userscript_edit"
+    label="&edit;" accesskey="&edit.accesskey;" class="greasemonkey" />
+  <menuitem command="cmd_userscript_show"
+    label="&show;" accesskey="&show.accesskey;" class="greasemonkey" />
+  <menuseparator class="greasemonkey" />
+  <menuitem command="cmd_userscript_execute_first"
+    label="&executeFirst;" class="greasemonkey" />
+  <menuitem command="cmd_userscript_execute_sooner"
+    label="&executeSooner;" class="greasemonkey" />
+  <menuitem command="cmd_userscript_execute_later"
+    label="&executeLater;" class="greasemonkey" />
+  <menuitem command="cmd_userscript_execute_last"
+    label="&executeLast;" class="greasemonkey" />
+
+  <menuseparator class="greasemonkey" />
+
+  <!-- Default find updates item. -->
+  <menuitem command="cmd_findItemUpdates" class="greasemonkey"
+    label="&cmd.findUpdates.label;" accesskey="&cmd.findUpdates.accesskey;" />
+  <!-- Custom forced find updates item. -->
+  <menuitem command="cmd_userscript_forcedFindItemUpdates" class="greasemonkey"
+    label="&forcedFindUpdate;" />
+</menupopup>
+
+<vbox id="list-view">
+  <hbox id="greasemonkey-sort-bar" class="view-header"
+    pack="end" insertbefore="addon-list-empty">
+    <spacer />
+    <label value="&greasemonkey.getUserScripts;" class="text-link"
+      onclick="GM_openUserscriptsOrg();" />
+    <label value="&menu.new;" class="text-link"
+      onclick="GM_util.newUserScript(window);" />
+    <spacer flex="1"/>
+    <button label="&sort.status;" tooltiptext="&sort.byStatus;"
+      class="sorter" sortBy="uiState,name" checkState="2" />
+    <button label="&sort.name;" tooltiptext="&sort.byName;"
+      class="sorter" sortBy="name" />
+    <button label="&sort.namespace;" tooltiptext="&sort.byNamespace;"
+      class="sorter" sortBy="namespace" />
+    <button label="&sort.execution;" tooltiptext="&sort.byExecution;"
+      class="sorter" sortBy="executionIndex" />
+  </hbox>
+
+  <vbox id="user-script-list-empty" insertbefore="addon-list-empty"
+    class="alert-container" flex="1">
+    <spacer class="alert-spacer-before" />
+    <vbox class="alert">
+      <label value="&greasemonkey.youHaveNoScripts;" />
+      <button label="&greasemonkey.getUserScripts;" class="addon-control"
+        oncommand="GM_openUserscriptsOrg();" />
+    </vbox>
+    <spacer class="alert-spacer-after" />
+  </vbox>
+</vbox>
+
+</overlay>

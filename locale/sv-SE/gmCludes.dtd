@@ -1,0 +1,15 @@
+<!ENTITY button.add "Lägg till…">
+<!ENTITY button.addUserExclude "Lägg till som användarundantag">
+<!ENTITY button.addUserInclude "Lägg till som användarinkludering">
+<!ENTITY button.addUserMatch "Add as user match">
+<!ENTITY button.edit "Redigera…">
+<!ENTITY button.remove "Ta bort">
+<!ENTITY checkbox.grpOverride "Inaktivera detta skripts inkluderade mönster och använd endast de användardefinierade mönstren">
+<!ENTITY label.grpExcluded "Undantagna sidor">
+<!ENTITY label.grpIncluded "Inkluderade sidor">
+<!ENTITY label.grpMatched "Matched Pages">
+<!ENTITY promptForEdit.msg "Ändra adressen för sidan nedan. Du kan inkludera flera sidor med jokertecknet (*).">
+<!ENTITY promptForEdit.title "Redigera sida">
+<!ENTITY promptForNewPage.defVal "http://exempel.se/*">
+<!ENTITY promptForNewPage.msg "Skriv in en ny adress nedan. Du kan inkludera flera sidor med jokertecknet (*).">
+<!ENTITY promptForNewPage.title "Lägg till sida">

@@ -1,0 +1,30 @@
+<!ENTITY edit "Bewerken">
+<!ENTITY edit.accesskey "W">
+<!ENTITY edit.tooltip "Dit gebruikersscript bewerken">
+<!ENTITY executeFirst "Als eerste uitvoeren">
+<!ENTITY executeLast "Als laatste uitvoeren">
+<!ENTITY executeLater "Later uitvoeren">
+<!ENTITY executeSooner "Eerder uitvoeren">
+<!ENTITY findUpdate "Update zoeken">
+<!ENTITY forcedFindUpdate "Geforceerd updates zoeken">
+<!ENTITY installUpdate "Update installeren">
+<!ENTITY moveDown "Omlaag">
+<!ENTITY moveDown.accesskey "L">
+<!ENTITY moveToBottom "Onderaan plaatsen">
+<!ENTITY moveToBottom.accesskey "O">
+<!ENTITY moveToTop "Bovenaan plaatsen">
+<!ENTITY moveToTop.accesskey "B">
+<!ENTITY moveUp "Omhoog">
+<!ENTITY moveUp.accesskey "H">
+<!ENTITY newScript "Nieuw script aanmaken">
+<!ENTITY newScript.accesskey "M">
+<!ENTITY show "Map weergeven">
+<!ENTITY show.accesskey "g">
+<!ENTITY sort.byExecution "Op uitvoervolgorde sorteren">
+<!ENTITY sort.byName "Op naam sorteren">
+<!ENTITY sort.byNamespace "Sort by namespace">
+<!ENTITY sort.byStatus "Op status sorteren">
+<!ENTITY sort.execution "Uitvoervolgorde">
+<!ENTITY sort.name "Naam">
+<!ENTITY sort.namespace "Namespace">
+<!ENTITY sort.status "Status">

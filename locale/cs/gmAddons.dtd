@@ -1,0 +1,30 @@
+<!ENTITY edit "Upravit">
+<!ENTITY edit.accesskey "U">
+<!ENTITY edit.tooltip "Upravit tento uživatelský skript">
+<!ENTITY executeFirst "Spouštět jako první">
+<!ENTITY executeLast "Spouštět jako poslední">
+<!ENTITY executeLater "Spouštět později">
+<!ENTITY executeSooner "Spouštět dříve">
+<!ENTITY findUpdate "Aktualizovat">
+<!ENTITY forcedFindUpdate "Aktualizovat - vynuceně">
+<!ENTITY installUpdate "Nainstalovat aktualizace">
+<!ENTITY moveDown "Posunout dolů">
+<!ENTITY moveDown.accesskey "d">
+<!ENTITY moveToBottom "Posunout na konec">
+<!ENTITY moveToBottom.accesskey "k">
+<!ENTITY moveToTop "Posunout na začátek">
+<!ENTITY moveToTop.accesskey "z">
+<!ENTITY moveUp "Posunout nahoru">
+<!ENTITY moveUp.accesskey "n">
+<!ENTITY newScript "Vytvořit nový skript">
+<!ENTITY newScript.accesskey "V">
+<!ENTITY show "Zobrazit složku skriptu">
+<!ENTITY show.accesskey "Z">
+<!ENTITY sort.byExecution "Řadit podle pořadí spouštění">
+<!ENTITY sort.byName "Řadit podle názvu">
+<!ENTITY sort.byNamespace "Řadit podle jmenného prostoru">
+<!ENTITY sort.byStatus "Řadit podle stavu">
+<!ENTITY sort.execution "Pořadí spouštění">
+<!ENTITY sort.name "Název">
+<!ENTITY sort.namespace "Jmenný prostor">
+<!ENTITY sort.status "Stav">

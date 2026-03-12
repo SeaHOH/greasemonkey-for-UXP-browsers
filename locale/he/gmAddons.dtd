@@ -1,0 +1,30 @@
+<!ENTITY edit "עריכה">
+<!ENTITY edit.accesskey "ע">
+<!ENTITY edit.tooltip "ערוך סקריפט זה">
+<!ENTITY executeFirst "בצע תחילה">
+<!ENTITY executeLast "בצע בסוף">
+<!ENTITY executeLater "בצע מאוחר יותר">
+<!ENTITY executeSooner "בצע מוקדם יותר">
+<!ENTITY findUpdate "חפש עידכונים">
+<!ENTITY forcedFindUpdate "Forced Find Updates">
+<!ENTITY installUpdate "התקן את העדכון">
+<!ENTITY moveDown "הזז למטה">
+<!ENTITY moveDown.accesskey "ט">
+<!ENTITY moveToBottom "הזז לסוף הרשימה">
+<!ENTITY moveToBottom.accesskey "ת">
+<!ENTITY moveToTop "הזז לראש הרשימה">
+<!ENTITY moveToTop.accesskey "ר">
+<!ENTITY moveUp "הזז למעלה">
+<!ENTITY moveUp.accesskey "ע">
+<!ENTITY newScript "צור סקריפט חדש">
+<!ENTITY newScript.accesskey "צ">
+<!ENTITY show "הצג תיקייה מכילה">
+<!ENTITY show.accesskey "ג">
+<!ENTITY sort.byExecution "מיין לפי סדר ביצוע">
+<!ENTITY sort.byName "מיין לפי שם">
+<!ENTITY sort.byNamespace "Sort by namespace">
+<!ENTITY sort.byStatus "מיין לפי מצב">
+<!ENTITY sort.execution "סדר ביצוע">
+<!ENTITY sort.name "שם">
+<!ENTITY sort.namespace "Namespace">
+<!ENTITY sort.status "מצב">

@@ -1,0 +1,15 @@
+<!ENTITY button.add "Hinzufügen...">
+<!ENTITY button.addUserExclude "Auf dieser Seite nicht anwenden">
+<!ENTITY button.addUserInclude "Auf dieser Seite dennoch anwenden">
+<!ENTITY button.addUserMatch "Add as user match">
+<!ENTITY button.edit "Bearbeiten…">
+<!ENTITY button.remove "Entfernen">
+<!ENTITY checkbox.grpOverride "Die Einschlüsse dieses Benutzerskripts deaktivieren und nur Benutzereinschlüsse verwenden">
+<!ENTITY label.grpExcluded "Nicht auf diese Seiten anwenden:">
+<!ENTITY label.grpIncluded "Auf diese Seiten anwenden:">
+<!ENTITY label.grpMatched "Matched Pages">
+<!ENTITY promptForEdit.msg "Passen Sie die URL der Seite an. Sie können Platzhalter (*) verwenden, um mehrere Seiten gleichzeitig festzulegen.">
+<!ENTITY promptForEdit.title "Seite bearbeiten">
+<!ENTITY promptForNewPage.defVal "http://example.com/*">
+<!ENTITY promptForNewPage.msg "Geben Sie unten eine neue URL ein. Sie können Platzhalter (*) verwenden, um mehrere Seiten gleichzeitig festzulegen.">
+<!ENTITY promptForNewPage.title "Seite hinzufügen">

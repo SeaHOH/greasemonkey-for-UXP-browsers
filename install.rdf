@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+
+    <em:id>greasemonkeyforpm@janekptacijarabaci</em:id>
+    <em:version>3.31.4</em:version>
+    <em:creator>Aaron Boodman; http://youngpup.net/ (Pale Moon: janekptacijarabaci)</em:creator>
+    <em:homepageURL>https://github.com/janekptacijarabaci/greasemonkey/releases</em:homepageURL>
+    <!-- <em:updateURL>https://gist.githubusercontent.com/janekptacijarabaci/[uuid]/raw/update.rdf</em:updateURL> -->
+    <em:updateURL>https://github.com/janekptacijarabaci/greasemonkey/raw/_forkBranch_Pale-Moon/update.rdf</em:updateURL>
+    <!-- See https://bugzilla.mozilla.org/show_bug.cgi?id=267950#c9 -->    
+    <!-- <em:optionsURL>javascript:opener.openDialog('chrome://greasemonkey/content/options.xul','','modal,resizable');window.close();</em:optionsURL> -->
+    <em:optionsURL>chrome://greasemonkey/content/options.xul</em:optionsURL>
+    <em:iconURL>chrome://greasemonkey/skin/icon32.png</em:iconURL>
+    <em:icon64URL>chrome://greasemonkey/skin/icon64.png</em:icon64URL>
+    <em:type>2</em:type>
+    <em:multiprocessCompatible>true</em:multiprocessCompatible>
+
+    <em:name>Greasemonkey for Pale Moon</em:name>
+    <em:description>A User Script Manager</em:description>
+
+    <em:developer>janekptacijarabaci</em:developer>
+
+    <em:contributor>aidanhs; http://aidanhs.com/</em:contributor>
+    <em:contributor>Alexander Sturm; http://alex.st/</em:contributor>
+    <em:contributor>Anthony Lieuallen; http://arantius.com/</em:contributor>
+    <em:contributor>Chris Feldmann; http://axlotl.net/</em:contributor>
+    <em:contributor>crackevil</em:contributor>
+    <em:contributor>Crazycatz00</em:contributor>
+    <em:contributor>David Schontzler; http://stilleye.com/</em:contributor>
+    <em:contributor>Erik Vold; http://erikvold.com/</em:contributor>
+    <em:contributor>Gareth Andrew; http://freegarethandrew.org/</em:contributor>
+    <em:contributor>Hisateru Tanaka</em:contributor>
+    <em:contributor>Jeremy Dunck; http://dunck.us/anabasis/</em:contributor>
+    <em:contributor>Jeroen van Warmerdam; http://www.jeroenvanwarmerdam.nl/</em:contributor>
+    <em:contributor>Jesper Kristensen; &lt;mail&#64;jesperkristensen.dk&gt;</em:contributor>
+    <em:contributor>Johan Sundström; http://ecmanaut.blogspot.com/</em:contributor>
+    <em:contributor>JP Sugarbroad</em:contributor>
+    <em:contributor>Juan Pablo Guereca Alonso</em:contributor>
+    <em:contributor>Manpreet Singh</em:contributor>
+    <em:contributor>Mark Pilgrim; http://diveintomark.org/</em:contributor>
+    <em:contributor>Marti Martz</em:contributor>
+    <em:contributor>Matthew Gray; http://mkgray.com:8000/</em:contributor>
+    <em:contributor>Matthias Bauer; http://moeffju.net/</em:contributor>
+    <em:contributor>meh.; http://meh.schizofreni.co/</em:contributor>
+    <em:contributor>Mike Medley; http://sizzlemctwizzle.com/</em:contributor>
+    <em:contributor>Ms2ger</em:contributor>
+    <em:contributor>Nikolas Coukouma; http://atrus.org/</em:contributor>
+    <em:contributor>Olivier Cornu; &lt;o.cornu&#64;gmail.com&gt;</em:contributor>
+    <em:contributor>Ori Avtallon</em:contributor>
+    <em:contributor>Pak Kei (logo); http://arkidect.com/</em:contributor>
+    <em:contributor>Sam Larison; http://samlarison.com/</em:contributor>
+    <em:contributor>Paul O’Shannessy; http://zpao.com/</em:contributor>
+    <em:contributor>Sergio Abreu; http://sitedosergio.sitesbr.net/</em:contributor>
+    <em:contributor>the8472</em:contributor>
+    <em:contributor>Tommi Rautava</em:contributor>
+    <em:contributor>Ventero; &lt;gh&#64;ventero.de&gt;</em:contributor>
+
+    <em:translator>3deshka</em:translator>
+    <em:translator>Alan C. (alan2loin)</em:translator>
+    <em:translator>Alejandro Pérez (AlePerez92)</em:translator>
+    <em:translator>Alessandro Menti (elgaton)</em:translator>
+    <em:translator>Andi Chandler (andi)</em:translator>
+    <em:translator>barryoni</em:translator>
+    <em:translator>Bilouba</em:translator>
+    <em:translator>Classic</em:translator>
+    <em:translator>DakSrbija</em:translator>
+    <em:translator>Dream1</em:translator>
+    <em:translator>dyedfox (yaryi)</em:translator>
+    <em:translator>Dzhim.C</em:translator>
+    <em:translator>Ettore Atalan (Atalanttore)</em:translator>
+    <em:translator>fux</em:translator>
+    <em:translator>Gustavo Silva (Sukigu)</em:translator>
+    <em:translator>gutierrez</em:translator>
+    <em:translator>haebaru</em:translator>
+    <em:translator>hosiguma</em:translator>
+    <em:translator>igorruckert</em:translator>
+    <em:translator>janekptacijarabaci</em:translator>
+    <em:translator>Jeroen van Warmerdam (jerone)</em:translator>
+    <em:translator>Jovan Gerodetti (TitanNano)</em:translator>
+    <em:translator>Jozef Gaál (dodog)</em:translator>
+    <em:translator>Jump4Style</em:translator>
+    <em:translator>k2jp</em:translator>
+    <em:translator>kenmooda</em:translator>
+    <em:translator>Kityn</em:translator>
+    <em:translator>Leszek Życzkowski (teo)</em:translator>
+    <em:translator>lois</em:translator>
+    <em:translator>LWChris</em:translator>
+    <em:translator>Lyubomir Vasilev (lyubomirv)</em:translator>
+    <em:translator>Mark Heijl (markh)</em:translator>
+    <em:translator>Matilin Torre (Watilin)</em:translator>
+    <em:translator>Matthieu Martin (matthieum)</em:translator>
+    <em:translator>Mikael Hiort af Ornäs (Lakrits)</em:translator>
+    <em:translator>milupo</em:translator>
+    <em:translator>myahoo</em:translator>
+    <em:translator>Nik Radaev (veadarkin)</em:translator>
+    <em:translator>omrakin</em:translator>
+    <em:translator>panos78</em:translator>
+    <em:translator>Peter Chen (petercpg)</em:translator>
+    <em:translator>Peter Klofutar (Klofutar)</em:translator>
+    <em:translator>Philippe Serhal (philippeserhal)</em:translator>
+    <em:translator>Pimm Hogeling (pimmhogeling)</em:translator>
+    <em:translator>pmi</em:translator>
+    <em:translator>Rancher</em:translator>
+    <em:translator>rarh</em:translator>
+    <em:translator>reinekefux</em:translator>
+    <em:translator>Reza_NA</em:translator>
+    <em:translator>Татьяна Гузенко (bigeyes490)</em:translator>
+    <em:translator>Team erweiterungen.de</em:translator>
+    <em:translator>Tim Babych (tymofiy)</em:translator>
+    <em:translator>Tomáš Taro (tomastaro)</em:translator>
+    <em:translator>Ullebe1</em:translator>
+    <em:translator>vodkoterapevt</em:translator>
+    <em:translator>WonderCsabo</em:translator>
+    <em:translator>Y.F Yang (yfdyh000)</em:translator>
+    <em:translator>yymp</em:translator>
+    <em:translator>zmni</em:translator>
+
+    <!-- Pale Moon -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{8de7fcbb-c55c-4fbe-bfc5-fc555c87dbc4}</em:id>
+        <em:minVersion>27.1.0</em:minVersion>
+        <em:maxVersion>28.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <!-- Basilisk -->
+    <!--
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>55.*</em:minVersion>
+        <em:maxVersion>56.*</em:maxVersion>
+        <em:basilisk>true</em:basilisk>
+      </Description>
+    </em:targetApplication>
+    -->
+
+    <!-- Basilisk, Firefox -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>39.0.0</em:minVersion>
+        <em:maxVersion>56.*</em:maxVersion>
+        <em:basilisk>true</em:basilisk>
+      </Description>
+    </em:targetApplication>
+
+  </Description>
+
+</RDF>

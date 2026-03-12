@@ -1,0 +1,60 @@
+<!ENTITY enableSync "使 Pale Moon Sync 支持同步用户脚本">
+<!ENTITY greasemonkey.getUserScripts "获取用户脚本">
+<!ENTITY greasemonkey.noScriptShere "在此页面上没有已安装的脚本运行。">
+<!ENTITY greasemonkey.youHaveNoScripts "您还没有安装任何用户脚本">
+<!ENTITY install.alreadyInstalled "This script is already installed">
+<!ENTITY install.butNotOn "脚本不会应用到：">
+<!ENTITY install.downloadError "下载错误">
+<!ENTITY install.installButton "安装">
+<!ENTITY install.matches "匹配：">
+<!ENTITY install.runsOn "脚本会应用到：">
+<!ENTITY install.showOriginalScriptSource "Show Original Script Source">
+<!ENTITY install.showScriptSource "显示脚本源代码">
+<!ENTITY install.title "Greasemonkey 安装过程">
+<!ENTITY install.warning1 "恶意的脚本可能会侵犯您的隐私并在您不知情的情况下以您的名义进行操作。">
+<!ENTITY install.warning2 "您应该只安装从可信任来源获得的脚本。">
+<!ENTITY loading "下载中...">
+<!ENTITY menu.commands "用户脚本命令...">
+<!ENTITY menu.commands.accesskey "C">
+<!ENTITY menu.install "安装用户脚本...">
+<!ENTITY menu.install.accesskey "I">
+<!ENTITY menu.manage "管理用户脚本...">
+<!ENTITY menu.manage.accesskey "M">
+<!ENTITY menu.new "新建用户脚本...">
+<!ENTITY menu.new.accesskey "N">
+<!ENTITY menu.options "Greasemonkey 选项...">
+<!ENTITY menu.options.accesskey "O">
+<!ENTITY menu.show "查看用户脚本源代码">
+<!ENTITY menu.show.accesskey "V">
+<!ENTITY menu.webSites "网站...">
+<!ENTITY menu.webSites.accesskey "W">
+<!ENTITY menu.webSites.getUserScripts "获取用户脚本">
+<!--
+<!ENTITY menu.webSites.greasespot "Greasespot 博客">
+<!ENTITY menu.webSites.greasespotWiki "Greasespot Wiki">
+-->
+<!ENTITY menu.webSites.manual "Greasemonkey 手册">
+<!ENTITY newScript.description "描述">
+<!ENTITY newScript.excludes "脚本将排除（每行一条）">
+<!ENTITY newScript.fromClipboard "使用剪贴板中的脚本">
+<!ENTITY newScript.includes "脚本应用到（每行一条）">
+<!ENTITY newScript.name "名称">
+<!ENTITY newScript.namespace "命名空间">
+<!ENTITY options.browseForEditor "选择编辑器程序">
+<!ENTITY options.defaultEditor "使用默认编辑器">
+<!ENTITY options.editor "编辑器">
+<!ENTITY options.experimental "实验性">
+<!ENTITY options.globalExcludes "全局排除">
+<!ENTITY options.newScript.removeUnused "移除未用的行">
+<!ENTITY options.newScript.template "新建脚本模板">
+<!ENTITY requireDisabledScriptsUpdates "Disabled scripts are checked for automatic updates">
+<!ENTITY requireSecureUpdates "需要安全更新（HTTPS）">
+<!ENTITY requireTimeoutUpdates "Require timeout updates">
+<!ENTITY scriptPrefs.scriptSettings "脚本的设置">
+<!ENTITY scriptPrefs.title "Greasemonkey 用户脚本首选项 - !!">
+<!ENTITY scriptPrefs.userSettings "用户的设置">
+<!ENTITY statusBar.enabled "启用">
+<!ENTITY statusBar.enabled.accesskey "E">
+<!ENTITY timeoutUpdatesUnits "Seconds">
+<!ENTITY uninstall "卸载">
+<!ENTITY updateChecking "检查更新">

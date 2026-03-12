@@ -1,0 +1,30 @@
+<!ENTITY edit "Keisti">
+<!ENTITY edit.accesskey "K">
+<!ENTITY edit.tooltip "Keisti šį naudotojo scenarijų">
+<!ENTITY executeFirst "Vykdyti pirmą">
+<!ENTITY executeLast "Vykdyti paskutinį">
+<!ENTITY executeLater "Vykdyti vėliau">
+<!ENTITY executeSooner "Vykdyti anksčiau">
+<!ENTITY findUpdate "Rasti naujinimą">
+<!ENTITY forcedFindUpdate "Forced Find Updates">
+<!ENTITY installUpdate "Įdiegti atnaujinimą">
+<!ENTITY moveDown "Perkelti žemyn">
+<!ENTITY moveDown.accesskey "Z">
+<!ENTITY moveToBottom "Perkelti į apačią">
+<!ENTITY moveToBottom.accesskey "A">
+<!ENTITY moveToTop "Perkelti į viršų">
+<!ENTITY moveToTop.accesskey "V">
+<!ENTITY moveUp "Perkelti aukštyn">
+<!ENTITY moveUp.accesskey "U">
+<!ENTITY newScript "Kurti naują scenarijų">
+<!ENTITY newScript.accesskey "N">
+<!ENTITY show "Atverti aplanką">
+<!ENTITY show.accesskey "a">
+<!ENTITY sort.byExecution "Rikiuoti pagal vykdymo eilę">
+<!ENTITY sort.byName "Rikiuoti pagal pavadinimą">
+<!ENTITY sort.byNamespace "Sort by namespace">
+<!ENTITY sort.byStatus "Rikiuoti pagal būseną">
+<!ENTITY sort.execution "Vykdymo eilė">
+<!ENTITY sort.name "Pavadinimas">
+<!ENTITY sort.namespace "Namespace">
+<!ENTITY sort.status "Būsena">

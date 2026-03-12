@@ -1,0 +1,30 @@
+<!ENTITY edit "Düzenle">
+<!ENTITY edit.accesskey "E">
+<!ENTITY edit.tooltip "Bu Kullanıcı Betiğini Düzenle">
+<!ENTITY executeFirst "İlk yürüt">
+<!ENTITY executeLast "Son Yürüt">
+<!ENTITY executeLater "Sonra yürüt">
+<!ENTITY executeSooner "Er geç yürüt">
+<!ENTITY findUpdate "Güncelleme Bul">
+<!ENTITY forcedFindUpdate "Zorunlu bulunan güncellemeler">
+<!ENTITY installUpdate "Güncelleştirme Yükle">
+<!ENTITY moveDown "Aşağı Taşı">
+<!ENTITY moveDown.accesskey "D">
+<!ENTITY moveToBottom "En alta Taşı">
+<!ENTITY moveToBottom.accesskey "B">
+<!ENTITY moveToTop "En üste Taşı">
+<!ENTITY moveToTop.accesskey "T">
+<!ENTITY moveUp "Yukarı Taşı">
+<!ENTITY moveUp.accesskey "U">
+<!ENTITY newScript "Yeni Betik Oluştur">
+<!ENTITY newScript.accesskey "C">
+<!ENTITY show "İçeren Klasörü Göster">
+<!ENTITY show.accesskey "S">
+<!ENTITY sort.byExecution "Yürütme sırasına göre sırala">
+<!ENTITY sort.byName "İsme göre sırala">
+<!ENTITY sort.byNamespace "Sort by namespace">
+<!ENTITY sort.byStatus "Duruma göre sırala">
+<!ENTITY sort.execution "Yürütme Sırası">
+<!ENTITY sort.name "Isim">
+<!ENTITY sort.namespace "Namespace">
+<!ENTITY sort.status "Durum">

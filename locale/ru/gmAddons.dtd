@@ -1,0 +1,30 @@
+<!ENTITY edit "Изменить">
+<!ENTITY edit.accesskey "E">
+<!ENTITY edit.tooltip "Редактировать этот скрипт">
+<!ENTITY executeFirst "Выполнять первым">
+<!ENTITY executeLast "Выполнять последним">
+<!ENTITY executeLater "Выполнять позднее">
+<!ENTITY executeSooner "Выполнять ранее">
+<!ENTITY findUpdate "Проверить обновления">
+<!ENTITY forcedFindUpdate "Принудительно проверить обновления">
+<!ENTITY installUpdate "Установить обновление">
+<!ENTITY moveDown "Переместить ниже">
+<!ENTITY moveDown.accesskey "D">
+<!ENTITY moveToBottom "Переместить в конец">
+<!ENTITY moveToBottom.accesskey "B">
+<!ENTITY moveToTop "Переместить в начало">
+<!ENTITY moveToTop.accesskey "T">
+<!ENTITY moveUp "Переместить выше">
+<!ENTITY moveUp.accesskey "U">
+<!ENTITY newScript "Создать новый скрипт">
+<!ENTITY newScript.accesskey "C">
+<!ENTITY show "Показать содержащую папку">
+<!ENTITY show.accesskey "S">
+<!ENTITY sort.byExecution "Сортировать по порядку выполнения">
+<!ENTITY sort.byName "Сортировать по имени">
+<!ENTITY sort.byNamespace "Sort by namespace">
+<!ENTITY sort.byStatus "Сортировать по статусу">
+<!ENTITY sort.execution "Порядок выполнения">
+<!ENTITY sort.name "Имя">
+<!ENTITY sort.namespace "Namespace">
+<!ENTITY sort.status "Статус">

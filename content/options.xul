@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE prefwindow [
+  <!ENTITY % browserDTD SYSTEM
+    "chrome://browser/locale/browser.dtd">
+  <!ENTITY % preferencesDTD SYSTEM
+    "chrome://browser/locale/preferences/preferences.dtd">
+  <!ENTITY % greasemonkeyDTD SYSTEM
+    "chrome://greasemonkey/locale/greasemonkey.dtd">
+  %browserDTD;
+  %preferencesDTD;
+  %greasemonkeyDTD;
+]>
+
+<?xml-stylesheet href="chrome://global/skin/global.css"
+  type="text/css"?>
+<?xml-stylesheet href="chrome://greasemonkey/skin/bindings.css"
+  type="text/css"?>
+<?xml-stylesheet href="chrome://greasemonkey/skin/options.css"
+  type="text/css"?>
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  buttons="accept,cancel"
+  id="greasemonkey-options-dialog"
+  title="Greasemonkey - &preferencesCmd2.label;"
+  onload="GM_loadOptions();"
+  ondialogaccept="GM_saveOptions();"
+  ondialogcancel="close();"
+  persist="screenX screenY"
+  flex="1">
+
+<script type="application/x-javascript"
+  src="chrome://greasemonkey/content/options.js" />
+
+<dialogheader title="Greasemonkey" description="&preferencesCmd2.label;" />
+
+<vbox flex="1">
+  <groupbox>
+    <caption label="&preferencesCmd2.label;" />
+    <checkbox id="secure-update" label="&requireSecureUpdates;" />
+    <checkbox id="disable-update" label="&requireDisabledScriptsUpdates;" />
+    <checkbox id="timeout-update" label="&requireTimeoutUpdates;" />
+    <hbox id="timeout-update-box" align="center">
+      <label id="timeout-update-value-label" value="&timeoutUpdatesUnits;" />
+      <textbox id="timeout-update-value" type="number" min="1" max="60"
+        increment="1" size="2" />
+      </hbox>
+    <checkbox id="check-sync" label="&enableSync;" />
+  </groupbox>
+
+  <groupbox>
+    <caption label="&options.editor;" />
+    <hbox flex="1">
+      <textbox id="editor-path" value="" tooltiptext="" readonly="true"
+        flex="1" />
+      <button oncommand="GM_util.setEditor(0); GM_getEditor();"
+        label="&options.browseForEditor;" />
+      <button oncommand="GM_util.setEditor(1); GM_getEditor();"
+        label="&options.defaultEditor;" />
+    </hbox>
+  </groupbox>
+
+  <groupbox flex="2">
+    <caption label="&options.globalExcludes;" />
+    <cludes id="global-excludes" flex="1" />
+  </groupbox>
+
+  <groupbox flex="1">
+    <caption label="&options.newScript.template;" />
+    <checkbox id="new-script-remove-unused"
+      label="&options.newScript.removeUnused;" />
+    <textbox id="new-script-template"
+      multiline="true" rows="5" flex="1" wrap="off" />
+  </groupbox>
+</vbox>
+
+</dialog>
