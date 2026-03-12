@@ -1,3 +1,37 @@
+/**
+ * @file sync.js
+ * @overview Optional Firefox Sync (Weave) integration for Greasemonkey.
+ *
+ * If the Sync service is not present (e.g. Pale Moon without Sync), the entire
+ * module exits early after the try/catch import block — nothing is registered.
+ *
+ * When Sync IS available, the module registers a Weave SyncEngine named
+ * "Greasemonkey" that syncs installed userscripts across devices.
+ *
+ * Sync record fields (ScriptRecord cleartext):
+ *   downloadURL  — the remote source URL of the script.
+ *   enabled      — whether the script is currently enabled.
+ *   id           — the script's local ID (hashed to produce the sync ID).
+ *   installed    — false means "this script was uninstalled, remove it".
+ *   userExcludes, userIncludes, userMatches, userOverride — per-script overrides.
+ *   values       — GM_getValue storage (when sync.values pref is enabled).
+ *   valuesTooBig — true if values exceeded sync.values.maxSizePerScript.
+ *
+ * Initialisation strategy (see bug #2335):
+ *   The "weave:service:ready" observer is unreliable under e10s.  Instead,
+ *   SyncServiceObserver.init() polls every 1 second until gWeave.Status.ready
+ *   is true, then registers the ScriptEngine.  A guard flag (gSyncInitialized)
+ *   prevents double-registration.
+ *
+ * The Sync service import is delayed until the engine is actually initialised
+ * (see bug #1852) to avoid triggering the master password dialog at startup.
+ *
+ * Scripts loaded from file:// URLs are excluded from sync (not portable).
+ *
+ * This entire module is wrapped in an IIFE (initSync) so that all Sync-related
+ * globals stay out of the module scope.
+ */
+
 const EXPORTED_SYMBOLS = [];
 
 if (typeof Cc === "undefined") {
@@ -42,6 +76,11 @@ const FILE_PROTOCOL_SCHEME_REGEXP = new RegExp(GM_CONSTANTS.fileProtocolSchemeRe
 
 var gSyncInitialized = false;
 
+/**
+ * Polls for Weave service readiness and registers the ScriptEngine once ready.
+ * Uses a 1-second polling interval as a fallback for the unreliable
+ * "weave:service:ready" observer (bug #2335).
+ */
 var SyncServiceObserver = {
   "init": function () {
     if (gWeave.Status.ready) {
@@ -72,6 +111,14 @@ var SyncServiceObserver = {
   "QueryInterface": XPCOMUtils.generateQI([Ci.nsISupportsWeakReference]),
 };
 
+/**
+ * A Weave CryptoWrapper subclass representing one synced userscript.
+ * The cleartext payload fields are defined via gWeave.Utils.deferGetSet below.
+ *
+ * @constructor
+ * @param {string} aCollection - Sync collection name.
+ * @param {string} aId         - Sync record ID (hashed script ID).
+ */
 function ScriptRecord(aCollection, aId) {
   gWeave.CryptoWrapper.call(this, aCollection, aId);
 }
@@ -96,6 +143,15 @@ gWeave.Utils.deferGetSet(
       "valuesTooBig",
     ]);
 
+/**
+ * Weave Store implementation for Greasemonkey scripts.
+ * Handles create/update/remove/wipe operations driven by incoming sync records,
+ * and createRecord/getAllIDs for outgoing sync.
+ *
+ * @constructor
+ * @param {string}       aName   - Store name.
+ * @param {SyncEngine}   aEngine - The owning ScriptEngine.
+ */
 function ScriptStore(aName, aEngine) {
   gWeave.Store.call(this, aName, aEngine);
 }
@@ -252,6 +308,16 @@ ScriptStore.prototype = {
   },
 };
 
+/**
+ * Weave Tracker that watches for local script changes and marks changed
+ * scripts as needing sync.  Observes the Greasemonkey config for events:
+ *   - edit-enabled, install, modified, uninstall → score += 5 (high priority)
+ *   - cludes, val-del, val-set                   → score += 1 (low priority)
+ *
+ * @constructor
+ * @param {string}     aName   - Tracker name.
+ * @param {SyncEngine} aEngine - The owning ScriptEngine.
+ */
 function ScriptTracker(aName, aEngine) {
   gWeave.Tracker.call(this, aName, aEngine);
   GM_util.getService().config.addObserver(this);
@@ -283,6 +349,13 @@ ScriptTracker.prototype = {
   },
 };
 
+/**
+ * The top-level Weave SyncEngine for Greasemonkey scripts.
+ * Registers itself with the Weave engine manager when the Sync service is ready.
+ * Enabled state mirrors the "sync.enabled" preference and is watched for changes.
+ *
+ * @constructor
+ */
 function ScriptEngine() {
   gWeave.SyncEngine.call(this, GM_CONSTANTS.info.scriptHandler, gWeave.Service);
 
@@ -299,6 +372,12 @@ ScriptEngine.prototype = {
   "_trackerObj": ScriptTracker,
 };
 
+/**
+ * Finds the locally installed Script object whose sync ID matches aSyncId.
+ *
+ * @param {string} aSyncId - Hashed sync ID to look up.
+ * @returns {Script|undefined} Matching Script, or undefined if not found.
+ */
 function scriptForSyncId(aSyncId) {
   let scripts = GM_util.getService().config.scripts;
   for (let i = 0, iLen = scripts.length; i < iLen; i++) {
@@ -309,11 +388,25 @@ function scriptForSyncId(aSyncId) {
   }
 }
 
-// The sync ID for a given script.
+/**
+ * Derives the stable sync ID for a script by hashing its local ID.
+ *
+ * @param {Script} aScript - The script to derive the sync ID for.
+ * @returns {string} SHA-256 hash of the script's local ID.
+ */
 function syncId(aScript) {
   return GM_util.hash(aScript.id);
 }
 
+/**
+ * Applies GM_setValue storage from an incoming sync record to a local script.
+ * Only runs if the "sync.values" pref is enabled and valuesTooBig is false.
+ * If "sync.values.deleteNonExistentValues" is enabled, values present locally
+ * but absent from the record are deleted.
+ *
+ * @param {Script}       aScript - The local script to update storage for.
+ * @param {ScriptRecord} aRecord - The incoming sync record.
+ */
 function setScriptValuesFromSyncRecord(aScript, aRecord) {
   if (GM_prefRoot.getValue("sync.values")
       && !aRecord.cleartext.valuesTooBig) {

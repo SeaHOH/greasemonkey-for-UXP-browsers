@@ -1,3 +1,37 @@
+/**
+ * @file xmlHttpRequester.js
+ * @overview Implements GM_xmlhttpRequest() — the cross-domain HTTP request API
+ *   for userscripts.
+ *
+ * Security model:
+ *   - URL scheme must be one of: blob, data, ftp, http, https.
+ *     All other schemes (file://, chrome://, etc.) are rejected to prevent
+ *     scripts from reading local files or chrome resources.
+ *   - Callbacks read from the script-supplied details object are Xray-waived
+ *     and then verified against the sandbox principal to ensure they came from
+ *     the script and not from the page.
+ *   - Callbacks are always invoked via XPCNativeWrapper + setTimeout(…, 0)
+ *     to prevent privilege escalation through a replaced window.setTimeout.
+ *
+ * Supported details properties (mirrors GM4 spec):
+ *   url, method, headers, data, binary, overrideMimeType, responseType,
+ *   timeout, synchronous, mozAnon/anonymous, mozBackgroundRequest,
+ *   redirectionLimit, upload (with its own event callbacks), context,
+ *   onabort, onerror, onload, onloadend, onloadstart, onprogress,
+ *   onreadystatechange, ontimeout.
+ *
+ * Private browsing / container tabs are respected: the request channel
+ * inherits the content window's privacy mode and userContextId.
+ *
+ * Notes:
+ *   - Cookie forwarding (aDetails.cookies) is reserved for future use
+ *     (see bug #2236).
+ *   - Basic-Auth header injection (aDetails.user/password) partial support
+ *     is commented out pending resolution of bugs #1945 and #2008.
+ *   - mozAnon on Pale Moon < 27.2 is emulated via LOAD_ANONYMOUS flag
+ *     (see Pale Moon PR #968).
+ */
+
 const EXPORTED_SYMBOLS = ["GM_xmlHttpRequester"];
 
 if (typeof Cc === "undefined") {
@@ -30,6 +64,19 @@ const AUTHORIZATION_USER_PASSWORD_REGEXP = new RegExp(
     "^([^:]+):([^:]+)$", "");
 */
 
+/**
+ * Per-request helper that bridges the content security context (script) and
+ * the chrome security context (where cross-domain XHR is allowed).
+ *
+ * @constructor
+ * @param {Window}  aWrappedContentWin - X-ray wrapped content window.
+ *   Used as the context for Error objects and setTimeout.
+ * @param {Sandbox} aSandbox           - Script's sandbox; response state is
+ *   cloned into this before being passed to callbacks.
+ * @param {string}  aFileURL           - Script file URL (for Error objects).
+ * @param {string}  aOriginUrl         - Page URL; used to resolve relative
+ *   URLs in aDetails.url.
+ */
 function GM_xmlHttpRequester(aWrappedContentWin, aSandbox, aFileURL, aOriginUrl) {
   this.fileURL = aFileURL;
   this.originUrl = aOriginUrl;
@@ -38,8 +85,18 @@ function GM_xmlHttpRequester(aWrappedContentWin, aSandbox, aFileURL, aOriginUrl)
   this.wrappedContentWin = aWrappedContentWin;
 }
 
-// This function gets called by user scripts in content security scope
-// to start a cross-domain xmlhttp request.
+/**
+ * Entry point called from the userscript (content security context).
+ * Validates the request URL and scheme, creates an XMLHttpRequest object,
+ * then delegates to chromeStartRequest() in the chrome context.
+ *
+ * @param {object} aDetails - GM_xmlhttpRequest details object (see file header).
+ * @returns {object} Response handle cloned into sandbox scope:
+ *   { abort(), finalUrl, readyState, responseHeaders, responseText,
+ *     status, statusText }.  For synchronous requests, the response fields are
+ *   populated before returning.
+ * @throws {Error} If aDetails is missing, URL is invalid, or scheme is disallowed.
+ */
 GM_xmlHttpRequester.prototype.contentStartRequest = function (aDetails) {
   if (!aDetails || (typeof aDetails != "object")) {
     throw new this.wrappedContentWin.Error(
@@ -136,8 +193,16 @@ GM_xmlHttpRequester.prototype.contentStartRequest = function (aDetails) {
   return rv;
 };
 
-// This function is intended to be called in chrome's security context,
-// so that it can access other domains without security warning.
+/**
+ * Called in the chrome security context to configure and send the XHR.
+ * Sets up event listeners, request headers, body, timeout, privacy mode,
+ * container identity, and MIME type override before calling aReq.send().
+ *
+ * @param {string}       aSafeUrl  - Validated absolute URL string.
+ * @param {object}       aDetails  - Original GM_xmlhttpRequest details object.
+ * @param {XMLHttpRequest} aReq    - The XHR object to configure and send.
+ * @throws {Error} If aReq.open() or aReq.send() throws.
+ */
 GM_xmlHttpRequester.prototype.chromeStartRequest =
 function (aSafeUrl, aDetails, aReq) {
   let setupRequestEvent = GM_util.hitch(
@@ -385,9 +450,33 @@ function (aSafeUrl, aDetails, aReq) {
   }
 };
 
-// Arranges for the specified "event" on xmlhttprequest "req" to call
-// the method by the same name which is a property of "details"
-// in the content window's security context.
+/**
+ * Attaches a DOM event listener to aReq (or aReq.upload) for the given event
+ * type, wired to call the corresponding "on<event>" callback from aDetails in
+ * the content security context.
+ *
+ * Security:
+ *   - Xray wrappers are waived to read callback properties from aDetails.
+ *   - The callback's principal is verified against the sandbox principal to
+ *     ensure it came from the script rather than the page.
+ *   - Callback is invoked via XPCNativeWrapper + setTimeout(…, 0) to return
+ *     to the browser thread and prevent privilege escalation.
+ *
+ * The responseState object passed to the callback mirrors the GM4 spec:
+ *   { context, finalUrl, lengthComputable, loaded, readyState, response,
+ *     responseHeaders, responseText, responseXML, status, statusText, total }
+ *
+ * responseXML is cloned into a new content-scoped Document so the script can
+ * use DOM APIs on it.
+ *
+ * @param {Window}       aWrappedContentWin - Content window (for setTimeout/Error).
+ * @param {Sandbox}      aSandbox           - Script sandbox (for Cu.cloneInto).
+ * @param {string}       aFileURL           - Script URL (for Error objects).
+ * @param {XMLHttpRequest|XMLHttpRequestUpload} aReq
+ *   - The XHR (or upload object) to add the listener to.
+ * @param {string}       aEvent             - Event name (e.g. "load", "progress").
+ * @param {object}       aDetails           - GM_xmlhttpRequest details object.
+ */
 GM_xmlHttpRequester.prototype.setupRequestEvent = function (
     aWrappedContentWin, aSandbox, aFileURL, aReq, aEvent, aDetails) {
   // Waive Xrays so that we can read callback function properties...
