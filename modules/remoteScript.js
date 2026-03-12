@@ -1,3 +1,37 @@
+/**
+ * @file remoteScript.js
+ * @overview Downloads, parses, and installs userscripts from remote URLs.
+ *
+ * Two main exports:
+ *
+ *   cleanFilename(aFilename, aDefault)
+ *     Sanitises a raw filename by stripping disallowed characters, normalising
+ *     whitespace, and (on Windows) truncating to a safe path length.
+ *
+ *   RemoteScript(aUrl)
+ *     Manages the full lifecycle of fetching a userscript and its dependencies
+ *     (@require, @resource, @icon) over HTTP.  The download is intentionally
+ *     asynchronous and callback-driven.  Key methods:
+ *       download(cb)        — fetch the .user.js then all dependencies
+ *       downloadScript(cb)  — fetch only the .user.js
+ *       parseScript(src)    — parse script source, discover dependencies
+ *       install(old)        — move temp files into the scripts directory
+ *       setScript(s, file)  — attach an existing Script for dependency re-fetch
+ *       setSilent()         — suppress the install notification toast
+ *       showSource(browser) — open the downloaded source in a new tab
+ *       cancel()            — abort all pending channels and clean up temps
+ *
+ * Implementation notes:
+ *   - DownloadListener (private) implements nsIStreamListener /
+ *     nsIProgressEventSink and writes incoming bytes to a temp file.  For the
+ *     main script file it also accumulates data and attempts live parsing.
+ *   - assertIsFunction() and filenameFromUri() are private helpers.
+ *   - On Windows the full path is limited to 240 chars (MSDN MAX_PATH minus
+ *     safety margin); gWindowsNameMaxLen accounts for the scripts directory.
+ *   - Scripts and dependencies are downloaded to a unique temp directory and
+ *     moved atomically to the scripts directory on a successful install.
+ */
+
 const EXPORTED_SYMBOLS = ["cleanFilename", "RemoteScript"];
 
 if (typeof Cc === "undefined") {
@@ -47,12 +81,34 @@ var gWindowsNameMaxLen = (240 - GM_util.scriptDir().path.length) / 2;
 
 /////////////////////////////// Private Helpers ////////////////////////////////
 
+/**
+ * Throws an Error if aFunc is not a function.
+ *
+ * @param {*}      aFunc    - Value to test.
+ * @param {string} aMessage - Error message to use if the check fails.
+ */
 function assertIsFunction(aFunc, aMessage) {
   if (typeof aFunc != typeof function () {}) {
     throw new Error(aMessage);
   }
 }
 
+/**
+ * Sanitises a raw filename for safe use on disk.
+ *
+ * Steps applied in order:
+ *   1. Strips characters forbidden on most filesystems (\ / : * ? ' " < > |).
+ *   2. Collapses runs of whitespace/"%20" into underscores.
+ *   3. On Windows, truncates to gWindowsNameMaxLen characters (preserving the
+ *      extension) to stay under the MAX_PATH limit.
+ *   4. Falls back to aDefault (or "unknown") if the result would be empty.
+ *
+ * @param {string} aFilename - The raw filename to sanitise (may be empty/null).
+ * @param {string} aDefault  - Fallback name used when aFilename is falsy or
+ *   the result would otherwise be empty.
+ * @returns {string} A safe, non-empty filename string.
+ * @throws {Error} On Windows, if the scripts directory path itself is too long.
+ */
 function cleanFilename(aFilename, aDefault) {
   // Blacklist problem characters (slashes, colons, etc.).
   let filename = (aFilename || aDefault)
@@ -89,6 +145,13 @@ function cleanFilename(aFilename, aDefault) {
   return filename;
 }
 
+/**
+ * Extracts and sanitises a filename from a URI's file component.
+ *
+ * @param {nsIURI}  aUri     - The URI to extract a filename from.
+ * @param {string}  aDefault - Fallback used when the URI has no filename.
+ * @returns {string} A safe filename string.
+ */
 function filenameFromUri(aUri, aDefault) {
   let filename = "";
   let url;
@@ -104,6 +167,30 @@ function filenameFromUri(aUri, aDefault) {
 
 ////////////////////////// Private Download Listener ///////////////////////////
 
+/**
+ * XPCOM stream listener that writes an HTTP (or file) download to disk.
+ *
+ * Implements nsIStreamListener, nsIProgressEventSink, and nsIInterfaceRequestor
+ * so it can be passed directly as the notification callbacks and listener for
+ * a channel.asyncOpen() call.
+ *
+ * For the main script file (aTryToParse=true) it also:
+ *   - Strips any leading UTF-8 BOM bytes.
+ *   - Accumulates received bytes and calls remoteScript.parseScript() on the
+ *     fly so metadata (name, @require, etc.) is available before the download
+ *     completes.
+ *   - Detects an HTML content-type response and cancels the request, treating
+ *     it as a bad install URL.
+ *
+ * @constructor
+ * @param {boolean}      aTryToParse         - True only for the first (script) file.
+ * @param {function}     aProgressCb         - Called with (channel, fraction) on progress.
+ * @param {function}     aCompletionCallback - Called with (channel, success, errMsg, status, headers).
+ * @param {nsIFile}      aFile               - Destination temp file (opened for writing).
+ * @param {nsIURI}       aUri                - Source URI (used for error messages).
+ * @param {RemoteScript} aRemoteScript       - Owning RemoteScript (for live parsing).
+ * @param {boolean}      [aErrorsAreFatal=true] - If false, HTTP errors are non-fatal.
+ */
 function DownloadListener(
     aTryToParse, aProgressCb, aCompletionCallback, aFile, aUri, aRemoteScript,
     aErrorsAreFatal) {
@@ -316,6 +403,22 @@ DownloadListener.prototype = {
 // with the result that the code path spaghetti's through quite a few callbacks.
 // A necessary evil.
 
+/**
+ * Manages downloading a userscript (and its dependencies) from a remote URL.
+ *
+ * The design is intentionally asynchronous: callers register callbacks via
+ * onProgress() / onScriptMeta() and then call download() or downloadScript().
+ * The actual work is done through DownloadListener and XPCOM channels.
+ *
+ * Lifecycle:
+ *   1. new RemoteScript(url)
+ *   2. [optional] setSilent() / onProgress() / onScriptMeta()
+ *   3. download(completionCb) — fetches .user.js then all @require/@resource/@icon
+ *   4. install([oldScript])   — moves temp files into the scripts directory
+ *
+ * @constructor
+ * @param {string} aUrl - The remote URL of the .user.js file to download.
+ */
 function RemoteScript(aUrl) {
   this._baseName = null;
   this._cancelled = false;
@@ -345,12 +448,18 @@ Object.defineProperty(RemoteScript.prototype, "url", {
   "enumerable": true,
 });
 
+/** Cancels all in-progress channel requests and removes temp files. */
 RemoteScript.prototype.cancel = function () {
   this._cancelled = true;
   this.cleanup();
 };
 
-// Clean up all temporary files, stop all actions.
+/**
+ * Aborts all pending channels, schedules removal of the temp directory, and
+ * marks this RemoteScript as done.  Dispatches a final progress=1 callback.
+ *
+ * @param {string} [aErrorMessage] - If provided, stored as this.errorMessage.
+ */
 RemoteScript.prototype.cleanup = function (aErrorMessage) {
   this.errorMessage = null;
   // See #2327.
@@ -390,7 +499,14 @@ RemoteScript.prototype.cleanup = function (aErrorMessage) {
   this._dispatchCallbacks("progress", 1);
 };
 
-// Download the entire script, starting from the .user.js itself.
+/**
+ * Downloads the .user.js and all its dependencies (@require, @resource, @icon).
+ * If the script metadata has already been parsed (this.script is set), skips
+ * directly to downloading dependencies.
+ *
+ * @param {function} [aCompletionCallback] - Called with (success, type, status, headers)
+ *   when everything finishes (or on error).
+ */
 RemoteScript.prototype.download = function (aCompletionCallback) {
   aCompletionCallback = aCompletionCallback || function () {};
   assertIsFunction(
@@ -411,7 +527,13 @@ RemoteScript.prototype.download = function (aCompletionCallback) {
   }
 };
 
-// Download just the .user.js itself. Callback upon completion.
+/**
+ * Downloads only the .user.js file itself (not its dependencies).
+ * Use download() to also fetch @require/@resource/@icon files.
+ *
+ * @param {function} aCompletionCallback - Called with (success, point, status, headers).
+ * @throws {Error} If this RemoteScript has no URL.
+ */
 RemoteScript.prototype.downloadScript = function (aCompletionCallback) {
   assertIsFunction(
       aCompletionCallback,
@@ -430,6 +552,21 @@ RemoteScript.prototype.downloadScript = function (aCompletionCallback) {
       true); // aErrorsAreFatal.
 };
 
+/**
+ * Moves downloaded temp files into the permanent scripts directory and
+ * finalises the script installation.
+ *
+ * Two modes:
+ *   - aOnlyDependencies=false (default): Full install.  Moves the entire temp
+ *     directory into the scripts dir, updates the config, and (unless silent)
+ *     shows an install/update notification to the user.
+ *   - aOnlyDependencies=true: Dependency-only update.  Moves individual
+ *     dependency files into the existing script's base directory.
+ *
+ * @param {Script}  [aOldScript]        - The previously installed Script to replace.
+ * @param {boolean} [aOnlyDependencies=false] - Only update dependency files.
+ * @throws {Error} If the script has not been downloaded yet (this.script is null).
+ */
 RemoteScript.prototype.install = function (aOldScript, aOnlyDependencies) {
   if (!this.script) {
     throw new Error(
@@ -558,19 +695,39 @@ RemoteScript.prototype.install = function (aOldScript, aOnlyDependencies) {
   }
 };
 
-// Add a progress callback.
+/**
+ * Registers a download-progress callback.
+ * The callback is called with (remoteScript, "progress", fraction) where
+ * fraction is in [0, 1].
+ *
+ * @param {function} aCallback - Progress callback to register.
+ */
 RemoteScript.prototype.onProgress = function (aCallback) {
   assertIsFunction(aCallback, "Progress " + CALLBACK_IS_NOT_FUNCTION);
   this._progressCallbacks.push(aCallback);
 };
 
-// Add a "script meta data is available" callback.
+/**
+ * Registers a callback to be called once script metadata has been parsed.
+ * The callback is called with (remoteScript, "scriptMeta", scriptObj).
+ *
+ * @param {function} aCallback - Metadata-available callback to register.
+ */
 RemoteScript.prototype.onScriptMeta = function (aCallback) {
   assertIsFunction(aCallback, "Script meta " + CALLBACK_IS_NOT_FUNCTION);
   this._scriptMetaCallbacks.push(aCallback);
 };
 
-// Parse the source code of the script, discover dependencies, data & etc.
+/**
+ * Parses script source code, populates this.script, and discovers dependencies.
+ * Called live during download (by DownloadListener) and again from
+ * _parseScriptFile() after the download completes.
+ *
+ * @param {string}  aSource - The raw JavaScript source of the .user.js file.
+ * @param {boolean} aFatal  - If true, parsing errors trigger cleanup(); if false,
+ *   the error is set but parsing failure is non-fatal.
+ * @returns {boolean} True if parsing succeeded and this.script was set.
+ */
 RemoteScript.prototype.parseScript = function (aSource, aFatal) {
   if (this.errorMessage) {
     return false;
@@ -606,10 +763,14 @@ RemoteScript.prototype.parseScript = function (aSource, aFatal) {
 };
 
 /**
- * Set the (installed) script, in order to download modified dependencies.
+ * Attaches an already-installed Script object so that calling download() will
+ * only re-fetch its dependencies (not the .user.js itself).
  *
- * After calling this, calling .download() will only get dependencies.
- * This RemoteScript can then safely be .install(oldScript)'ed.
+ * After calling this, download() will only fetch dependencies.
+ * The RemoteScript can then be install()'d to update those files.
+ *
+ * @param {Script}  aScript   - The currently installed Script object.
+ * @param {nsIFile} [aTempFile] - Temp file path, used for the "new script" dialog.
  */
 RemoteScript.prototype.setScript = function (aScript, aTempFile) {
   this._scriptFile = aScript.file;
@@ -623,10 +784,23 @@ RemoteScript.prototype.setScript = function (aScript, aTempFile) {
   this._postParseScript();
 };
 
+/**
+ * Suppresses the install/update notification toast.
+ * Used by the Sync engine when installing scripts silently in the background.
+ *
+ * @param {boolean} [aVal=true] - Pass a falsy value to re-enable notifications.
+ */
 RemoteScript.prototype.setSilent = function (aVal) {
   this._silent = !!aVal;
 };
 
+/**
+ * Opens the downloaded script source in a new browser tab and shows an
+ * install notification bar with an "Install" button.
+ *
+ * @param {XULBrowser|tabbrowser} aBrowser - The current browser or tab browser.
+ * @throws {Error} If the script has not been fully downloaded yet.
+ */
 RemoteScript.prototype.showSource = function (aBrowser) {
   if (this._progress[0] < 1) {
     throw new Error(
@@ -685,12 +859,20 @@ RemoteScript.prototype.showSource = function (aBrowser) {
   notification.persistence = -1;
 };
 
+/** @returns {string} Human-readable description including the source URL. */
 RemoteScript.prototype.toString = function () {
   return "[RemoteScript object; " + this._url + "]";
 };
 
 //////////////////////////// Private Implementation ////////////////////////////
 
+/**
+ * Invokes all registered callbacks of the given type.
+ *
+ * @param {string} aType - "progress" or "scriptMeta".
+ * @param {*}      aData - Data to pass as the third argument to each callback.
+ * @throws {Error} If aType is not a recognised callback list name.
+ */
 RemoteScript.prototype._dispatchCallbacks = function (aType, aData) {
   let callbacks = this["_" + aType + "Callbacks"];
   if (!callbacks) {
@@ -703,7 +885,13 @@ RemoteScript.prototype._dispatchCallbacks = function (aType, aData) {
   }
 };
 
-// Download any dependencies (@icon, @require, @resource).
+/**
+ * Downloads the next pending dependency in sequence.
+ * Called recursively until all dependencies are fetched, then invokes
+ * aCompletionCallback(true, "dependencies").
+ *
+ * @param {function} aCompletionCallback - Called when all dependencies are done.
+ */
 RemoteScript.prototype._downloadDependencies = function (aCompletionCallback) {
   if (this.done) {
     return undefined;
@@ -754,7 +942,20 @@ RemoteScript.prototype._downloadDependencies = function (aCompletionCallback) {
       !(dependency instanceof ScriptIcon)); // aErrorsAreFatal.
 };
 
-// Download a given nsIURI to a given nsIFile, with optional callback.
+/**
+ * Downloads a single URI to a local file asynchronously.
+ *
+ * Security: if the requested URI has a different scheme from the script's own
+ * URI, it must pass GM_util.isGreasemonkeyable() or the download is aborted.
+ *
+ * Handles private-browsing mode by marking the channel private when needed.
+ * Uses TYPE_OBJECT_SUBREQUEST so the HTTP observer doesn't intercept it.
+ *
+ * @param {nsIURI}   aUri                - Remote URI to download.
+ * @param {nsIFile}  aFile               - Destination temp file.
+ * @param {function} aCompletionCallback - Called with (channel, success, errMsg, status, headers).
+ * @param {boolean}  aErrorsAreFatal     - Passed through to the DownloadListener.
+ */
 RemoteScript.prototype._downloadFile = function (
     aUri, aFile, aCompletionCallback, aErrorsAreFatal) {
   aUri = aUri.QueryInterface(Ci.nsIURI);
@@ -856,6 +1057,13 @@ RemoteScript.prototype._downloadFile = function (
   channel.asyncOpen(dsl, this);
 };
 
+/**
+ * Updates the per-file progress slot and dispatches the aggregate progress
+ * (mean of all slots) to registered progress callbacks.
+ *
+ * @param {nsIChannel} aChannel      - The channel that reported progress (unused).
+ * @param {number}     aFileProgress - Progress fraction [0, 1] for this file.
+ */
 RemoteScript.prototype._downloadFileProgress = function (
     aChannel, aFileProgress) {
   this._progress[this._progressIndex] = aFileProgress;
@@ -865,6 +1073,19 @@ RemoteScript.prototype._downloadFileProgress = function (
   this._dispatchCallbacks("progress", progress);
 };
 
+/**
+ * Called when the main .user.js file download finishes.
+ * On success, parses the downloaded file; on failure, cleans up.
+ * In both error cases that warrant an install dialog, fakes a "success" so
+ * the install window can display the error message to the user.
+ *
+ * @param {function}   aCompletionCallback - Forwarded to the caller of downloadScript().
+ * @param {nsIChannel} aChannel            - The completed channel.
+ * @param {boolean}    aSuccess            - Whether the HTTP download succeeded.
+ * @param {string}     aErrorMessage       - Human-readable error (if !aSuccess).
+ * @param {number}     aStatus             - HTTP response status code.
+ * @param {object}     aHeaders            - Selected response headers.
+ */
 RemoteScript.prototype._downloadScriptCb = function (
     aCompletionCallback, aChannel, aSuccess, aErrorMessage, aStatus, aHeaders) {
   if (aSuccess) {
@@ -916,6 +1137,12 @@ RemoteScript.prototype._downloadScriptCb = function (
   aCompletionCallback(aSuccess, "script", aStatus, aHeaders);
 };
 
+/**
+ * Reads the downloaded script file from disk and calls parseScript() on its
+ * contents.  Called after onStopRequest confirms the download is complete.
+ *
+ * @returns {null} Always returns null (result goes via parseScript side effects).
+ */
 RemoteScript.prototype._parseScriptFile = function () {
   if (this.done) {
     return undefined;
@@ -934,6 +1161,10 @@ RemoteScript.prototype._parseScriptFile = function () {
   return script;
 };
 
+/**
+ * Initialises the dependency list and progress array after this.script is set.
+ * Called by both parseScript() and setScript().
+ */
 RemoteScript.prototype._postParseScript = function () {
   this._dependencies = this.script.dependencies;
   this._progress = [];
