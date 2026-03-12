@@ -28,3 +28,6 @@
 <!ENTITY sort.name "Nimi">
 <!ENTITY sort.namespace "Namespace">
 <!ENTITY sort.status "Tila">
+
+<!ENTITY cmd.findUpdates.label "Find Updates">
+<!ENTITY cmd.findUpdates.accesskey "F">

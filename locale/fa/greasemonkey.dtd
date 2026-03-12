@@ -58,3 +58,5 @@
 <!ENTITY timeoutUpdatesUnits "Seconds">
 <!ENTITY uninstall "عزل">
 <!ENTITY updateChecking "Update Checking">
+
+<!ENTITY preferencesCmd2.label "Preferences">

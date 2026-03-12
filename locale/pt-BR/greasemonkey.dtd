@@ -58,3 +58,5 @@
 <!ENTITY timeoutUpdatesUnits "Seconds">
 <!ENTITY uninstall "Desinstalar">
 <!ENTITY updateChecking "Verificação de Atualizações">
+
+<!ENTITY preferencesCmd2.label "Preferences">

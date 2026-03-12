@@ -58,3 +58,5 @@
 <!ENTITY timeoutUpdatesUnits "Seconds">
 <!ENTITY uninstall "削除">
 <!ENTITY updateChecking "更新の確認">
+
+<!ENTITY preferencesCmd2.label "Preferences">

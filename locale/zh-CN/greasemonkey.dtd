@@ -58,3 +58,5 @@
 <!ENTITY timeoutUpdatesUnits "Seconds">
 <!ENTITY uninstall "卸载">
 <!ENTITY updateChecking "检查更新">
+
+<!ENTITY preferencesCmd2.label "Preferences">

@@ -28,3 +28,6 @@
 <!ENTITY sort.name "Isim">
 <!ENTITY sort.namespace "Namespace">
 <!ENTITY sort.status "Durum">
+
+<!ENTITY cmd.findUpdates.label "Find Updates">
+<!ENTITY cmd.findUpdates.accesskey "F">

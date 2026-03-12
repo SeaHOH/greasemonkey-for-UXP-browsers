@@ -58,3 +58,5 @@
 <!ENTITY timeoutUpdatesUnits "Sekundy">
 <!ENTITY uninstall "Odinštalovať">
 <!ENTITY updateChecking "Kontrolovanie aktualizácií">
+
+<!ENTITY preferencesCmd2.label "Preferences">

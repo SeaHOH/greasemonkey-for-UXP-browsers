@@ -58,3 +58,5 @@
 <!ENTITY timeoutUpdatesUnits "Seconds">
 <!ENTITY uninstall "Eltávolítás">
 <!ENTITY updateChecking "Frissítések keresése">
+
+<!ENTITY preferencesCmd2.label "Preferences">

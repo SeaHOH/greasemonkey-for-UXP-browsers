@@ -28,3 +28,6 @@
 <!ENTITY sort.name "Όνομα">
 <!ENTITY sort.namespace "Namespace">
 <!ENTITY sort.status "Κατάσταση">
+
+<!ENTITY cmd.findUpdates.label "Find Updates">
+<!ENTITY cmd.findUpdates.accesskey "F">
