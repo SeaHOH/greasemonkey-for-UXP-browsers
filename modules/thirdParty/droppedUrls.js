@@ -4,6 +4,8 @@
 
 const EXPORTED_SYMBOLS = ["droppedUrls"];
 
+Components.utils.import("resource://gre/modules/Services.jsm");
+
 
 /**
  * Extracts an array of URL strings from a drag-and-drop event's data transfer.
