@@ -64,10 +64,76 @@ const CACHE_SIZE = 1024;
 var cache = new Map();
 var cacheHitCounter = new Map();
 
+// Value change listener infrastructure.
+// gListeners: listenerId → {cacheKey, name, callback, storageFront}
+var gListeners = new Map();
+// gListenersByKey: cacheKey → Set(listenerId)
+var gListenersByKey = new Map();
+var gNextListenerId = 0;
+
+/**
+ * Fires all registered value-change listeners for the given cache key.
+ *
+ * @param {string}  aKey      - Cache key in "<uuid>:<name>" format.
+ * @param {*}       aOldValue - Previous value (may be undefined).
+ * @param {*}       aNewValue - New value (may be undefined).
+ * @param {boolean} aRemote   - True if the change came from another tab.
+ */
+function fireValueChangeListeners(aKey, aOldValue, aNewValue, aRemote) {
+  let listenerIds = gListenersByKey.get(aKey);
+  if (!listenerIds || listenerIds.size == 0) {
+    return undefined;
+  }
+  listenerIds.forEach(function (aListenerId) {
+    let entry = gListeners.get(aListenerId);
+    if (!entry) {
+      return undefined;
+    }
+    try {
+      entry.callback(entry.name, aOldValue, aNewValue, aRemote);
+    } catch (e) {
+      GM_util.logError(e, false, e.fileName, e.lineNumber);
+    }
+  });
+}
+
 Services.cpmm.addMessageListener("greasemonkey:value-invalidate",
     function (aMessage) {
       let data = aMessage.data;
-      data.keys.forEach(invalidateCache);
+      data.keys.forEach(function (aKey) {
+        // Check for listeners before invalidating (to capture old value).
+        let listenerIds = gListenersByKey.get(aKey);
+        let hasListeners = listenerIds && listenerIds.size > 0;
+        let oldValue;
+
+        if (hasListeners) {
+          // Capture old value from cache before it's cleared.
+          oldValue = cache.has(aKey) ? cache.get(aKey) : undefined;
+        }
+
+        invalidateCache(aKey);
+
+        if (hasListeners) {
+          // Fetch new value from the back end.
+          // Extract scriptId and name from the cache key (uuid:name).
+          let colonIdx = aKey.indexOf(":");
+          if (colonIdx == -1) {
+            return undefined;
+          }
+          let name = aKey.substring(colonIdx + 1);
+          // Find any listener entry to get the storageFront reference.
+          let firstEntry = gListeners.get(listenerIds.values().next().value);
+          if (firstEntry && firstEntry.storageFront) {
+            let newValue;
+            try {
+              newValue = firstEntry.storageFront.getValue(name);
+            } catch (e) {
+              newValue = undefined;
+            }
+            fireValueChangeListeners(aKey, oldValue, newValue, true);
+          }
+        }
+      });
     });
 
 /**
@@ -170,6 +236,9 @@ GM_ScriptStorageFront.prototype.setValue = function (aName, aVal) {
 
   let key = cacheKey(this._script, aName);
 
+  // Capture old value for change listeners before invalidation.
+  let oldValue = cache.has(key) ? cache.get(key) : undefined;
+
   invalidateCache(key);
 
   if (typeof aVal == "undefined") {
@@ -181,6 +250,9 @@ GM_ScriptStorageFront.prototype.setValue = function (aName, aVal) {
         "name": aName,
         "val": aVal,
       });
+
+  // Fire local value-change listeners (remote=false).
+  fireValueChangeListeners(key, oldValue, aVal, false);
 };
 
 /**
@@ -271,6 +343,9 @@ GM_ScriptStorageFront.prototype.deleteValue = function (aName) {
 
   let key = cacheKey(this._script, aName);
 
+  // Capture old value for change listeners before invalidation.
+  let oldValue = cache.has(key) ? cache.get(key) : undefined;
+
   invalidateCache(key);
 
   this._messageManager.sendRpcMessage(
@@ -279,6 +354,9 @@ GM_ScriptStorageFront.prototype.deleteValue = function (aName) {
         "name": aName,
         "scriptId": this._script.id,
       });
+
+  // Fire local value-change listeners (remote=false).
+  fireValueChangeListeners(key, oldValue, undefined, false);
 };
 
 /**
@@ -287,6 +365,58 @@ GM_ScriptStorageFront.prototype.deleteValue = function (aName) {
  *
  * @returns {string[]} Array of key names (cloned into sandbox), or [] on error.
  */
+/**
+ * Registers a callback to be invoked whenever the named value changes.
+ * The callback receives (name, oldValue, newValue, remote) where remote
+ * is true when the change originated from a different tab.
+ *
+ * @param {string}   aName     - Storage key to watch.
+ * @param {function} aCallback - Called on value change.
+ * @returns {number} Listener ID that can be passed to removeValueChangeListener.
+ */
+GM_ScriptStorageFront.prototype.addValueChangeListener = function (
+    aName, aCallback) {
+  aName = String(aName);
+  let key = cacheKey(this._script, aName);
+  let id = gNextListenerId++;
+
+  gListeners.set(id, {
+    "cacheKey": key,
+    "callback": aCallback,
+    "name": aName,
+    "storageFront": this,
+  });
+
+  if (!gListenersByKey.has(key)) {
+    gListenersByKey.set(key, new Set());
+  }
+  gListenersByKey.get(key).add(id);
+
+  return id;
+};
+
+/**
+ * Removes a previously registered value-change listener.
+ *
+ * @param {number} aListenerId - The ID returned by addValueChangeListener.
+ */
+GM_ScriptStorageFront.prototype.removeValueChangeListener = function (
+    aListenerId) {
+  let entry = gListeners.get(aListenerId);
+  if (!entry) {
+    return undefined;
+  }
+
+  let keyListeners = gListenersByKey.get(entry.cacheKey);
+  if (keyListeners) {
+    keyListeners["delete"](aListenerId);
+    if (keyListeners.size == 0) {
+      gListenersByKey["delete"](entry.cacheKey);
+    }
+  }
+  gListeners["delete"](aListenerId);
+};
+
 GM_ScriptStorageFront.prototype.listValues = function () {
   var value = this._messageManager.sendRpcMessage(
       "greasemonkey:scriptVal-list", {

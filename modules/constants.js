@@ -42,6 +42,7 @@ const GM_CONSTANTS = {
   /** All GM_* API names that can appear in a script's @grant list. */
   "addonAPI": [
     "GM_addStyle",
+    "GM_addValueChangeListener",
     "GM_cookie",
     "GM_deleteValue",
     "GM_download",
@@ -55,6 +56,7 @@ const GM_CONSTANTS = {
     "GM_notification",
     "GM_openInTab",
     "GM_registerMenuCommand",
+    "GM_removeValueChangeListener",
     "GM_setClipboard",
     "GM_setValue",
     "GM_windowClose",
@@ -68,7 +70,9 @@ const GM_CONSTANTS = {
    * automatically and do NOT need an entry here.
    */
   "addonAPIConversion": {
+    "GM_addValueChangeListener": "addValueChangeListener",
     "GM_getResourceURL": "getResourceUrl",
+    "GM_removeValueChangeListener": "removeValueChangeListener",
     "GM_xmlhttpRequest": "xmlHttpRequest",
   },
   /** Namespace prefix for the legacy GM3 API (e.g. "GM_getValue"). */

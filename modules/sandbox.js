@@ -223,6 +223,21 @@ function createSandbox(aFrameScope, aContentWin, aUrl, aScript, aRunAt) {
     sandbox[_API1] = GM_util.hitch(scriptStorage, "listValues");
   }
 
+  _API1 = "GM_addValueChangeListener";
+  _API2 = _API1.replace(
+      API_PREFIX_REGEXP, GM_CONSTANTS.addonAPIPrefix2 + "$2");
+  if (GM_util.inArray(aScript.grants, _API1)
+      || GM_util.inArray(aScript.grants, _API2, true)) {
+    sandbox[_API1] = GM_util.hitch(scriptStorage, "addValueChangeListener");
+  }
+  _API1 = "GM_removeValueChangeListener";
+  _API2 = _API1.replace(
+      API_PREFIX_REGEXP, GM_CONSTANTS.addonAPIPrefix2 + "$2");
+  if (GM_util.inArray(aScript.grants, _API1)
+      || GM_util.inArray(aScript.grants, _API2, true)) {
+    sandbox[_API1] = GM_util.hitch(scriptStorage, "removeValueChangeListener");
+  }
+
   let scriptResources = new GM_Resources(aScript);
   _API1 = "GM_getResourceText";
   _API2 = _API1.replace(
