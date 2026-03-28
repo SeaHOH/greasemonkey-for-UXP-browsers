@@ -4,15 +4,20 @@
  *   and notifies registered callbacks so that Greasemonkey can inject scripts
  *   at the right moment.
  *
- * Two observer topics are supported (see bug #1849):
- *   - "content-document-global-created"  — fires earlier, used when the
- *     "load.earlier" preference is set.
- *   - "document-element-inserted"        — the default, fires when the
- *     <html> element has been created but before the document is fully parsed.
+ * Two observer topics are used (see bug #1849):
+ *   - "content-document-global-created"  — fires early, before DOM parsing.
+ *     Used for @run-at document-start scripts that need the earliest possible
+ *     injection point.
+ *   - "document-element-inserted"        — fires when the <html> element has
+ *     been created but before the document is fully parsed.  Used for all
+ *     other scripts and as a fallback for document-start.
+ *
+ * Both topics are always processed.  The callback receives the topic string
+ * so it can decide what to inject at each phase.
  *
  * Usage:
  *   onNewDocument(aTopWindow, aCallback)
- *   // aCallback(win) is called for every sub-document under aTopWindow.
+ *   // aCallback(win, topic) is called for every sub-document under aTopWindow.
  */
 
 "use strict";
@@ -52,8 +57,9 @@ var callbacks = new WeakMap();
  * inside the given top-level window (including iframes).
  *
  * @param {Window}   aTopWindow - The top-level content window to watch.
- * @param {function} aCallback  - Called with the new (sub-)window as its
- *                                sole argument each time a document is created.
+ * @param {function} aCallback  - Called with the new (sub-)window and the
+ *                                observer topic string each time a document
+ *                                is created: aCallback(win, topic).
  */
 function onNewDocument(aTopWindow, aCallback) {
   callbacks.set(aTopWindow, aCallback);
@@ -62,12 +68,15 @@ function onNewDocument(aTopWindow, aCallback) {
 /**
  * nsIObserver that receives document-creation notifications from the
  * Services.obs notification system.  Both supported topics are registered
- * at module load time; the active one is chosen at runtime based on the
- * "load.earlier" preference.
+ * at module load time and are always processed.  The topic string is
+ * forwarded to the callback so it can run the appropriate scripts at
+ * each phase (early injection for document-start, normal for others).
  */
 let contentObserver = {
   /**
    * Called by the observer service for each document-creation notification.
+   * Both supported topics are always processed; the topic string is forwarded
+   * to the callback so it can decide what to inject at each phase.
    *
    * @param {nsISupports} aSubject - The new window (topic 1) or document (topic 2).
    * @param {string}      aTopic   - The observer topic string.
@@ -79,51 +88,34 @@ let contentObserver = {
       return undefined;
     }
 
-    let observerTopic = OBSERVER_TOPIC_2;
-    if (GM_prefRoot.getValue("load.earlier")) {
-      observerTopic = OBSERVER_TOPIC_1;
-    }
-
+    let doc;
+    let win;
     switch (aTopic) {
-      case observerTopic:
-        let doc;
-        let win;
-        switch (aTopic) {
-          case OBSERVER_TOPIC_1:
-            // aData != "null" - because of the page "about:blank".
-            doc = aData && (aData != "null");
-            win = aSubject;
-
-            break;
-          case OBSERVER_TOPIC_2:
-            doc = aSubject;
-            win = doc && doc.defaultView;
-
-            break;
-        }
-
-        if (!doc || !win) {
-          return undefined;
-        }
-
-        let topWin = win.top;
-
-        let frameCallback = callbacks.get(topWin);
-        if (!frameCallback) {
-          return undefined;
-        }
-
-        frameCallback(win);
-
+      case OBSERVER_TOPIC_1:
+        // aData != "null" - because of the page "about:blank".
+        doc = aData && (aData != "null");
+        win = aSubject;
+        break;
+      case OBSERVER_TOPIC_2:
+        doc = aSubject;
+        win = doc && doc.defaultView;
         break;
       default:
-        /*
-        dump("contentObserver" + " - "
-            + "Content frame observed unknown topic: " + aTopic + "\n");
-        */
-
-        break;
+        return undefined;
     }
+
+    if (!doc || !win) {
+      return undefined;
+    }
+
+    let topWin = win.top;
+
+    let frameCallback = callbacks.get(topWin);
+    if (!frameCallback) {
+      return undefined;
+    }
+
+    frameCallback(win, aTopic);
   },
 };
 

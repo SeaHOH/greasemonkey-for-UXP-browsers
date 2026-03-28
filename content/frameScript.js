@@ -37,24 +37,60 @@ const URL_USER_PASS_STRIP_REGEXP = new RegExp(
 var gScope = this;
 var _gEnvironment = GM_util.getEnvironment();
 
+// Observer topic constants for per-script early injection.
+const TOPIC_EARLY = "content-document-global-created";
+const TOPIC_NORMAL = "document-element-inserted";
+
+// Tracks windows where document-start scripts have already been injected
+// via the early observer, so the normal observer can skip them.
+var gEarlyStartWindows = new WeakSet();
+
 // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ //
 
-function contentObserver(aWin) {
+function contentObserver(aWin, aTopic) {
   if (!GM_util.getEnabled()) {
     return undefined;
   }
 
+  if (aTopic === TOPIC_EARLY) {
+    // Early observer (content-document-global-created): run only
+    // document-start scripts for the earliest possible injection.
+    //
+    // At this point document.documentURI may still be "about:blank"
+    // because the document hasn't been assigned its final URI yet.
+    // However, location.href is already set to the navigation target,
+    // so use that for URL matching.
+    let earlyUrl = aWin.location.href;
+    if (!earlyUrl || !GM_util.isGreasemonkeyable(earlyUrl)) {
+      return undefined;
+    }
+
+    let scripts = IPCScript.scriptsForUrl(
+        earlyUrl, "document-start", GM_util.windowId(aWin, "outer"));
+    if (scripts.length > 0) {
+      gEarlyStartWindows.add(aWin);
+      injectScripts(scripts, "document-start", aWin);
+    }
+    return undefined;
+  }
+
+  // Normal observer (document-element-inserted): set up listeners for
+  // document-end and document-idle, and run document-start as a fallback
+  // if the early observer did not already handle it.
   let doc = aWin.document;
   let url = doc.documentURI;
   if (!GM_util.isGreasemonkeyable(url)) {
     return undefined;
   }
 
-  // Listen for whichever kind of load event arrives first.
   aWin.addEventListener("DOMContentLoaded", contentLoad, true);
   aWin.addEventListener("load", contentLoad, true);
 
-  runScripts("document-start", aWin);
+  if (!gEarlyStartWindows.has(aWin)) {
+    runScripts("document-start", aWin);
+  } else {
+    gEarlyStartWindows.delete(aWin);
+  }
 };
 
 // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ //
@@ -186,8 +222,18 @@ function injectScripts(aScripts, aRunAt, aContentWin) {
     if (script.noframes && !winIsTop) {
       continue;
     }
-    let sandbox = createSandbox(gScope, aContentWin, url, script, aRunAt);
-    runScriptInSandbox(sandbox, script);
+    try {
+      let sandbox = createSandbox(gScope, aContentWin, url, script, aRunAt);
+      runScriptInSandbox(sandbox, script);
+    } catch (e) {
+      // Log but continue — one script's failure must not block others.
+      let scriptName = script.localized && script.localized.name
+          ? script.localized.name : script.id;
+      GM_util.logError(
+          "Error injecting script " + JSON.stringify(scriptName)
+          + " at " + aRunAt + ":\n" + e,
+          false, e.fileName, e.lineNumber);
+    }
   }
 }
 
@@ -237,6 +283,21 @@ function urlForWin(aContentWin) {
   // Luckily, the document.documentURI does _not_ change,
   // so always use it when deciding whether to run scripts.
   let url = aContentWin.document.documentURI;
+
+  // At very early injection (content-document-global-created),
+  // documentURI may still be "about:blank" while location.href already
+  // holds the real navigation target.  Fall back to location.href so
+  // that document-start scripts can match the correct URL.
+  if (url == "about:blank") {
+    try {
+      let locHref = aContentWin.location.href;
+      if (locHref && locHref != "about:blank") {
+        url = locHref;
+      }
+    } catch (e) {
+      // location may not be accessible in some edge cases.
+    }
+  }
 
   // But (see #1631) ignore user/pass in the URL.
   return url.replace(URL_USER_PASS_STRIP_REGEXP, "$1");
