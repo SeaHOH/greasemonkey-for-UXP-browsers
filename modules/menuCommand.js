@@ -255,5 +255,17 @@ function MenuCommandSandbox(
     };
     commands[command.cookie] = command;
     commandFuncs[command.cookie] = aCommandFunc;
+
+    return command.cookie;
+  };
+
+  /**
+   * Removes a previously registered menu command.
+   *
+   * @param {number} aCookie - The ID returned by GM_registerMenuCommand.
+   */
+  this.GM_unregisterMenuCommand = function (aCookie) {
+    delete commands[aCookie];
+    delete commandFuncs[aCookie];
   };
 };

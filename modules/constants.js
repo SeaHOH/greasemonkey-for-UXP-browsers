@@ -59,6 +59,7 @@ const GM_CONSTANTS = {
     "GM_registerMenuCommand",
     "GM_removeValueChangeListener",
     "GM_setClipboard",
+    "GM_unregisterMenuCommand",
     "GM_setValue",
     "GM_windowClose",
     "GM_windowFocus",

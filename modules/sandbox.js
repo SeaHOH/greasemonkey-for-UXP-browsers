@@ -298,8 +298,13 @@ function createSandbox(aFrameScope, aContentWin, aUrl, aScript, aRunAt) {
   _API1 = "GM_registerMenuCommand";
   _API2 = _API1.replace(
       API_PREFIX_REGEXP, GM_CONSTANTS.addonAPIPrefix2 + "$2");
+  let _unreg1 = "GM_unregisterMenuCommand";
+  let _unreg2 = _unreg1.replace(
+      API_PREFIX_REGEXP, GM_CONSTANTS.addonAPIPrefix2 + "$2");
   if (GM_util.inArray(aScript.grants, _API1)
-      || GM_util.inArray(aScript.grants, _API2, true)) {
+      || GM_util.inArray(aScript.grants, _API2, true)
+      || GM_util.inArray(aScript.grants, _unreg1)
+      || GM_util.inArray(aScript.grants, _unreg2, true)) {
     Cu.evalInSandbox(
         "this._MenuCommandSandbox = " + MenuCommandSandbox.toSource(), sandbox);
     sandbox._MenuCommandSandbox(
