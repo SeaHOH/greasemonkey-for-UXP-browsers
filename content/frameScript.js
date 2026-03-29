@@ -230,6 +230,69 @@ function injectDelayedScript(aMessage) {
   }
 };
 
+/**
+ * Injects a @grant none script directly into the page context via a <script>
+ * element.  This matches Violentmonkey/Tampermonkey behavior: the script runs
+ * in the page's global scope so writes to `window` are visible to page JS.
+ *
+ * @param {Window}    aContentWin - The content window to inject into.
+ * @param {IPCScript} aScript     - The script to inject.
+ */
+function injectScriptIntoPage(aContentWin, aScript) {
+  let doc = aContentWin.document;
+
+  // Build GM_info declaration so the script can access it.
+  let gmInfoJson = "{}";
+  try {
+    gmInfoJson = JSON.stringify(aScript.info());
+  } catch (e) {
+    // Fall back to empty object if serialization fails.
+  }
+  let gmInfoDecl = "var GM_info = " + gmInfoJson + ";\n"
+      + "var unsafeWindow = window;\n";
+
+  // Load @require file contents in order.
+  let requireCode = "";
+  for (let i = 0; i < aScript.requires.length; i++) {
+    try {
+      requireCode += GM_util.fileXhr(
+          aScript.requires[i].fileURL, "application/javascript") + "\n";
+    } catch (e) {
+      GM_util.logError(
+          "Error loading @require " + aScript.requires[i].fileURL
+          + ":\n" + e, false, e.fileName, e.lineNumber);
+    }
+  }
+
+  // Load the script's own source.
+  let scriptCode = "";
+  try {
+    scriptCode = GM_util.fileXhr(
+        aScript.fileURL, "application/javascript");
+  } catch (e) {
+    GM_util.logError(
+        "Error loading script " + aScript.fileURL
+        + ":\n" + e, false, e.fileName, e.lineNumber);
+    return undefined;
+  }
+
+  // Inject as a <script> element in the page context.
+  let fullCode = gmInfoDecl + requireCode + scriptCode;
+  let parent = doc.documentElement || doc;
+  try {
+    let scriptEl = doc.createElement("script");
+    scriptEl.textContent = fullCode;
+    parent.appendChild(scriptEl);
+    scriptEl.remove();
+  } catch (e) {
+    // CSP or other restriction blocked <script> injection.
+    // Fall back to sandbox-based injection.
+    let sandbox = createSandbox(gScope, aContentWin,
+        aContentWin.document.documentURI, aScript, "document-end");
+    runScriptInSandbox(sandbox, aScript);
+  }
+}
+
 function injectScripts(aScripts, aRunAt, aContentWin) {
   try {
     aContentWin.QueryInterface(Ci.nsIDOMChromeWindow);
@@ -251,8 +314,13 @@ function injectScripts(aScripts, aRunAt, aContentWin) {
       continue;
     }
     try {
-      let sandbox = createSandbox(gScope, aContentWin, url, script, aRunAt);
-      runScriptInSandbox(sandbox, script);
+      if (GM_util.inArray(script.grants, "none")) {
+        // @grant none: inject directly into page context (VM/TM compat).
+        injectScriptIntoPage(aContentWin, script);
+      } else {
+        let sandbox = createSandbox(gScope, aContentWin, url, script, aRunAt);
+        runScriptInSandbox(sandbox, script);
+      }
     } catch (e) {
       // Log but continue — one script's failure must not block others.
       let scriptName = script.localized && script.localized.name
