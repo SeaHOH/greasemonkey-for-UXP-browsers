@@ -54,7 +54,9 @@ function contentObserver(aWin, aTopic) {
 
   if (aTopic === TOPIC_EARLY) {
     // Early observer (content-document-global-created): run only
-    // document-start scripts for the earliest possible injection.
+    // document-start scripts that need privileged APIs (not @grant none).
+    // @grant none scripts are deferred to document-element-inserted where
+    // they get page-context injection via <script> elements (needs DOM).
     //
     // At this point document.documentURI may still be "about:blank"
     // because the document hasn't been assigned its final URI yet.
@@ -67,9 +69,18 @@ function contentObserver(aWin, aTopic) {
 
     let scripts = IPCScript.scriptsForUrl(
         earlyUrl, "document-start", GM_util.windowId(aWin, "outer"));
-    if (scripts.length > 0) {
+    // Only inject scripts that need the sandbox (have @grant APIs).
+    // @grant none scripts will be injected at document-element-inserted.
+    let earlyScripts = scripts.filter(function (s) {
+      return !GM_util.inArray(s.grants, "none");
+    });
+    if (earlyScripts.length > 0) {
+      injectScripts(earlyScripts, "document-start", aWin);
+    }
+    // Mark the window so the normal observer knows which scripts were
+    // already handled. Store the count of early-injected scripts.
+    if (earlyScripts.length > 0) {
       gEarlyStartWindows.add(aWin);
-      injectScripts(scripts, "document-start", aWin);
     }
     return undefined;
   }
@@ -87,9 +98,24 @@ function contentObserver(aWin, aTopic) {
   aWin.addEventListener("load", contentLoad, true);
 
   if (!gEarlyStartWindows.has(aWin)) {
+    // No early injection happened — run all document-start scripts normally.
     runScripts("document-start", aWin);
   } else {
+    // Early injection already ran sandbox scripts (@grant <api>).
+    // Now run the @grant none scripts that were deferred for page-context
+    // injection (which needs DOM to exist).
     gEarlyStartWindows.delete(aWin);
+    let deferredUrl = urlForWin(aWin);
+    if (deferredUrl) {
+      let allStartScripts = IPCScript.scriptsForUrl(
+          deferredUrl, "document-start", GM_util.windowId(aWin, "outer"));
+      let deferredScripts = allStartScripts.filter(function (s) {
+        return GM_util.inArray(s.grants, "none");
+      });
+      if (deferredScripts.length > 0) {
+        injectScripts(deferredScripts, "document-start", aWin);
+      }
+    }
   }
 
   // @run-at document-body: fire when <body> first appears.
@@ -314,8 +340,11 @@ function injectScripts(aScripts, aRunAt, aContentWin) {
       continue;
     }
     try {
-      if (GM_util.inArray(script.grants, "none")) {
-        // @grant none: inject directly into page context (VM/TM compat).
+      if (GM_util.inArray(script.grants, "none")
+          && aContentWin.document.documentElement) {
+        // @grant none with DOM ready: inject directly into page context
+        // (VM/TM compat).  At very early injection (before <html> exists),
+        // fall through to the sandbox path since <script> elements need DOM.
         injectScriptIntoPage(aContentWin, script);
       } else {
         let sandbox = createSandbox(gScope, aContentWin, url, script, aRunAt);
