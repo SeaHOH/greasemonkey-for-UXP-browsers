@@ -167,9 +167,12 @@ IPCScript.prototype.info = function () {
   return {
     "script": {
       "author": this.author,
+      "connects": this.connects,
       "copyright": this.copyright,
       "description": this.description,
+      "excludeMatches": this.excludeMatches,
       "excludes": this.excludes,
+      "grant": this.grants,
       "homepage": this.homepage,
       // "icon": ? source URL,
       "includes": this.includes,
@@ -184,6 +187,11 @@ IPCScript.prototype.info = function () {
       "resources": resources,
       "run-at": this.runAt,
       "version": this.version,
+    },
+    "platform": {
+      "arch": Services.appinfo.XPCOMABI
+          ? Services.appinfo.XPCOMABI.split("-")[0] : "",
+      "os": Services.appinfo.OS || "",
     },
     "scriptHandler": GM_CONSTANTS.info.scriptHandler,
     "scriptWillUpdate": this.willUpdate,

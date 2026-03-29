@@ -350,12 +350,18 @@ function createSandbox(aFrameScope, aContentWin, aUrl, aScript, aRunAt) {
                 .GetStringFromName("error.menu.invalidAccesskey")) + ";"
         + "this.GM_registerMenuCommand = function(n, f, k, u, k2) {"
         + "  n = String(n);"
+        + "  var opts = {};"
+        + "  if (k && typeof k == 'object') {"
+        + "    opts = k; k = opts.accessKey || null;"
+        + "  }"
         + "  if (typeof k2 != 'undefined') k = k2;"
         + "  if (k && ((typeof k != 'string') || (k.length != 1)))"
         + "    throw new Error(_mc_errKey.replace('%1', n), _mc_fileURL, null);"
+        + "  var id = opts.id || n;"
         + "  var cmd = {"
         + "    'accesskey': k,"
         + "    'cookie': ++_mc_cookie,"
+        + "    'id': id,"
         + "    'name': n,"
         + "    'scriptName': _mc_name,"
         + "    'scriptUuid': _mc_uuid"
@@ -406,11 +412,14 @@ function createSandbox(aFrameScope, aContentWin, aUrl, aScript, aRunAt) {
   }
 
   // See #2538 (an alternative).
+  // See #2538 (an alternative).
+  // Also accept @grant window.close / window.focus (Tampermonkey/VM compat).
   _API1 = "GM_windowClose";
   _API2 = _API1.replace(
       API_PREFIX_REGEXP, GM_CONSTANTS.addonAPIPrefix2 + "$2");
   if (GM_util.inArray(aScript.grants, _API1)
-      || GM_util.inArray(aScript.grants, _API2, true)) {
+      || GM_util.inArray(aScript.grants, _API2, true)
+      || GM_util.inArray(aScript.grants, "window.close")) {
     sandbox[_API1] = GM_util.hitch(
         null, GM_window, aFrameScope, aScript.fileURL, "close");
   }
@@ -418,7 +427,8 @@ function createSandbox(aFrameScope, aContentWin, aUrl, aScript, aRunAt) {
   _API2 = _API1.replace(
       API_PREFIX_REGEXP, GM_CONSTANTS.addonAPIPrefix2 + "$2");
   if (GM_util.inArray(aScript.grants, _API1)
-      || GM_util.inArray(aScript.grants, _API2, true)) {
+      || GM_util.inArray(aScript.grants, _API2, true)
+      || GM_util.inArray(aScript.grants, "window.focus")) {
     sandbox[_API1] = GM_util.hitch(
         null, GM_window, aFrameScope, aScript.fileURL, "focus");
   }
