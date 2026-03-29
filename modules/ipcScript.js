@@ -87,6 +87,9 @@ function IPCScript(aScript, aAddonVersion) {
   this.willUpdate = aScript.isRemoteUpdateAllowed(false)
       && aScript.shouldAutoUpdate();
 
+  this.excludeMatches = aScript.excludeMatches.map(function (aMatch) {
+    return aMatch.pattern;
+  });
   this.matches = aScript.matches.map(function (aMatch) {
     return aMatch.pattern;
   });

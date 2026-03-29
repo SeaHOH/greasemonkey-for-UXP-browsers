@@ -168,6 +168,8 @@ var _GM_parseMetaLine = /*
         peg$c21 = peg$literalExpectation("exclude", false),
         peg$c21a = "connect",
         peg$c21b = peg$literalExpectation("connect", false),
+        peg$c21c = "exclude-match",
+        peg$c21d = peg$literalExpectation("exclude-match", false),
         peg$c22 = "grant",
         peg$c23 = peg$literalExpectation("grant", false),
         peg$c24 = "homepageURL",
@@ -541,6 +543,14 @@ var _GM_parseMetaLine = /*
             if (peg$silentFails === 0) { peg$fail(peg$c19); }
           }
           if (s1 === peg$FAILED) {
+            if (input.substr(peg$currPos, 13) === peg$c21c) {
+              s1 = peg$c21c;
+              peg$currPos += 13;
+            } else {
+              s1 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c21d); }
+            }
+            if (s1 === peg$FAILED) {
             if (input.substr(peg$currPos, 7) === peg$c20) {
               s1 = peg$c20;
               peg$currPos += 7;
@@ -655,6 +665,7 @@ var _GM_parseMetaLine = /*
                 }
               }
             }
+          }
           }
           }
         }

@@ -105,6 +105,7 @@ function Script(aConfigNode) {
   this._locales = {};
   // The best localized matches for the current browser locale.
   this._localized = null;
+  this._excludeMatches = [];
   this._matches = [];
   this._modifiedTime = null;
   this._name = GM_CONSTANTS.scriptType;
@@ -386,6 +387,25 @@ Object.defineProperty(Script.prototype, "localized", {
 
     return this._localized;
   },
+  "enumerable": true,
+});
+
+Object.defineProperty(Script.prototype, "excludeMatches", {
+  "get": function Script_getExcludeMatches() {
+    return this._excludeMatches.concat();
+  },
+  "set": function Script_setExcludeMatches(aMatches) {
+    let result = [];
+    for (let i = 0, iLen = aMatches.length; i < iLen; i++) {
+      try {
+        result.push(new MatchPattern(aMatches[i]));
+      } catch (e) {
+        // Ignore invalid patterns.
+      }
+    }
+    this._excludeMatches = result;
+  },
+  "configurable": true,
   "enumerable": true,
 });
 
@@ -714,6 +734,9 @@ Script.prototype._fromConfigNode = function (aNode) {
       case "Include":
         this._includes.push(childNode.textContent);
         break;
+      case "ExcludeMatch":
+        this._excludeMatches.push(new MatchPattern(childNode.textContent));
+        break;
       case "Match":
         this._matches.push(new MatchPattern(childNode.textContent));
         break;
@@ -791,6 +814,9 @@ Script.prototype.toConfigNode = function (aDoc) {
   addArrayNodes("Exclude", this._excludes);
   addArrayNodes("Grant", this._grants);
   addArrayNodes("Include", this._includes);
+  for (let j = 0, jLen = this._excludeMatches.length; j < jLen; j++) {
+    addNode("ExcludeMatch", this._excludeMatches[j].pattern);
+  }
   for (let j = 0, jLen = this._matches.length; j < jLen; j++) {
     addNode("Match", this._matches[j].pattern);
   }
@@ -1070,6 +1096,7 @@ Script.prototype.updateFromNewScript = function (
   this._includes = newScript._includes;
   this._locales = newScript._locales;
   this._localized = newScript._localized;
+  this._excludeMatches = newScript._excludeMatches;
   this._matches = newScript._matches;
   this._noframes = newScript._noframes;
   this._runAt = newScript._runAt;

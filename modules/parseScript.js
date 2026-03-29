@@ -155,6 +155,19 @@ function parse(aSource, aUri, aFailWhenMissing) {
       case "connect":
         script["_connects"].push(data.value);
         break;
+      case "exclude-match":
+        try {
+          let excludeMatch = new MatchPattern(data.value);
+          script._excludeMatches.push(excludeMatch);
+        } catch (e) {
+          script.parseErrors.push(
+              GM_CONSTANTS.localeStringBundle.createBundle(
+                  GM_CONSTANTS.localeGreasemonkeyProperties)
+                  .GetStringFromName("error.parse.ignoringMatch")
+                  .replace("%1", data.value).replace("%2", e)
+              );
+        }
+        break;
       case "grant":
         script["_grants"].push(data.value);
         break;

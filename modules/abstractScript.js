@@ -180,5 +180,8 @@ AbstractScript.prototype.matchesURL = function (aUrl) {
   if (this.excludes.some(testClude)) {
     return false;
   }
+  if (this.excludeMatches && this.excludeMatches.some(testMatch)) {
+    return false;
+  }
   return (this.includes.some(testClude) || this.matches.some(testMatch));
 };
