@@ -94,7 +94,6 @@ function contentObserver(aWin, aTopic) {
 
   // @run-at document-body: fire when <body> first appears.
   // If <body> already exists, run immediately; otherwise use MutationObserver.
-  let doc = aWin.document;
   if (doc.body) {
     runScripts("document-body", aWin);
   } else {

@@ -209,6 +209,13 @@ function createSandbox(aFrameScope, aContentWin, aUrl, aScript, aRunAt) {
       || GM_util.inArray(aScript.grants, _API2, true)) {
     sandbox[_API1] = GM_util.hitch(scriptStorage, "deleteValue");
   }
+  _API1 = "GM_deleteValues";
+  _API2 = _API1.replace(
+      API_PREFIX_REGEXP, GM_CONSTANTS.addonAPIPrefix2 + "$2");
+  if (GM_util.inArray(aScript.grants, _API1)
+      || GM_util.inArray(aScript.grants, _API2, true)) {
+    sandbox[_API1] = GM_util.hitch(scriptStorage, "deleteValues");
+  }
   _API1 = "GM_getValue";
   _API2 = _API1.replace(
       API_PREFIX_REGEXP, GM_CONSTANTS.addonAPIPrefix2 + "$2");
@@ -216,12 +223,26 @@ function createSandbox(aFrameScope, aContentWin, aUrl, aScript, aRunAt) {
       || GM_util.inArray(aScript.grants, _API2, true)) {
     sandbox[_API1] = GM_util.hitch(scriptStorage, "getValue");
   }
+  _API1 = "GM_getValues";
+  _API2 = _API1.replace(
+      API_PREFIX_REGEXP, GM_CONSTANTS.addonAPIPrefix2 + "$2");
+  if (GM_util.inArray(aScript.grants, _API1)
+      || GM_util.inArray(aScript.grants, _API2, true)) {
+    sandbox[_API1] = GM_util.hitch(scriptStorage, "getValues");
+  }
   _API1 = "GM_setValue";
   _API2 = _API1.replace(
       API_PREFIX_REGEXP, GM_CONSTANTS.addonAPIPrefix2 + "$2");
   if (GM_util.inArray(aScript.grants, _API1)
       || GM_util.inArray(aScript.grants, _API2, true)) {
     sandbox[_API1] = GM_util.hitch(scriptStorage, "setValue");
+  }
+  _API1 = "GM_setValues";
+  _API2 = _API1.replace(
+      API_PREFIX_REGEXP, GM_CONSTANTS.addonAPIPrefix2 + "$2");
+  if (GM_util.inArray(aScript.grants, _API1)
+      || GM_util.inArray(aScript.grants, _API2, true)) {
+    sandbox[_API1] = GM_util.hitch(scriptStorage, "setValues");
   }
 
   _API1 = "GM_listValues";

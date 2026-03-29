@@ -366,6 +366,64 @@ GM_ScriptStorageFront.prototype.deleteValue = function (aName) {
  * @returns {string[]} Array of key names (cloned into sandbox), or [] on error.
  */
 /**
+ * Retrieves multiple values at once.
+ *
+ * @param {string[]|object} aWhat - Array of key names, or an object whose
+ *   keys are the names and values are the defaults.
+ * @returns {object} Object mapping each key to its stored value (cloned into
+ *   sandbox scope).
+ */
+GM_ScriptStorageFront.prototype.getValues = function (aWhat) {
+  let keys;
+  let defaults = {};
+  if (Array.isArray(aWhat)) {
+    keys = aWhat;
+  } else if (aWhat && typeof aWhat == "object") {
+    keys = Object.keys(aWhat);
+    defaults = aWhat;
+  } else {
+    keys = [];
+  }
+  let result = {};
+  for (let i = 0; i < keys.length; i++) {
+    let name = keys[i];
+    result[name] = this.getValue(name, defaults[name]);
+  }
+  return Cu.cloneInto(result, this._sandbox, {
+    "wrapReflectors": true,
+  });
+};
+
+/**
+ * Stores multiple values at once.
+ *
+ * @param {object} aObj - Object whose keys/values are stored.
+ */
+GM_ScriptStorageFront.prototype.setValues = function (aObj) {
+  if (!aObj || typeof aObj != "object") {
+    return undefined;
+  }
+  let keys = Object.keys(aObj);
+  for (let i = 0; i < keys.length; i++) {
+    this.setValue(keys[i], aObj[keys[i]]);
+  }
+};
+
+/**
+ * Deletes multiple values at once.
+ *
+ * @param {string[]} aKeys - Array of key names to delete.
+ */
+GM_ScriptStorageFront.prototype.deleteValues = function (aKeys) {
+  if (!Array.isArray(aKeys)) {
+    return undefined;
+  }
+  for (let i = 0; i < aKeys.length; i++) {
+    this.deleteValue(aKeys[i]);
+  }
+};
+
+/**
  * Registers a callback to be invoked whenever the named value changes.
  * The callback receives (name, oldValue, newValue, remote) where remote
  * is true when the change originated from a different tab.
