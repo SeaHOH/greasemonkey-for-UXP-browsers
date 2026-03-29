@@ -326,24 +326,74 @@ function createSandbox(aFrameScope, aContentWin, aUrl, aScript, aRunAt) {
       || GM_util.inArray(aScript.grants, _API2, true)
       || GM_util.inArray(aScript.grants, _unreg1)
       || GM_util.inArray(aScript.grants, _unreg2, true)) {
-    Cu.evalInSandbox(
-        "this._MenuCommandSandbox = " + MenuCommandSandbox.toSource(), sandbox);
-    sandbox._MenuCommandSandbox(
-        aFrameScope.content,
-        aScript.uuid, aScript.localized.name, aScript.fileURL,
-        MenuCommandRespond,
-        GM_CONSTANTS.localeStringBundle.createBundle(
-            GM_CONSTANTS.localeGreasemonkeyProperties)
-            .GetStringFromName("error.menu.callbackIsNotFunction"),
-        GM_CONSTANTS.localeStringBundle.createBundle(
-            GM_CONSTANTS.localeGreasemonkeyProperties)
-            .GetStringFromName("error.menu.couldNotRun"),
-        GM_CONSTANTS.localeStringBundle.createBundle(
-            GM_CONSTANTS.localeGreasemonkeyProperties)
-            .GetStringFromName("error.menu.invalidAccesskey"),
-        MenuCommandEventNameSuffix);
-    Cu.evalInSandbox(
-        "delete this._MenuCommandSandbox;", sandbox);
+    // Inject MenuCommandSandbox as inline source instead of toSource()
+    // to avoid SyntaxError in Pale Moon's SpiderMonkey decompiler.
+    let menuSrc = ""
+        + "var _mc_commands = {};"
+        + "var _mc_commandFuncs = {};"
+        + "var _mc_cookie = 0;"
+        + "var _mc_uuid = " + JSON.stringify(aScript.uuid) + ";"
+        + "var _mc_name = " + JSON.stringify(aScript.localized.name) + ";"
+        + "var _mc_fileURL = " + JSON.stringify(aScript.fileURL) + ";"
+        + "var _mc_suffix = " + JSON.stringify(MenuCommandEventNameSuffix) + ";"
+        + "var _mc_errNotFunc = " + JSON.stringify(
+            GM_CONSTANTS.localeStringBundle.createBundle(
+                GM_CONSTANTS.localeGreasemonkeyProperties)
+                .GetStringFromName("error.menu.callbackIsNotFunction")) + ";"
+        + "var _mc_errRun = " + JSON.stringify(
+            GM_CONSTANTS.localeStringBundle.createBundle(
+                GM_CONSTANTS.localeGreasemonkeyProperties)
+                .GetStringFromName("error.menu.couldNotRun")) + ";"
+        + "var _mc_errKey = " + JSON.stringify(
+            GM_CONSTANTS.localeStringBundle.createBundle(
+                GM_CONSTANTS.localeGreasemonkeyProperties)
+                .GetStringFromName("error.menu.invalidAccesskey")) + ";"
+        + "this.GM_registerMenuCommand = function(n, f, k, u, k2) {"
+        + "  n = String(n);"
+        + "  if (typeof k2 != 'undefined') k = k2;"
+        + "  if (k && ((typeof k != 'string') || (k.length != 1)))"
+        + "    throw new Error(_mc_errKey.replace('%1', n), _mc_fileURL, null);"
+        + "  var cmd = {"
+        + "    'accesskey': k,"
+        + "    'cookie': ++_mc_cookie,"
+        + "    'name': n,"
+        + "    'scriptName': _mc_name,"
+        + "    'scriptUuid': _mc_uuid"
+        + "  };"
+        + "  _mc_commands[cmd.cookie] = cmd;"
+        + "  _mc_commandFuncs[cmd.cookie] = f;"
+        + "  return cmd.cookie;"
+        + "};"
+        + "this.GM_unregisterMenuCommand = function(c) {"
+        + "  delete _mc_commands[c];"
+        + "  delete _mc_commandFuncs[c];"
+        + "};";
+    Cu.evalInSandbox(menuSrc, sandbox);
+
+    // Set up event listeners via chrome-context function injection.
+    let mcContent = aFrameScope.content;
+    try {
+      mcContent.addEventListener(
+          "greasemonkey-menu-command-list-" + MenuCommandEventNameSuffix,
+          function (e) {
+            e.stopPropagation();
+            MenuCommandRespond(e.detail, sandbox._mc_commands);
+          }, true);
+      mcContent.addEventListener(
+          "greasemonkey-menu-command-run-" + MenuCommandEventNameSuffix,
+          function (e) {
+            e.stopPropagation();
+            var detail = JSON.parse(e.detail);
+            if (aScript.uuid != detail.scriptUuid) return;
+            e.stopImmediatePropagation();
+            var commandFunc = sandbox._mc_commandFuncs[detail.cookie];
+            if (!commandFunc) return;
+            if (typeof commandFunc != "function") return;
+            commandFunc.call();
+          }, true);
+    } catch (e) {
+      // Permission denied to access addEventListener (rare).
+    }
   }
 
   _API1 = "GM_setClipboard";
