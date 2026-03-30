@@ -69,10 +69,13 @@ function contentObserver(aWin, aTopic) {
 
     let scripts = IPCScript.scriptsForUrl(
         earlyUrl, "document-start", GM_util.windowId(aWin, "outer"));
-    // Only inject scripts that need the sandbox (have @grant APIs).
-    // @grant none scripts will be injected at document-element-inserted.
+    // Only inject scripts that:
+    //   1. Have @grant APIs (not @grant none — those need page-context)
+    //   2. Have NO @require dependencies (libraries like jQuery need DOM)
+    // Everything else is deferred to document-element-inserted.
     let earlyScripts = scripts.filter(function (s) {
-      return !GM_util.inArray(s.grants, "none");
+      return !GM_util.inArray(s.grants, "none")
+          && (!s.requires || s.requires.length == 0);
     });
     if (earlyScripts.length > 0) {
       injectScripts(earlyScripts, "document-start", aWin);
@@ -101,16 +104,17 @@ function contentObserver(aWin, aTopic) {
     // No early injection happened — run all document-start scripts normally.
     runScripts("document-start", aWin);
   } else {
-    // Early injection already ran sandbox scripts (@grant <api>).
-    // Now run the @grant none scripts that were deferred for page-context
-    // injection (which needs DOM to exist).
+    // Early injection already ran simple sandbox scripts (no @require).
+    // Now run everything that was deferred: @grant none scripts (need
+    // page-context) and scripts with @require (need DOM for libraries).
     gEarlyStartWindows.delete(aWin);
     let deferredUrl = urlForWin(aWin);
     if (deferredUrl) {
       let allStartScripts = IPCScript.scriptsForUrl(
           deferredUrl, "document-start", GM_util.windowId(aWin, "outer"));
       let deferredScripts = allStartScripts.filter(function (s) {
-        return GM_util.inArray(s.grants, "none");
+        return GM_util.inArray(s.grants, "none")
+            || (s.requires && s.requires.length > 0);
       });
       if (deferredScripts.length > 0) {
         injectScripts(deferredScripts, "document-start", aWin);
