@@ -266,23 +266,53 @@ function injectDelayedScript(aMessage) {
  */
 function injectScriptIntoPage(aContentWin, aScript) {
   let doc = aContentWin.document;
+  let parent = doc.documentElement || doc;
 
-  // Build GM_info declaration so the script can access it.
+  /**
+   * Helper: injects a single piece of code as a <script> element.
+   * Returns true on success, false if blocked (e.g. by CSP).
+   */
+  function injectCode(aCode, aSourceHint) {
+    try {
+      let el = doc.createElement("script");
+      if (aSourceHint) {
+        aCode += "\n//# sourceURL=" + aSourceHint;
+      }
+      el.textContent = aCode;
+      parent.appendChild(el);
+      el.remove();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  // 1) Inject GM_info and unsafeWindow declarations.
   let gmInfoJson = "{}";
   try {
     gmInfoJson = JSON.stringify(aScript.info());
   } catch (e) {
     // Fall back to empty object if serialization fails.
   }
-  let gmInfoDecl = "var GM_info = " + gmInfoJson + ";\n"
-      + "var unsafeWindow = window;\n";
+  if (!injectCode(
+      "var GM_info = " + gmInfoJson + ";\n"
+      + "var unsafeWindow = window;",
+      "GM_info")) {
+    // CSP blocked <script> injection — fall back to sandbox.
+    let sandbox = createSandbox(gScope, aContentWin,
+        aContentWin.document.documentURI, aScript, "document-end");
+    runScriptInSandbox(sandbox, aScript);
+    return undefined;
+  }
 
-  // Load @require file contents in order.
-  let requireCode = "";
+  // 2) Inject each @require as a separate <script> element.
+  //    This matches VM/TM behavior and ensures libraries like jQuery
+  //    execute in the correct document context.
   for (let i = 0; i < aScript.requires.length; i++) {
     try {
-      requireCode += GM_util.fileXhr(
-          aScript.requires[i].fileURL, "application/javascript") + "\n";
+      let code = GM_util.fileXhr(
+          aScript.requires[i].fileURL, "application/javascript");
+      injectCode(code, aScript.requires[i].fileURL);
     } catch (e) {
       GM_util.logError(
           "Error loading @require " + aScript.requires[i].fileURL
@@ -290,32 +320,15 @@ function injectScriptIntoPage(aContentWin, aScript) {
     }
   }
 
-  // Load the script's own source.
-  let scriptCode = "";
+  // 3) Inject the script itself.
   try {
-    scriptCode = GM_util.fileXhr(
+    let scriptCode = GM_util.fileXhr(
         aScript.fileURL, "application/javascript");
+    injectCode(scriptCode, aScript.fileURL);
   } catch (e) {
     GM_util.logError(
         "Error loading script " + aScript.fileURL
         + ":\n" + e, false, e.fileName, e.lineNumber);
-    return undefined;
-  }
-
-  // Inject as a <script> element in the page context.
-  let fullCode = gmInfoDecl + requireCode + scriptCode;
-  let parent = doc.documentElement || doc;
-  try {
-    let scriptEl = doc.createElement("script");
-    scriptEl.textContent = fullCode;
-    parent.appendChild(scriptEl);
-    scriptEl.remove();
-  } catch (e) {
-    // CSP or other restriction blocked <script> injection.
-    // Fall back to sandbox-based injection.
-    let sandbox = createSandbox(gScope, aContentWin,
-        aContentWin.document.documentURI, aScript, "document-end");
-    runScriptInSandbox(sandbox, aScript);
   }
 }
 
