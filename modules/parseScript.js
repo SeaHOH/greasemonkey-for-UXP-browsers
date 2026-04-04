@@ -145,6 +145,7 @@ function parse(aSource, aUri, aFailWhenMissing) {
         break;
 
       case "noframes":
+      case "topLevelAwait":
         script["_" + data.keyword] = true;
         break;
 

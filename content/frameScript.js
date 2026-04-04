@@ -337,7 +337,8 @@ function injectScriptIntoPage(aContentWin, aScript) {
   try {
     let scriptCode = GM_util.fileXhr(
         aScript.fileURL, "application/javascript");
-    let wrappedCode = "(function() {\n"
+    let asyncPrefix = aScript.topLevelAwait ? "async " : "";
+    let wrappedCode = "(" + asyncPrefix + "function() {\n"
         + "var GM_info = " + gmInfoJson + ";\n"
         + "var unsafeWindow = window;\n"
         + scriptCode + "\n"

@@ -118,6 +118,7 @@ function Script(aConfigNode) {
   this._resources = [];
   this._runAt = null;
   this._supportURL = null;
+  this._topLevelAwait = false;
   this._tempFile = null;
   this._updateMetaStatus = "unknown";
   this._updateURL = null;
@@ -757,6 +758,9 @@ Script.prototype._fromConfigNode = function (aNode) {
       case "SupportURL":
         this._supportURL = childNode.textContent;
         break;
+      case "TopLevelAwait":
+        this._topLevelAwait = childNode.textContent == "true";
+        break;
       case "ExcludeMatch":
         this._excludeMatches.push(new MatchPattern(childNode.textContent));
         break;
@@ -849,6 +853,9 @@ Script.prototype.toConfigNode = function (aDoc) {
   }
   if (this._supportURL) {
     addNode("SupportURL", this._supportURL);
+  }
+  if (this._topLevelAwait) {
+    addNode("TopLevelAwait", "true");
   }
   addArrayNodes("UserExclude", this._userExcludes);
   addArrayNodes("UserInclude", this._userIncludes);

@@ -771,5 +771,20 @@ function runScriptInSandbox(aSandbox, aScript) {
       return undefined;
     }
   }
-  evalWithCatch(aScript.fileURL);
+
+  if (aScript.topLevelAwait) {
+    // @topLevelAwait: wrap the script in an async IIFE so top-level
+    // await is valid.  This matches Violentmonkey's behavior.
+    try {
+      let code = GM_util.fileXhr(
+          aScript.fileURL, "application/javascript");
+      Cu.evalInSandbox(
+          "(async () => {\n" + code + "\n})();",
+          aSandbox, JAVASCRIPT_VERSION_MAX, aScript.fileURL, 1);
+    } catch (e) {
+      GM_util.logError(e, false, e.fileName, e.lineNumber);
+    }
+  } else {
+    evalWithCatch(aScript.fileURL);
+  }
 }

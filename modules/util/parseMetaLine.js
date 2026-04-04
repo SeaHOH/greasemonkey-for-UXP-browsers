@@ -157,6 +157,8 @@ var _GM_parseMetaLine = /*
         peg$c10 = peg$classExpectation(["\n"], true, false),
         peg$c11 = "noframes",
         peg$c12 = peg$literalExpectation("noframes", false),
+        peg$c12a = "topLevelAwait",
+        peg$c12b = peg$literalExpectation("topLevelAwait", false),
         peg$c13 = function(keyword) { return {keyword:keyword}; },
         peg$c14 = "author",
         peg$c15 = peg$literalExpectation("author", false),
@@ -505,12 +507,21 @@ var _GM_parseMetaLine = /*
       var s0, s1;
 
       s0 = peg$currPos;
+      if (input.substr(peg$currPos, 13) === peg$c12a) {
+        s1 = peg$c12a;
+        peg$currPos += 13;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c12b); }
+      }
+      if (s1 === peg$FAILED) {
       if (input.substr(peg$currPos, 8) === peg$c11) {
         s1 = peg$c11;
         peg$currPos += 8;
       } else {
         s1 = peg$FAILED;
         if (peg$silentFails === 0) { peg$fail(peg$c12); }
+      }
       }
       if (s1 !== peg$FAILED) {
         peg$savedPos = s0;

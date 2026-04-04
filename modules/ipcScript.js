@@ -82,6 +82,7 @@ function IPCScript(aScript, aAddonVersion) {
   this.pendingExec = {};
   this.pendingExec.length = aScript.pendingExec.length || 0;
   this.runAt = aScript.runAt;
+  this.topLevelAwait = aScript._topLevelAwait || false;
   this.userExcludes = aScript.userExcludes;
   this.userIncludes = aScript.userIncludes;
   this.userOverride = aScript.userOverride;
