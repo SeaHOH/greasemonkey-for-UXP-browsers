@@ -14,7 +14,7 @@
  *   GM_openInTab(url, { insert: true })      — inserts tab next to current
  */
 
-const EXPORTED_SYMBOLS = ["GM_openInTab"];
+const EXPORTED_SYMBOLS = ["GM_openInTab", "GM_tabClosed"];
 
 if (typeof Cc === "undefined") {
   var Cc = Components.classes;
@@ -29,8 +29,12 @@ if (typeof Cu === "undefined") {
 Cu.import("chrome://greasemonkey-modules/content/constants.js");
 
 
+// Tab tracking for .close() and .onclose support.
+var gTabIdCounter = 0;
+var gOpenTabs = {};
+
 /**
- * Opens aUrl in a new browser tab.
+ * Opens aUrl in a new browser tab and returns a tab-like object.
  *
  * @param {nsIMessageSender} aFrame   - The frame's message manager, used to
  *                                      send the open-in-tab IPC message.
@@ -42,7 +46,12 @@ Cu.import("chrome://greasemonkey-modules/content/constants.js");
  *   - If an object: may contain:
  *       active  {boolean} — true to open in foreground (default: background).
  *       insert  {boolean} — true to insert the new tab adjacent to the current one.
+ *       setParent {boolean} — true to inherit parent tab association.
  *   - If omitted/null: browser default behaviour applies.
+ * @returns {object} Tab handle with:
+ *   - closed  {boolean}  — true after the tab is closed.
+ *   - onclose {function} — called when the tab is closed.
+ *   - close() {function} — closes the tab programmatically.
  */
 function GM_openInTab(aFrame, aBaseUrl, aUrl, aOptions) {
   let loadInBackground = null;
@@ -67,9 +76,47 @@ function GM_openInTab(aFrame, aBaseUrl, aUrl, aOptions) {
   let baseUri = GM_CONSTANTS.ioService.newURI(aBaseUrl, null, null);
   let uri = GM_CONSTANTS.ioService.newURI(aUrl, null, baseUri);
 
+  let tabId = ++gTabIdCounter;
+
+  // Create the tab handle returned to the script.
+  let tabHandle = {
+    "closed": false,
+    "onclose": null,
+    "close": function () {
+      aFrame.sendAsyncMessage("greasemonkey:tab-close", {
+        "tabId": tabId,
+      });
+    },
+  };
+  gOpenTabs[tabId] = tabHandle;
+
   aFrame.sendAsyncMessage("greasemonkey:open-in-tab", {
     "afterCurrent": insertRelatedAfterCurrent,
     "inBackground": loadInBackground,
+    "tabId": tabId,
     "url": uri.spec,
   });
+
+  return tabHandle;
+};
+
+/**
+ * Called when a tab opened by GM_openInTab is closed.
+ * Sets the handle's closed flag and fires onclose callback.
+ *
+ * @param {number} aTabId - The tab ID assigned when it was opened.
+ */
+function GM_tabClosed(aTabId) {
+  let handle = gOpenTabs[aTabId];
+  if (handle) {
+    handle.closed = true;
+    delete gOpenTabs[aTabId];
+    if (typeof handle.onclose == "function") {
+      try {
+        handle.onclose();
+      } catch (e) {
+        // Ignore callback errors.
+      }
+    }
+  }
 };

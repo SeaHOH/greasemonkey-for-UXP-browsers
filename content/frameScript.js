@@ -15,6 +15,7 @@ Cu.import("chrome://greasemonkey-modules/content/constants.js");
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 
 Cu.import("chrome://greasemonkey-modules/content/documentObserver.js");
+Cu.import("chrome://greasemonkey-modules/content/GM_openInTab.js");
 Cu.import("chrome://greasemonkey-modules/content/GM_setClipboard.js");
 Cu.import("chrome://greasemonkey-modules/content/ipcScript.js");
 Cu.import("chrome://greasemonkey-modules/content/menuCommand.js");
@@ -518,5 +519,8 @@ addMessageListener("greasemonkey:menu-command-run", function (aMessage) {
 });
 addMessageListener("greasemonkey:context-menu-start", contextMenuStart);
 addMessageListener("greasemonkey:newscript-load-start", newScriptLoadStart);
+addMessageListener("greasemonkey:tab-closed", function (aMessage) {
+  GM_tabClosed(aMessage.data.tabId);
+});
 
 initScriptProtocol();

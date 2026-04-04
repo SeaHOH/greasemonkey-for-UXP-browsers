@@ -68,6 +68,8 @@ GM_BrowserUI.init = function () {
   */
   window.messageManager.addMessageListener("greasemonkey:open-in-tab",
       GM_BrowserUI.openInTab);
+  window.messageManager.addMessageListener("greasemonkey:tab-close",
+      GM_BrowserUI.tabClose);
   window.messageManager.addMessageListener("greasemonkey:window",
       GM_BrowserUI.window);
 };
@@ -146,7 +148,41 @@ GM_BrowserUI.openInTab = function (aMessage) {
     } else {
       tabBrowser.moveTabTo(newTab, tabBrowser.tabs.length - 1);
     }
+
+    // Track the tab for .close() and .onclose support.
+    let tabId = aMessage.data.tabId;
+    if (tabId) {
+      if (!GM_BrowserUI._openedTabs) {
+        GM_BrowserUI._openedTabs = {};
+      }
+      GM_BrowserUI._openedTabs[tabId] = newTab;
+
+      // Listen for tab close to notify the content process.
+      let container = tabBrowser.tabContainer;
+      function onTabClose(aEvent) {
+        if (aEvent.target == newTab) {
+          container.removeEventListener("TabClose", onTabClose, false);
+          delete GM_BrowserUI._openedTabs[tabId];
+          browser.messageManager.sendAsyncMessage(
+              "greasemonkey:tab-closed", {"tabId": tabId});
+        }
+      }
+      container.addEventListener("TabClose", onTabClose, false);
+    }
   }, 0);
+};
+
+/**
+ * Handles programmatic tab close for GM_openInTab .close() calls.
+ */
+GM_BrowserUI.tabClose = function (aMessage) {
+  let tabId = aMessage.data.tabId;
+  if (GM_BrowserUI._openedTabs && GM_BrowserUI._openedTabs[tabId]) {
+    let tab = GM_BrowserUI._openedTabs[tabId];
+    let tabBrowser = aMessage.target.getTabBrowser();
+    tabBrowser.removeTab(tab);
+    // The TabClose event listener will handle cleanup and notification.
+  }
 };
 
 /**
