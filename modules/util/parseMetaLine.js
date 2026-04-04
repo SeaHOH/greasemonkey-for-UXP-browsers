@@ -190,6 +190,10 @@ var _GM_parseMetaLine = /*
         peg$c37 = peg$literalExpectation("require", false),
         peg$c38 = "run-at",
         peg$c39 = peg$literalExpectation("run-at", false),
+        peg$c39a = "supportURL",
+        peg$c39b = peg$literalExpectation("supportURL", false),
+        peg$c39c = "antifeature",
+        peg$c39d = peg$literalExpectation("antifeature", false),
         peg$c40 = "updateURL",
         peg$c41 = peg$literalExpectation("updateURL", false),
         peg$c42 = "version",
@@ -649,6 +653,22 @@ var _GM_parseMetaLine = /*
                                 if (peg$silentFails === 0) { peg$fail(peg$c39); }
                               }
                               if (s1 === peg$FAILED) {
+                                if (input.substr(peg$currPos, 10) === peg$c39a) {
+                                  s1 = peg$c39a;
+                                  peg$currPos += 10;
+                                } else {
+                                  s1 = peg$FAILED;
+                                  if (peg$silentFails === 0) { peg$fail(peg$c39b); }
+                                }
+                                if (s1 === peg$FAILED) {
+                                  if (input.substr(peg$currPos, 11) === peg$c39c) {
+                                    s1 = peg$c39c;
+                                    peg$currPos += 11;
+                                  } else {
+                                    s1 = peg$FAILED;
+                                    if (peg$silentFails === 0) { peg$fail(peg$c39d); }
+                                  }
+                                  if (s1 === peg$FAILED) {
                                 if (input.substr(peg$currPos, 9) === peg$c40) {
                                   s1 = peg$c40;
                                   peg$currPos += 9;
@@ -672,6 +692,8 @@ var _GM_parseMetaLine = /*
                       }
                     }
                   }
+                }
+                }
                 }
               }
             }

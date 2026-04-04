@@ -89,6 +89,7 @@ function Script(aConfigNode) {
   this._basedir = null;
   this._dependFail = false;
   this._dependhash = null;
+  this._antifeatures = [];
   this._description = "";
   this._downloadURL = null;
   this._enabled = true;
@@ -116,6 +117,7 @@ function Script(aConfigNode) {
   this._requires = [];
   this._resources = [];
   this._runAt = null;
+  this._supportURL = null;
   this._tempFile = null;
   this._updateMetaStatus = "unknown";
   this._updateURL = null;
@@ -737,6 +739,9 @@ Script.prototype._fromConfigNode = function (aNode) {
       case "Exclude":
         this._excludes.push(childNode.textContent);
         break;
+      case "Antifeature":
+        this._antifeatures.push(childNode.textContent);
+        break;
       case "Connect":
         this._connects.push(childNode.textContent);
         break;
@@ -748,6 +753,9 @@ Script.prototype._fromConfigNode = function (aNode) {
         break;
       case "Include":
         this._includes.push(childNode.textContent);
+        break;
+      case "SupportURL":
+        this._supportURL = childNode.textContent;
         break;
       case "ExcludeMatch":
         this._excludeMatches.push(new MatchPattern(childNode.textContent));
@@ -825,6 +833,7 @@ Script.prototype.toConfigNode = function (aDoc) {
     node.setAttribute("lang", aLang);
   }
 
+  addArrayNodes("Antifeature", this._antifeatures);
   addArrayNodes("Connect", this._connects);
   addArrayNodes("Exclude", this._excludes);
   addArrayNodes("Grant", this._grants);
@@ -837,6 +846,9 @@ Script.prototype.toConfigNode = function (aDoc) {
   }
   for (let j = 0, jLen = this._matches.length; j < jLen; j++) {
     addNode("Match", this._matches[j].pattern);
+  }
+  if (this._supportURL) {
+    addNode("SupportURL", this._supportURL);
   }
   addArrayNodes("UserExclude", this._userExcludes);
   addArrayNodes("UserInclude", this._userIncludes);
@@ -1108,6 +1120,7 @@ Script.prototype.updateFromNewScript = function (
   this._author = newScript._author;
   this._copyright = newScript._copyright;
   this._description = newScript._description;
+  this._antifeatures = newScript._antifeatures;
   this._connects = newScript._connects;
   this._excludes = newScript._excludes;
   this._grants = newScript._grants;
@@ -1119,6 +1132,7 @@ Script.prototype.updateFromNewScript = function (
   this._matches = newScript._matches;
   this._noframes = newScript._noframes;
   this._runAt = newScript._runAt;
+  this._supportURL = newScript._supportURL;
   this._version = newScript._version;
   this.downloadURL = newScript.downloadURL;
   this.homepageURL = newScript.homepageURL;

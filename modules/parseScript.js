@@ -330,6 +330,12 @@ function parse(aSource, aUri, aFailWhenMissing) {
       case "run-at":
         script["_runAt"] = data.value;
         break;
+      case "supportURL":
+        script["_supportURL"] = data.value;
+        break;
+      case "antifeature":
+        script["_antifeatures"].push(data.value);
+        break;
 
     }
   }

@@ -57,6 +57,7 @@ Cu.import("chrome://greasemonkey-modules/content/util.js");
  */
 function IPCScript(aScript, aAddonVersion) {
   this.addonVersion = aAddonVersion;
+  this.antifeatures = aScript._antifeatures || [];
   this.author = aScript.author || "";
   this.connects = aScript.connects;
   this.copyright = aScript.copyright || null;
@@ -70,6 +71,7 @@ function IPCScript(aScript, aAddonVersion) {
       : null);
   this.id = aScript.id;
   this.injectInto = aScript.injectInto || "auto";
+  this.supportURL = aScript._supportURL || null;
   this.includes = aScript.includes;
   this.lastUpdated = aScript.modifiedDate.getTime();
   this.localized = aScript.localized;
@@ -167,6 +169,7 @@ IPCScript.prototype.info = function () {
 
   return {
     "script": {
+      "antifeatures": this.antifeatures,
       "author": this.author,
       "connects": this.connects,
       "copyright": this.copyright,
@@ -175,6 +178,7 @@ IPCScript.prototype.info = function () {
       "excludes": this.excludes,
       "grant": this.grants,
       "homepage": this.homepage,
+      "homepageURL": this.homepage,
       // "icon": ? source URL,
       "includes": this.includes,
       "lastUpdated": this.lastUpdated,
@@ -187,6 +191,7 @@ IPCScript.prototype.info = function () {
       // "requires": ? source URL,
       "resources": resources,
       "run-at": this.runAt,
+      "supportURL": this.supportURL,
       "version": this.version,
     },
     "platform": {
