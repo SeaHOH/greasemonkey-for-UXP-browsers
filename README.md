@@ -24,7 +24,7 @@ A: I'll be doing my best on making sure it maintains the Greasemonkey UI, while 
 
 3. I found an issue with your extension, how do I report it to you?
 
-A: Report it to me either via the "Issues" tab, On Pale Moon forum of username: sinfulosd, or in the private DMs. It's preferred to report security vulnerabilities in the private DMs.
+A: Report it to me either via the "Issues" tab on Github, On Pale Moon forum of username: sinfulosd, or in the private DMs. It's preferred to report security vulnerabilities in the private DMs.
 
 4. Are you also gonna abandon us like Janekptacijarabaci did?
 
