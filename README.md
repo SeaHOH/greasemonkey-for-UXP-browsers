@@ -3,7 +3,7 @@ This is a fork of Greasemonkey for uxp-based browsers, based on the [upstream ve
 
 This fork was created to continue on the efforts of previous contributors and on Janek's development of the extension.
 
-The issues that were fixed in this fork so far:
+The issues that were fixed in this fork, mentioning very few of them:
 - Some untranslated strings
 - Added GM_download / GM.download Polyfill into the extension core
 - adding 12+ new features, further increasing the extension compatibility with modern scripts on Greasyfork and related websites
