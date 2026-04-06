@@ -3,10 +3,10 @@ This is a fork of Greasemonkey for uxp-based browsers, based on the [upstream ve
 
 This fork was created to continue on the efforts of previous contributors and on Janek's development of the extension.
 
-The issues that were fixed in this fork, mentioning very few of them:
-- Some untranslated strings
+A lot of changes were made to fill the gap of 8 years of no update. The changes, mentioning very few of them here, are:
+- Fixing some untranslated strings
 - Added GM_download / GM.download Polyfill into the extension core
-- adding 12+ new features, further increasing the extension compatibility with modern scripts on Greasyfork and related websites
+- Further increasing the extension compatibility with modern scripts on Greasyfork and related websites
 - [GM_info sandbox security vulnerability](https://github.com/janekptacijarabaci/greasemonkey/issues/20) and some unreported vulnerability issues.
 
 While the extension just got out of the beta phase, I'm still working on making it more stable. Make sure to report any bugs, whenever you encounter them.
