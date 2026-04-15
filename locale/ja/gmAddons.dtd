@@ -28,6 +28,3 @@
 <!ENTITY sort.name "名前">
 <!ENTITY sort.namespace "Namespace">
 <!ENTITY sort.status "状態">
-
-<!ENTITY cmd.findUpdates.label "Find Updates">
-<!ENTITY cmd.findUpdates.accesskey "F">

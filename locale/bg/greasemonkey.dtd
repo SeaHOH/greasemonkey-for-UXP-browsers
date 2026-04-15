@@ -58,5 +58,3 @@
 <!ENTITY timeoutUpdatesUnits "Seconds">
 <!ENTITY uninstall "Деинсталиране">
 <!ENTITY updateChecking "Проверка за актуализации">
-
-<!ENTITY preferencesCmd2.label "Preferences">

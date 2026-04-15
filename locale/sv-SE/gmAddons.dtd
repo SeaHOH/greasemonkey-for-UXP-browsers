@@ -28,6 +28,3 @@
 <!ENTITY sort.name "Namn">
 <!ENTITY sort.namespace "Namespace">
 <!ENTITY sort.status "Status">
-
-<!ENTITY cmd.findUpdates.label "Find Updates">
-<!ENTITY cmd.findUpdates.accesskey "F">

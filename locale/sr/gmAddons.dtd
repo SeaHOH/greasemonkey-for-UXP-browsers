@@ -28,6 +28,3 @@
 <!ENTITY sort.name "Назив">
 <!ENTITY sort.namespace "Namespace">
 <!ENTITY sort.status "Стање">
-
-<!ENTITY cmd.findUpdates.label "Find Updates">
-<!ENTITY cmd.findUpdates.accesskey "F">
