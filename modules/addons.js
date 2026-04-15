@@ -340,7 +340,12 @@ ScriptAddon.prototype.isCompatibleWith = function () {
  */
 ScriptAddon.prototype.findUpdates = function (aUpdateListener, aReason) {
   let callback = GM_util.hitch(this, this._handleRemoteUpdate, aUpdateListener);
-  this._script.checkForRemoteUpdate(callback, this.forceUpdate, this.manualUpdate);
+  // Treat user-initiated update checks (clicking "Check for Updates") as
+  // manual — bypasses the shouldAutoUpdate() gate so scripts get checked
+  // even when "Update Add-ons Automatically" is disabled.
+  let isManual = this.manualUpdate
+      || (aReason == AddonManager.UPDATE_WHEN_USER_REQUESTED);
+  this._script.checkForRemoteUpdate(callback, this.forceUpdate, isManual);
 };
 
 /**

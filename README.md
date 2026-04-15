@@ -3,13 +3,20 @@ This is a fork of Greasemonkey for uxp-based browsers, based on the [upstream ve
 
 This fork was created to continue on the efforts of previous contributors and on Janek's development of the extension.
 
-A lot of changes were made to fill the gap of 8 years of no update. The changes, mentioning very few of them here, are:
-- Fixing some untranslated strings
-- Added GM_download / GM.download Polyfill into the extension core
-- Further increasing the extension compatibility with modern scripts on Greasyfork and related websites
-- [GM_info sandbox security vulnerability](https://github.com/janekptacijarabaci/greasemonkey/issues/20) and some unreported vulnerability issues.
+A lot of changes were made to fill the gap of 8 years of no updates. The key changes include:
 
-While the extension just got out of the beta phase, I'm still working on making it more stable. Make sure to report any bugs, whenever you encounter them.
+- **Script isolation and stability** — One broken script no longer takes down all your other scripts. Each script runs independently.
+- **Early injection for redirect scripts** — `@run-at document-start` now fires before the page begins rendering, fixing scripts like "Reddit Old Redirect."
+- **`@grant none` page-context injection** — Scripts without GM APIs now run directly in the page context (matching Violentmonkey/Tampermonkey behavior), wrapped in an IIFE to prevent conflicts.
+- **`@connect` enforcement** — `GM_xmlhttpRequest` is now restricted to declared domains, closing a security gap present in the old fork.
+- **12+ new GM APIs** — `GM_addElement`, `GM_addValueChangeListener`, `GM_removeValueChangeListener`, `GM_unregisterMenuCommand`, `GM_getValues`, `GM_setValues`, `GM_deleteValues`, `GM_openInTab` with `.close()`/`.onclose`, and more.
+- **New metadata directives** — `@exclude-match`, `@run-at document-body`, `@inject-into`, `@topLevelAwait`, `@connect`, `@supportURL`, `@antifeature`.
+- **Fixed `MenuCommandSandbox.toSource()` crash** — Every script using `GM_registerMenuCommand` was broken due to Pale Moon's SpiderMonkey decompiler. Replaced with inline source injection.
+- **Fixed update checker** — GreasyFork URLs ending in `/none` and manual update checks when auto-update is disabled now work correctly.
+- **GM_info expanded** — Added `script.grant`, `script.connects`, `script.homepageURL`, `script.supportURL`, `script.antifeatures`, `platform.os`, `platform.arch`.
+- **Security fix** — Patched the [GM_info sandbox vulnerability](https://github.com/janekptacijarabaci/greasemonkey/issues/20) and other unreported issues.
+
+The extension is under active development. Report bugs via the [Issues](https://github.com/SecondCityOsD/greasemonkey-for-UXP-browsers/issues) tab.
 
 ## FAQ:
 
