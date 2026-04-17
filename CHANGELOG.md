@@ -1,5 +1,38 @@
 ## Changelog
 
+#### 3.6.0 (2026-04-17)
+
+* **Extension ID changed** — From `greasemonkeyforpm@janekptacijarabaci` to
+  `{544fad5a-9b62-418f-a9ff-616e388cf6c4}`.  This is a clean break from the
+  legacy ID inherited from the abandoned Pale Moon fork.  Existing users
+  must uninstall the 3.5.0 build and install 3.6.0 manually — their
+  browser will not offer an automatic update across the ID change.
+  Settings, scripts, and GM values can be carried over via the new
+  Export/Import feature below.
+* **Homepage resolution matches Violentmonkey** — `@homepage`, `@website`,
+  and `@source` now work as aliases for `@homepageURL`.  When a script has
+  none of those, GM derives a homepage from the install URL (raw GitHub,
+  gist, GreasyFork / SleazyFork, OpenUserJS) so scripts installed from
+  raw file hosts still get a clickable homepage link in the Add-ons
+  Manager.  Fixes the "no homepage link" behavior for e.g. gist-hosted
+  scripts.
+* **Edited scripts can update again (fixes #9)** — The old hard block that
+  disabled all update checks once a script's `.user.js` was edited is
+  replaced with a Violentmonkey-style opt-in flow.  Edits flip a new
+  per-script `autoUpdate` flag off (so nothing auto-overwrites your
+  changes), but "Find Updates" remains available and shows a confirmation
+  prompt before overwriting edits.  A new "Allow Automatic Updates"
+  checkbox in the script's right-click menu exposes the flag directly.
+  After a successful update the flag re-engages automatically.
+* **ZIP backup / restore** — New "Export All…" and "Import…" links in the
+  User Scripts view header produce and consume a Tampermonkey-compatible
+  ZIP archive containing every installed script's source, settings, and
+  GM_setValue data.  The importer also accepts Violentmonkey and
+  Tampermonkey exports.  Scripts whose (name, namespace) match an
+  already-installed script are skipped rather than silently overwritten.
+  Implemented with native `nsIZipWriter` / `nsIZipReader`, no bundled JS
+  library, no cloud sync.
+
 #### Unreleased (UXP fork — 2026-03-12)
 
 * GM_download: Added GM_download support (modules/thirdParty/GM_download.js)
