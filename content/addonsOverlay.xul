@@ -35,7 +35,6 @@
   <command id="cmd_userscript_showItemPreferences" />
   <command id="cmd_userscript_manualFindItemUpdates" />
   <command id="cmd_userscript_forcedFindItemUpdates" />
-  <command id="cmd_userscript_toggleAutoUpdate" />
 </commandset>
 
 <menupopup id="addonitem-popup">
@@ -61,13 +60,6 @@
   <!-- Custom forced find updates item. -->
   <menuitem command="cmd_userscript_forcedFindItemUpdates" class="greasemonkey"
     label="&forcedFindUpdate;" />
-
-  <menuseparator class="greasemonkey" />
-
-  <!-- Per-script auto-update toggle (Issue #9).  "checked" is managed by
-       addonCanToggleAutoUpdate() on popupshowing. -->
-  <menuitem command="cmd_userscript_toggleAutoUpdate" class="greasemonkey"
-    type="checkbox" label="&toggleAutoUpdate;" />
 </menupopup>
 
 <vbox id="list-view">

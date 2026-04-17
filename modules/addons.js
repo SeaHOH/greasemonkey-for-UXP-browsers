@@ -155,9 +155,14 @@ function ScriptAddonFactoryByScript(aScript, aReplace) {
   if (aReplace || !(id in ScriptAddonCache)) {
     ScriptAddonCache[id] = new ScriptAddon(aScript);
   } else {
-    // To properly update the AOM.
+    // To properly update the AOM.  isCompatible drives the yellow-stripes
+    // overlay in the Add-ons Manager — we keep it false whenever the
+    // script has local edits that a remote update would overwrite, even
+    // though isRemoteUpdateAllowed itself is happy to proceed.
     if ("isRemoteUpdateAllowed" in aScript) {
-      ScriptAddonCache[id].isCompatible = aScript.isRemoteUpdateAllowed(false);
+      ScriptAddonCache[id].isCompatible =
+          aScript.isRemoteUpdateAllowed(false)
+          && !(aScript._modifiedTime > aScript._installTime);
     }
   }
 
@@ -223,9 +228,13 @@ function ScriptAddon(aScript) {
   this.version = this._script.version;
 
   // This, combined with CSS to hide the incorrect "incompatible"
-  // text message causes a visible indication on scripts
-  // which will not be updated.
-  this.isCompatible = this._script.isRemoteUpdateAllowed(false);
+  // text message, causes a visible indication (yellow diagonal stripes)
+  // on scripts that have been locally edited — making it clear at a
+  // glance that an automatic update on them would overwrite the user's
+  // changes.  isRemoteUpdateAllowed alone no longer gates this because
+  // edited scripts are still eligible for updates (with confirmation).
+  this.isCompatible = this._script.isRemoteUpdateAllowed(false)
+      && !(this._script._modifiedTime > this._script._installTime);
 }
 
 // Required attributes.
@@ -254,6 +263,29 @@ Object.defineProperty(ScriptAddon.prototype, "applyBackgroundUpdates", {
     return this._script.checkRemoteUpdates;
   },
   "set": function ScriptAddon_setApplyBackgroundUpdates(aVal) {
+    let oldVal = this._script.checkRemoteUpdates;
+    let reenablingWhileEdited =
+        (oldVal == AddonManager.AUTOUPDATE_DISABLE)
+        && (aVal != AddonManager.AUTOUPDATE_DISABLE)
+        && (this._script._modifiedTime > this._script._installTime);
+    // If the user flips the radio from Off to On / Default while the
+    // script still has local edits, warn them that the next update will
+    // overwrite those edits.  Cancelling snaps the radio back to Off.
+    if (reenablingWhileEdited) {
+      let bundle = GM_CONSTANTS.localeStringBundle.createBundle(
+          GM_CONSTANTS.localeGmAddonsProperties);
+      let confirmed = Services.prompt.confirm(
+          null,
+          "Greasemonkey",
+          bundle.GetStringFromName("confirmEnableAutoUpdate"));
+      if (!confirmed) {
+        // No mutation — but fire onPropertyChanged so the AOM re-reads the
+        // getter and the radio visually reverts to the old value.
+        AddonManagerPrivate.callAddonListeners(
+            "onPropertyChanged", this, ["applyBackgroundUpdates"]);
+        return;
+      }
+    }
     this._script.checkRemoteUpdates = aVal;
     this._script._changed("modified", null);
     AddonManagerPrivate.callAddonListeners(
@@ -292,8 +324,19 @@ Object.defineProperty(ScriptAddon.prototype, "permissions", {
     perms |= this.userDisabled
         ? AddonManager.PERM_CAN_ENABLE
         : AddonManager.PERM_CAN_DISABLE;
-    this.isCompatible = this._script.isRemoteUpdateAllowed(false);
-    if (this.forceUpdate || this.isCompatible) {
+    // Keep isCompatible in sync on every poll.  isCompatible drives the
+    // yellow-stripes visual in the Add-ons Manager: false when the script
+    // has local edits OR no remote update URL / unsafe scheme.
+    let updateAllowed = this._script.isRemoteUpdateAllowed(false);
+    let hasLocalEdits =
+        this._script._modifiedTime > this._script._installTime;
+    this.isCompatible = updateAllowed && !hasLocalEdits;
+    // PERM_CAN_UPGRADE controls whether the "Automatic Updates" radio is
+    // shown and whether "Find Update" fires.  We keep it based on
+    // updateAllowed alone so the radio stays visible for edited scripts
+    // — the user has to opt in via the radio / confirmation prompt
+    // before anything actually overwrites their edits.
+    if (this.forceUpdate || updateAllowed) {
       perms |= AddonManager.PERM_CAN_UPGRADE;
     }
 
