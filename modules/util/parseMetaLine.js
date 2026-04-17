@@ -200,6 +200,12 @@ var _GM_parseMetaLine = /*
         peg$c41 = peg$literalExpectation("updateURL", false),
         peg$c42 = "version",
         peg$c43 = peg$literalExpectation("version", false),
+        peg$c43a = "homepage",
+        peg$c43b = peg$literalExpectation("homepage", false),
+        peg$c43c = "website",
+        peg$c43d = peg$literalExpectation("website", false),
+        peg$c43e = "source",
+        peg$c43f = peg$literalExpectation("source", false),
         peg$c44 = function(keyword, value) { return {keyword:keyword, value:value}; },
         peg$c45 = "resource",
         peg$c46 = peg$literalExpectation("resource", false),
@@ -694,6 +700,33 @@ var _GM_parseMetaLine = /*
                                   } else {
                                     s1 = peg$FAILED;
                                     if (peg$silentFails === 0) { peg$fail(peg$c43); }
+                                  }
+                                  if (s1 === peg$FAILED) {
+                                    if (input.substr(peg$currPos, 8) === peg$c43a) {
+                                      s1 = peg$c43a;
+                                      peg$currPos += 8;
+                                    } else {
+                                      s1 = peg$FAILED;
+                                      if (peg$silentFails === 0) { peg$fail(peg$c43b); }
+                                    }
+                                    if (s1 === peg$FAILED) {
+                                      if (input.substr(peg$currPos, 7) === peg$c43c) {
+                                        s1 = peg$c43c;
+                                        peg$currPos += 7;
+                                      } else {
+                                        s1 = peg$FAILED;
+                                        if (peg$silentFails === 0) { peg$fail(peg$c43d); }
+                                      }
+                                      if (s1 === peg$FAILED) {
+                                        if (input.substr(peg$currPos, 6) === peg$c43e) {
+                                          s1 = peg$c43e;
+                                          peg$currPos += 6;
+                                        } else {
+                                          s1 = peg$FAILED;
+                                          if (peg$silentFails === 0) { peg$fail(peg$c43f); }
+                                        }
+                                      }
+                                    }
                                   }
                                 }
                               }
