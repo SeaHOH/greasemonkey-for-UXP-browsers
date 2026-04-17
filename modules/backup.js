@@ -35,6 +35,8 @@ if (typeof Cu === "undefined") {
 
 Cu.import("chrome://greasemonkey-modules/content/constants.js");
 
+Cu.import("resource://gre/modules/AddonManager.jsm");
+
 Cu.import("chrome://greasemonkey-modules/content/parseScript.js");
 Cu.import("chrome://greasemonkey-modules/content/remoteScript.js");
 Cu.import("chrome://greasemonkey-modules/content/storageBack.js");
@@ -316,7 +318,6 @@ function _buildOptionsJson(aScript) {
     "namespace": aScript._namespace,
     "version": aScript._version,
     "enabled": aScript._enabled,
-    "autoUpdate": aScript._autoUpdate,
     "checkRemoteUpdates": aScript.checkRemoteUpdates,
     "installTime": aScript._installTime,
     "downloadURL": aScript._downloadURL,
@@ -473,9 +474,27 @@ function _installNext(aIdx, aKeys, aScripts, aResult, aDone) {
     _installNext(aIdx + 1, aKeys, aScripts, aResult, aDone);
   };
 
+  // Synthesise an install URI from the sidecar's downloadURL so that
+  // parseScript.js populates script._namespace (from aUri.host) and
+  // script.downloadURL (from aUri.spec) the same way it did on the
+  // original install.  Without this, scripts that have no explicit
+  // @namespace in their source would get an empty namespace on re-import,
+  // breaking duplicate detection (id = name@namespace) and leaving
+  // downloadURL null, which in turn marks the imported script as
+  // non-updatable (yellow-stripes) even though we have a perfectly good
+  // download URL in the sidecar.
+  let installUri = null;
+  if (options && options.downloadURL) {
+    try {
+      installUri = GM_util.getUriFromUrl(options.downloadURL);
+    } catch (e) {
+      installUri = null;
+    }
+  }
+
   let parsedScript;
   try {
-    parsedScript = parse(source);
+    parsedScript = parse(source, installUri);
   } catch (e) {
     aResult.skipped++;
     aResult.errors.push(key + ": parse failed - " + e);
@@ -550,10 +569,12 @@ function _installNext(aIdx, aKeys, aScripts, aResult, aDone) {
 
 /**
  * After a successful install, applies sidecar-provided options to the
- * live Script object.  Only fields that are safe to overwrite are touched
- * — we deliberately do NOT restore installTime/downloadURL/updateURL
- * (those were just set to "now" / the import URL and shouldn't be
- * overwritten with values from a different profile's history).
+ * live Script object.  `installTime` is deliberately NOT restored — it was
+ * just set to "now" by the install pipeline and replacing it with the
+ * exporter's timestamp would confuse the modified-since-install check.
+ * downloadURL is also not touched here — it was already populated during
+ * parse() from the synthesised install URI, and we want it to reflect the
+ * URL the import used (which matches the sidecar's value anyway).
  */
 function _applyImportedOptions(aScript, aOptions) {
   if (!aOptions || typeof aOptions !== "object") return;
@@ -561,11 +582,27 @@ function _applyImportedOptions(aScript, aOptions) {
     if (typeof aOptions.enabled === "boolean") {
       aScript._enabled = aOptions.enabled;
     }
-    if (typeof aOptions.autoUpdate === "boolean") {
-      aScript._autoUpdate = aOptions.autoUpdate;
-    }
     if (typeof aOptions.checkRemoteUpdates === "number") {
       aScript.checkRemoteUpdates = aOptions.checkRemoteUpdates;
+    } else if (aOptions.autoUpdate === false) {
+      // Legacy 3.6.0-beta exports carried a boolean `autoUpdate` field
+      // instead of checkRemoteUpdates; preserve the intent by mapping to
+      // the equivalent AOM AUTOUPDATE_DISABLE state.
+      aScript.checkRemoteUpdates = AddonManager.AUTOUPDATE_DISABLE;
+    }
+    // Restore the explicit update URL only if the script didn't set one via
+    // @updateURL in its source.  Scripts that carry @updateURL should keep
+    // whatever the source said; scripts that rely on the sidecar-persisted
+    // value otherwise lose it on re-import.
+    if (aOptions.updateURL && !aScript._updateURL) {
+      aScript._updateURL = "" + aOptions.updateURL;
+    }
+    // Homepage URL isn't persisted in the source for many scripts (our
+    // Phase-A fallback chain derives it on the fly), so restore the last
+    // resolved value if we can — keeps the Add-ons Manager homepage link
+    // intact across a round-trip.
+    if (aOptions.homepageURL && !aScript._homepageURL) {
+      aScript._homepageURL = "" + aOptions.homepageURL;
     }
     if (Array.isArray(aOptions.userIncludes)) {
       aScript.userIncludes = aOptions.userIncludes;

@@ -415,6 +415,13 @@ function inferHomepageFromInstallUrl(aInstallUrl) {
   m = aInstallUrl.match(
       /^https?:\/\/gist\.githubusercontent\.com\/([^\/]+)\/([^\/]+)\//i);
   if (m) return "https://gist.github.com/" + m[1] + "/" + m[2];
+  // gist.github.com/<user>/<id>/raw/<sha>/<filename> — the other raw URL
+  // format gists expose (via the "Raw" button on the gist page itself).
+  // Strip the /raw/ suffix so the homepage points at the human-readable
+  // gist page rather than the .user.js download itself.
+  m = aInstallUrl.match(
+      /^(https?:\/\/gist\.github\.com\/[^\/]+\/[^\/]+)\/raw(?:\/|$)/i);
+  if (m) return m[1];
   // github.com/<user>/<repo>/raw/<branch>/...
   m = aInstallUrl.match(
       /^(https?:\/\/github\.com\/[^\/]+\/[^\/]+)\/raw\//i);
