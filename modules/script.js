@@ -90,6 +90,13 @@ function Script(aConfigNode) {
   this._dependFail = false;
   this._dependhash = null;
   this._antifeatures = [];
+  // Per-script automatic-update flag.  Defaults to true; flips to false the
+  // first time a local edit is observed (see isModified below).  Matches
+  // Violentmonkey's `config.shouldUpdate`: edits never disqualify a script
+  // from being remotely updated, they merely disable auto-updates so the
+  // user's changes aren't silently overwritten.  Re-enabled automatically
+  // after a successful remote install (see fixTimestampsOnInstall).
+  this._autoUpdate = true;
   this._description = "";
   this._downloadURL = null;
   this._enabled = true;
@@ -168,6 +175,24 @@ Object.defineProperty(Script.prototype, "author", {
   },
   "set": function Script_setAuthor(aVal) {
     this._author = aVal ? "" + aVal : "";
+  },
+  "configurable": true,
+  "enumerable": true,
+});
+
+Object.defineProperty(Script.prototype, "autoUpdate", {
+  "get": function Script_getAutoUpdate() {
+    return this._autoUpdate;
+  },
+  "set": function Script_setAutoUpdate(aVal) {
+    let newVal = !!aVal;
+    if (this._autoUpdate === newVal) {
+      return;
+    }
+    this._autoUpdate = newVal;
+    // Persist the change to config.xml and notify observers so the AOM
+    // entry refreshes.
+    this._changed("modified", null);
   },
   "configurable": true,
   "enumerable": true,
@@ -652,11 +677,15 @@ Script.prototype.setFilename = function (aBaseName, aFileName) {
 /**
  * Syncs _modifiedTime and _installTime to the file's actual last-modified
  * timestamp.  Called immediately after the script file is moved into place
- * during installation.
+ * during installation.  Also re-engages automatic updates: after a fresh
+ * install or a confirmed remote update there are no local edits to protect,
+ * so the user's "keep my edits" intent (which disabled auto-update) no
+ * longer applies.
  */
 Script.prototype.fixTimestampsOnInstall = function () {
   this._modifiedTime = this.file.lastModifiedTime;
   this._installTime = this.file.lastModifiedTime;
+  this._autoUpdate = true;
 };
 
 /**
@@ -714,6 +743,13 @@ Script.prototype._fromConfigNode = function (aNode) {
   } else if (aNode.hasAttribute("checkRemoteUpdates")) {
     this.checkRemoteUpdates = parseInt(
         aNode.getAttribute("checkRemoteUpdates"), 10);
+  }
+
+  // Per-script auto-update flag (see Issue #9 / VM-parity).  Legacy configs
+  // predate this attribute; default to true for them so they behave exactly
+  // as they used to until the user edits them.
+  if (aNode.hasAttribute("autoUpdate")) {
+    this._autoUpdate = (aNode.getAttribute("autoUpdate") === "true");
   }
 
   if (!aNode.hasAttribute("installTime")) {
@@ -901,6 +937,7 @@ Script.prototype.toConfigNode = function (aDoc) {
   scriptNode.appendChild(aDoc.createTextNode("\n\t"));
 
   this._author && scriptNode.setAttribute("author", this._author);
+  scriptNode.setAttribute("autoUpdate", this._autoUpdate);
   scriptNode.setAttribute("basedir", this._basedir);
   scriptNode.setAttribute("checkRemoteUpdates", this.checkRemoteUpdates);
   this._copyright && scriptNode.setAttribute("copyright", this._copyright);
@@ -1009,7 +1046,11 @@ Script.prototype.info = function () {
 
 /**
  * Checks whether the script file has been modified since it was last read.
- * Updates _modifiedTime as a side effect when a change is detected.
+ * Updates _modifiedTime as a side effect when a change is detected, and —
+ * the first time an edit is observed — turns off per-script auto-updates
+ * so the user's local changes aren't silently overwritten on the next
+ * update check.  The flag is re-enabled automatically after a successful
+ * remote install (see fixTimestampsOnInstall).
  *
  * @returns {boolean} True if the file's mtime differs from the cached value.
  */
@@ -1019,6 +1060,11 @@ Script.prototype.isModified = function () {
   }
   if (this._modifiedTime != this.file.lastModifiedTime) {
     this._modifiedTime = this.file.lastModifiedTime;
+    // An edit that post-dates the install: disable auto-update for safety.
+    // Uses the property setter so the change is persisted to config.xml.
+    if (this._modifiedTime > this._installTime && this._autoUpdate) {
+      this.autoUpdate = false;
+    }
 
     return true;
   }
@@ -1032,11 +1078,15 @@ Script.prototype.isModified = function () {
  * Conditions that prevent an update (unless aForced is true):
  *   - No updateURL is set.
  *   - Script is disabled AND the "requireDisabledScriptsUpdates" pref is off.
- *   - Script has been locally modified (mtime > installTime).
  *   - Download URL uses an unsafe scheme (about:, chrome:, file:, ftp:, http:
  *     when requireSecureUpdates is enabled).
  *
- * @param {boolean} aForced - If true, bypass the disabled/modified checks.
+ * Note: local edits no longer block eligibility here; they instead disable
+ * per-script auto-updates via the `autoUpdate` flag (see isModified()), so
+ * the user can still manually update edited scripts after a confirmation
+ * prompt.  This matches Violentmonkey's getScriptUpdateUrl semantics.
+ *
+ * @param {boolean} aForced - If true, bypass the enabled/scheme checks.
  * @returns {boolean} True if a remote update check may proceed.
  */
 Script.prototype.isRemoteUpdateAllowed = function (aForced) {
@@ -1048,9 +1098,6 @@ Script.prototype.isRemoteUpdateAllowed = function (aForced) {
       if (!GM_prefRoot.getValue("requireDisabledScriptsUpdates")) {
         return false;
       }
-    }
-    if (this._modifiedTime > this._installTime) {
-      return false;
     }
   }
 
@@ -1332,11 +1379,18 @@ Script.prototype.checkConfig = function () {
 
 /**
  * Returns whether this script should auto-update based on the per-script
- * checkRemoteUpdates setting and the global AddonManager.autoUpdateDefault.
+ * `autoUpdate` flag (off when local edits are detected), the AOM's
+ * checkRemoteUpdates setting, and the global AddonManager.autoUpdateDefault.
  *
  * @returns {boolean} True if automatic update checks should run.
  */
 Script.prototype.shouldAutoUpdate = function () {
+  // Local edits suppress automatic updates regardless of the AOM setting.
+  // The user can still trigger a manual update via the Add-ons Manager,
+  // which shows a confirmation prompt before overwriting their edits.
+  if (!this._autoUpdate) {
+    return false;
+  }
   if (this.checkRemoteUpdates == AddonManager.AUTOUPDATE_ENABLE) {
     return true;
   }

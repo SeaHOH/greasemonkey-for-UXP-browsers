@@ -263,6 +263,35 @@ function addonUpdateCanBeForced(aAddon) {
       && script.isRemoteUpdateAllowed(true);
 }
 
+function addonCanToggleAutoUpdate(aAddon) {
+  if (!aAddon) {
+    return false;
+  }
+  if (aAddon.type != GM_CONSTANTS.scriptAddonType) {
+    return false;
+  }
+  // Side-effect: keep the "Allow automatic updates" checkbox menuitem's
+  // checked state in sync with the script's flag.  updateCommands() is
+  // invoked on popupshowing, which drives this predicate with the
+  // currently-focused addon — perfect hook for the UI refresh.
+  try {
+    let toggleMenuItem = document.querySelector(
+        '#addonitem-popup menuitem[command="cmd_userscript_toggleAutoUpdate"]');
+    if (toggleMenuItem) {
+      if (aAddon._script && aAddon._script.autoUpdate) {
+        toggleMenuItem.setAttribute("checked", "true");
+      } else {
+        toggleMenuItem.removeAttribute("checked");
+      }
+    }
+  } catch (e) {
+    // Never let a UI sync error disable the menu item.
+  }
+  // The toggle is always available for installed userscripts — it only
+  // changes the per-script flag and doesn't perform a network request.
+  return true;
+}
+
 function sortedByExecOrder() {
   return document.getElementById("greasemonkey-sort-bar")
       .getElementsByAttribute("sortBy", "executionIndex")[0]
@@ -322,6 +351,26 @@ function init() {
   gViewController.commands.cmd_userscript_manualFindItemUpdates = {
       "isEnabled": addonUpdateCanBeAllowed,
       "doCommand": function (aAddon) {
+        // If local edits disabled auto-updates for this script, warn the
+        // user that proceeding will overwrite their changes.  Matches
+        // Violentmonkey's confirmManualUpdate flow (see Issue #9).
+        if (!aAddon._script.autoUpdate) {
+          let result = confirm(
+              GM_CONSTANTS.localeStringBundle.createBundle(
+                    GM_CONSTANTS.localeGmAddonsProperties)
+                    .GetStringFromName("confirmForceUpdate"));
+          if (!result) {
+            return;
+          }
+          // User confirmed: overwrite edits and re-engage auto-updates.
+          // fixTimestampsOnInstall (called after a successful install) will
+          // flip autoUpdate back to true — forceUpdate=true ensures we
+          // bypass the scheme/enabled guards if any apply as well.
+          aAddon.forceUpdate = true;
+          gViewController.commands.cmd_findItemUpdates.doCommand(aAddon);
+          aAddon.forceUpdate = false;
+          return;
+        }
         aAddon.manualUpdate = true;
         gViewController.commands.cmd_findItemUpdates.doCommand(aAddon);
         aAddon.manualUpdate = false;
@@ -340,6 +389,34 @@ function init() {
           gViewController.commands.cmd_findItemUpdates.doCommand(aAddon);
           aAddon.forceUpdate = false;
         }
+      }
+  };
+
+  gViewController.commands.cmd_userscript_toggleAutoUpdate = {
+      "isEnabled": addonCanToggleAutoUpdate,
+      "doCommand": function (aAddon) {
+        let script = aAddon._script;
+        if (!script.autoUpdate) {
+          // Re-enabling: warn the user that their local edits may be lost
+          // on the next update check.  Only bother with the warning if we
+          // can detect an edit — a clean script can flip without a prompt.
+          if (script.isModified()
+              || script._modifiedTime > script._installTime) {
+            let result = confirm(
+                GM_CONSTANTS.localeStringBundle.createBundle(
+                      GM_CONSTANTS.localeGmAddonsProperties)
+                      .GetStringFromName("confirmEnableAutoUpdate"));
+            if (!result) {
+              return;
+            }
+          }
+          script.autoUpdate = true;
+        } else {
+          // Disabling auto-update is non-destructive; no confirm needed.
+          script.autoUpdate = false;
+        }
+        // Refresh the command's isEnabled state on the menu item.
+        gViewController.updateCommands();
       }
   };
 
@@ -464,6 +541,9 @@ function onViewChanged(aEvent) {
 
 function onPopupShowing(aEvent) {
   // e.g. the restart to gDetailView - aAddon.richlistitem is undefined
+  // updateCommands() re-evaluates every command's isEnabled predicate with
+  // the currently-selected addon as its argument; addonCanToggleAutoUpdate
+  // uses that opportunity to also sync the checkbox's checked state.
   gViewController.updateCommands();
 };
 

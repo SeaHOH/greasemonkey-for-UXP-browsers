@@ -28,3 +28,4 @@
 <!ENTITY sort.name "Name">
 <!ENTITY sort.namespace "Namespace">
 <!ENTITY sort.status "Status">
+<!ENTITY toggleAutoUpdate "Allow Automatic Updates">
