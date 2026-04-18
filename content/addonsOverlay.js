@@ -482,6 +482,44 @@ function onViewChanged(aEvent) {
   } else {
     document.documentElement.classList.remove("greasemonkey");
   }
+  updateDetailEditButton();
+};
+
+/**
+ * Shows / hides the "Edit" button next to the built-in Options button in
+ * the Add-ons Manager detail (About) pane.  The button only makes sense
+ * for Greasemonkey user scripts (they have an on-disk .user.js file that
+ * the user's configured external editor can open), so we hide it for
+ * every other add-on type and for non-detail views.
+ *
+ * Wired to cmd_userscript_edit via the command= attribute on the button
+ * itself (see addonsOverlay.xul), so no click handler is needed here —
+ * the command dispatcher uses gDetailView._addon as its argument.
+ */
+function updateDetailEditButton() {
+  let btn = document.getElementById("gm-detail-edit-btn");
+  if (!btn) { return; }
+
+  let viewId = gViewController.currentViewId;
+  let isDetail = viewId
+      && (viewId.indexOf(GM_CONSTANTS.scriptViewIDDetailPrefix) == 0);
+  if (!isDetail) {
+    btn.hidden = true;
+    return;
+  }
+
+  let addon = null;
+  try {
+    // gDetailView is the extensions.js view controller for the detail
+    // pane.  Its _addon is the add-on currently being shown.
+    if (typeof gDetailView != "undefined" && gDetailView) {
+      addon = gDetailView._addon || null;
+    }
+  } catch (e) {
+    addon = null;
+  }
+
+  btn.hidden = !(addon && (addon.type == GM_CONSTANTS.scriptAddonType));
 };
 
 function onPopupShowing(aEvent) {

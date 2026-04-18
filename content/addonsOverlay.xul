@@ -97,4 +97,20 @@
   </vbox>
 </vbox>
 
+<!--
+  About-pane "Edit" button.  Placed immediately after the built-in
+  "Options" (#detail-prefs-btn), hidden by default.  onViewChanged in
+  addonsOverlay.js unhides it when the currently-viewed add-on is a
+  Greasemonkey user script and re-hides it otherwise.  Clicking reuses
+  the existing cmd_userscript_edit command, which opens the script in
+  the user's configured external editor.
+-->
+<hbox id="detail-controls">
+  <button id="gm-detail-edit-btn" insertafter="detail-prefs-btn"
+    class="addon-control greasemonkey" hidden="true"
+    label="&edit;" accesskey="&edit.accesskey;"
+    tooltiptext="&edit.tooltip;"
+    command="cmd_userscript_edit" />
+</hbox>
+
 </overlay>
