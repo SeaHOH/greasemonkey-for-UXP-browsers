@@ -22,9 +22,9 @@
 <!ENTITY show.accesskey "S">
 <!ENTITY sort.byExecution "按执行顺序排序">
 <!ENTITY sort.byName "按名称排序">
-<!ENTITY sort.byNamespace "Sort by namespace">
+<!ENTITY sort.byNamespace "按命名空间排序">
 <!ENTITY sort.byStatus "按状态排序">
 <!ENTITY sort.execution "执行顺序">
 <!ENTITY sort.name "名称">
-<!ENTITY sort.namespace "Namespace">
+<!ENTITY sort.namespace "命名空间">
 <!ENTITY sort.status "状态">
