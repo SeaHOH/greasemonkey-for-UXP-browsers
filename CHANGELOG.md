@@ -1,37 +1,86 @@
 ## Changelog
 
-#### 3.6.0 (2026-04-17)
+#### 3.6.0 (2026-04-18)
 
-* **Extension ID changed** — From `greasemonkeyforpm@janekptacijarabaci` to
-  `{544fad5a-9b62-418f-a9ff-616e388cf6c4}`.  This is a clean break from the
-  legacy ID inherited from the abandoned Pale Moon fork.  Existing users
-  must uninstall the 3.5.0 build and install 3.6.0 manually — their
-  browser will not offer an automatic update across the ID change.
-  Settings, scripts, and GM values can be carried over via the new
-  Export/Import feature below.
-* **Homepage resolution matches Violentmonkey** — `@homepage`, `@website`,
-  and `@source` now work as aliases for `@homepageURL`.  When a script has
-  none of those, GM derives a homepage from the install URL (raw GitHub,
-  gist, GreasyFork / SleazyFork, OpenUserJS) so scripts installed from
-  raw file hosts still get a clickable homepage link in the Add-ons
-  Manager.  Fixes the "no homepage link" behavior for e.g. gist-hosted
-  scripts.
-* **Edited scripts can update again (fixes #9)** — The old hard block that
-  disabled all update checks once a script's `.user.js` was edited is
-  replaced with a Violentmonkey-style opt-in flow.  Edits flip a new
-  per-script `autoUpdate` flag off (so nothing auto-overwrites your
-  changes), but "Find Updates" remains available and shows a confirmation
-  prompt before overwriting edits.  A new "Allow Automatic Updates"
-  checkbox in the script's right-click menu exposes the flag directly.
-  After a successful update the flag re-engages automatically.
-* **ZIP backup / restore** — New "Export All…" and "Import…" links in the
-  User Scripts view header produce and consume a Tampermonkey-compatible
-  ZIP archive containing every installed script's source, settings, and
-  GM_setValue data.  The importer also accepts Violentmonkey and
-  Tampermonkey exports.  Scripts whose (name, namespace) match an
-  already-installed script are skipped rather than silently overwritten.
-  Implemented with native `nsIZipWriter` / `nsIZipReader`, no bundled JS
-  library, no cloud sync.
+**Heads-up for existing users:** 3.6.0 uses a new extension ID, so your
+browser will not auto-upgrade across it.  Uninstall 3.5.0 and install
+3.6.0 manually — use the new Export / Import feature below to carry
+your scripts, settings, and GM_setValue data across.  Scripts that were
+installed under 3.5.0 keep their old homepage URL baked in; reinstall
+the ones where the homepage link points at the raw `.user.js` to pick
+up the new homepage-inference logic.
+
+New features
+
+* **Edit button in the script About pane** — A new "Edit" button sits
+  immediately to the right of the built-in "Options" button in the
+  Add-ons Manager detail view.  Clicking it opens the script in the
+  editor configured under Greasemonkey → Options, matching the existing
+  right-click "Edit" menu entry but surfaced where most users look
+  first.
+* **ZIP backup / restore** — New "Export All…" and "Import…" links in
+  the User Scripts view header produce and consume a Tampermonkey-
+  compatible ZIP archive containing every installed script's source,
+  settings, and `GM_setValue` data.  The importer also accepts
+  Violentmonkey and Tampermonkey exports.  Scripts whose
+  `(name, namespace)` match an already-installed script are skipped
+  rather than silently overwritten.  Implemented with native
+  `nsIZipWriter` / `nsIZipReader` — no bundled JS library, no cloud
+  sync.
+* **Homepage resolution now matches Violentmonkey** — `@homepage`,
+  `@website`, and `@source` are recognised as aliases for
+  `@homepageURL`.  When a script declares none of those, GM derives a
+  homepage from the install URL: `raw.githubusercontent.com`,
+  `gist.github.com/…/raw/…`, `gist.githubusercontent.com`, GreasyFork
+  (including `update.greasyfork.org` and locale-prefixed URLs),
+  SleazyFork, and OpenUserJS all rewrite to the human-readable script
+  page.  Scripts installed from gists and raw file hosts now get a
+  clickable homepage link in the Add-ons Manager instead of nothing /
+  the raw `.user.js` URL.
+
+Bug fixes
+
+* **Edited scripts can be updated again (fixes #9)** — The old hard
+  block that disabled every update check on a script once its
+  `.user.js` was edited is replaced with a Violentmonkey-style opt-in
+  flow.  The first edit after install switches the script's "Automatic
+  Updates" radio (in the About pane) to **Off** automatically, and the
+  entry gets the yellow diagonal-stripes overlay as a cue.  Flipping
+  the radio back to **On** / **Default** shows a confirmation prompt
+  warning that the next update will overwrite your edits; cancelling
+  snaps the radio back.  The "Find Update" menu entry shows the same
+  prompt for a one-off update without changing the stored setting.
+  After a successful remote install, timestamps resync and the
+  yellow-stripes overlay clears on its own.
+* **`@match http*://…/*` is now accepted** — Both Violentmonkey and
+  Tampermonkey treat `http*://` as an alias for `*://` (i.e. "http or
+  https"), and a non-trivial number of GreasyFork scripts (e.g. "GoFile
+  Enhanced") use that form.  GM now normalises it to the existing
+  wildcard-scheme path instead of throwing "Invalid scheme specified:
+  http*" at install time.
+* **Import no longer creates duplicate scripts** — The ZIP importer
+  previously re-parsed the script source without an install URL, so
+  scripts that relied on the install URL's host as their effective
+  `@namespace` got a different ID on re-import and slipped past the
+  duplicate check.  The importer now synthesises an install URI from
+  the sidecar's `downloadURL` so the parser populates `_namespace`
+  identically to the original install.  The same fix makes imported
+  scripts re-updatable (no more stuck yellow stripes).
+
+Housekeeping
+
+* **Extension ID changed** from `greasemonkeyforpm@janekptacijarabaci`
+  to `{544fad5a-9b62-418f-a9ff-616e388cf6c4}` — a clean break from the
+  legacy ID inherited from the abandoned Pale Moon fork.
+* **Simplified Chinese (zh-CN) translation polish** — thanks to
+  [@SeaHOH](https://github.com/SeaHOH) via PR #11.  Fills in remaining
+  untranslated strings and normalises punctuation across the locale for
+  consistency.
+* **Locale entries moved under source control** — `chrome.manifest`
+  now registers every shipped locale directly (also via PR #11); the
+  previous `build.sh` append-loop is replaced with a validation pass
+  that warns if a `locale/<code>/` directory is missing its manifest
+  entry.  Single source of truth, no build-time mutation.
 
 #### Unreleased (UXP fork — 2026-03-12)
 
