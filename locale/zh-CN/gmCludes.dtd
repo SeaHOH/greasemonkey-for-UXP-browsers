@@ -4,12 +4,12 @@
 <!ENTITY button.addUserMatch "添加为用户匹配">
 <!ENTITY button.edit "编辑...">
 <!ENTITY button.remove "删除">
-<!ENTITY checkbox.grpOverride "禁用该脚本的包括模式，仅使用用户定义的">
-<!ENTITY label.grpExcluded "排除如下页面（@exclude）">
-<!ENTITY label.grpIncluded "包括如下页面（@include）">
-<!ENTITY label.grpMatched "匹配如下页面（@match）">
-<!ENTITY promptForEdit.msg "请修改以下页面的 URL。您可以使用通配符(*)同时匹配多个页面。">
+<!ENTITY checkbox.grpOverride "禁用该脚本的匹配规则，仅使用用户定义的">
+<!ENTITY label.grpExcluded "排除如下页面 (@exclude)">
+<!ENTITY label.grpIncluded "包括如下页面 (@include)">
+<!ENTITY label.grpMatched "匹配如下页面 (@match)">
+<!ENTITY promptForEdit.msg "请修改以下页面的 URL。您可以使用通配符 (*) 同时匹配多个页面。">
 <!ENTITY promptForEdit.title "编辑页面">
 <!ENTITY promptForNewPage.defVal "http://example.com/*">
-<!ENTITY promptForNewPage.msg "请在下面输入新的 URL。您可以使用通配符(*)匹配多个页面。">
+<!ENTITY promptForNewPage.msg "请在下面输入新的 URL。您可以使用通配符 (*) 匹配多个页面。">
 <!ENTITY promptForNewPage.title "添加网页地址">
