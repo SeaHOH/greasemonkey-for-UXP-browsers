@@ -160,6 +160,15 @@ function MatchPattern(aPattern) {
             .replace("%1", aPattern));
   }
   let scheme = match[1];
+  // Tolerate `http*://...` as an alias for `*://...` — Violentmonkey and
+  // Tampermonkey both accept this shorthand for "http or https" and a
+  // non-trivial number of GreasyFork scripts (e.g. "GoFile Enhanced") use
+  // it.  Normalise the internal scheme so the rest of the matcher reuses
+  // the existing wildcard-scheme path; this._pattern preserves the
+  // original literal for round-trip display.
+  if (scheme === "http*") {
+    scheme = "*";
+  }
   this._scheme = scheme;
   let host = match[2];
   let path = match[3];

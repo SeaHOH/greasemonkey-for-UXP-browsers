@@ -426,10 +426,23 @@ function inferHomepageFromInstallUrl(aInstallUrl) {
   m = aInstallUrl.match(
       /^(https?:\/\/github\.com\/[^\/]+\/[^\/]+)\/raw\//i);
   if (m) return m[1];
-  // greasyfork.org / sleazyfork.org /<locale>/scripts/<slug>/code/...
+  // update.greasyfork.org / update.sleazyfork.org /scripts/<id>/<file>.user.js
+  //   This is the host that GreasyFork puts in @updateURL / @downloadURL,
+  //   so it's what we see for scripts whose update URL was followed (the
+  //   user-visible install button uses /code/<filename>, but the metadata
+  //   directives commonly point at the update host).  Strip the "update."
+  //   prefix and rewrite to the human-readable script page.
   m = aInstallUrl.match(
-      /^(https?:\/\/(?:greasy|sleazy)fork\.org\/[^\/]+\/scripts\/[^\/]+)\/code\//i);
-  if (m) return m[1];
+      /^https?:\/\/update\.(greasy|sleazy)fork\.org\/scripts\/([^\/]+)/i);
+  if (m) return "https://" + m[1] + "fork.org/scripts/" + m[2];
+  // greasyfork.org / sleazyfork.org [/<locale>] /scripts/<slug>[/...]
+  //   Catches both the locale-prefixed install URL (en, fr, zh-CN, etc.)
+  //   and the bare form.  Drops everything after /scripts/<slug> so the
+  //   homepage points at the script's overview page rather than the
+  //   /code/<filename> raw-source endpoint.
+  m = aInstallUrl.match(
+      /^https?:\/\/(greasy|sleazy)fork\.org\/(?:[^\/]+\/)?scripts\/([^\/]+)/i);
+  if (m) return "https://" + m[1] + "fork.org/scripts/" + m[2];
   // openuserjs.org/install/<user>/<slug>.user.js
   m = aInstallUrl.match(
       /^https?:\/\/openuserjs\.org\/install\/([^\/]+)\/(.+?)\.user\.js$/i);
