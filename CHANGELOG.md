@@ -6,17 +6,24 @@ Bugfix-only release for two regressions reported in #13 shortly after
 3.6.0 shipped.  Both affect Pale Moon and Basilisk under the same
 conditions the reports describe on New Moon.
 
-* **`GM_registerMenuCommand` works again on strict-Xray builds.** The
-  3.6.0 fix for the `MenuCommandSandbox.toSource()` crash also moved
-  the menu-command event listeners out of sandbox scope into chrome
-  scope, which hit `XrayWrapper denied access to property N (reason:
-  value is callable)` at click time and silently dropped the callback.
-  Reverted to the original architecture — the listener now runs in
-  sandbox compartment and retrieves the callback by closure instead of
-  through an Xray — but we still inject the function by `toString()`
-  via string concat rather than via the buggy
-  `Function.prototype.toSource()`, so the original crash stays fixed.
-  Thanks to @SeaHOH for independently proposing the same revert.
+* **`GM_registerMenuCommand` works again on every supported browser.**
+  3.6.0 had put the menu-command event listeners in chrome scope and
+  read user callbacks out of `sandbox._mc_commandFuncs[cookie]` — which
+  hit `XrayWrapper denied access to property N (reason: value is
+  callable)` on strict-Xray builds and silently dropped the callback
+  (reported on New Moon in #13 by @quilterrantdean).  3.6.1 reverts to
+  the in-sandbox listener architecture, but — unlike the intermediate
+  fix that briefly shipped in the 3.6.1 dev build — it holds the
+  `MenuCommandSandbox` source as a raw template literal rather than as
+  a `Function`.  Stringifying the Function via `"" + fn` (implicit
+  `Function.prototype.toString()`) routes through the same buggy
+  SpiderMonkey decompiler as the `.toSource()` whose crash we set out
+  to fix originally, so on older Pale Moon / New Moon it produced
+  malformed source, the sandbox eval failed silently, and the User
+  Script Commands toolbar menu was completely greyed out.  Keeping the
+  source as a string from birth bypasses every variant of the
+  decompiler bug.  Thanks to @SeaHOH for the template-literal
+  diagnosis.
 * **Add-ons Manager works on non-English locales.** The new
   `&backup.exportAll;` / `&backup.import;` DTD entities were only added
   to `locale/en-US/gmAddons.dtd` in 3.6.0, so any user running a
@@ -41,6 +48,19 @@ conditions the reports describe on New Moon.
 * `GM_registerMenuCommand` also gains back the Tampermonkey /
   Violentmonkey `(name, fn, { accessKey })` options-object form that
   3.6.0 briefly supported via its inline-string implementation.
+* **Localised extension description returns to the Add-ons Manager.**
+  Every `locale/*/greasemonkey.properties` file carried an
+  `extensions.<id>.description=…` key that embeds the add-on ID in
+  the property name, and the matching
+  `pref("extensions.<id>.description", …)` in
+  `defaults/preferences/greasemonkey.js` pointed at the old
+  `greasemonkeyforpm@janekptacijarabaci` ID.  After the 3.6.0 UUID
+  change, Pale Moon / Basilisk couldn't find a localised description
+  for the new-ID add-on and fell back to the untranslated English
+  string from `install.rdf`.  All 34 locale properties and the
+  defaults pref now reference the new UUID, via
+  [PR #15](https://github.com/SecondCityOsD/greasemonkey-for-UXP-browsers/pull/15)
+  from [@SeaHOH](https://github.com/SeaHOH).
 
 #### 3.6.0 (2026-04-18)
 
