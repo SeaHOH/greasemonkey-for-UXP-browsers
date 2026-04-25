@@ -326,7 +326,7 @@ function injectScriptIntoPage(aContentWin, aScript, aRunAt) {
     } catch (e) {
       GM_util.logError(
           "Error loading @require " + aScript.requires[i].fileURL
-          + ":\n" + e, false, e.fileName, e.lineNumber);
+          + ":\n" + e, true, e.fileName, e.lineNumber);
       continue
     }
     if (!injectCode(code, aScript.requires[i].fileURL)) {
@@ -359,7 +359,7 @@ function injectScriptIntoPage(aContentWin, aScript, aRunAt) {
   } catch (e) {
     GM_util.logError(
         "Error loading script " + aScript.fileURL
-        + ":\n" + e, true, e.fileName, e.lineNumber);
+        + ":\n" + e, false, e.fileName, e.lineNumber);
     return;
   }
 
@@ -373,7 +373,7 @@ function injectScriptIntoPage(aContentWin, aScript, aRunAt) {
     gmInfoJson = JSON.stringify(gmInfo);
   } catch (e) {
     GM_util.logError(
-        "Error loading GM_info:\n" + e, false, e.fileName, e.lineNumber);
+        "Error loading GM_info:\n" + e, true, e.fileName, e.lineNumber);
     // Fall back to empty object if serialization fails.
   }
 
